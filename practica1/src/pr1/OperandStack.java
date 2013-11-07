@@ -41,7 +41,7 @@ public class OperandStack {
 	
 	public void push (int value){
 		//compruebo si la pila est√° llena
-		if(this.cima < stack.length){
+		if(this.cima < (stack.length - 1)){
 			this.cima++;
 			//si no lo est√°, la relleno 
 			stack[this.cima]=value;
@@ -65,7 +65,7 @@ public class OperandStack {
 		Integer [] aux = new Integer[tamanio];
 		
 		//copio el contenido de la pila al axuliar
-		for(int i=0;i<this.stack.length;i++){
+		for(int i=0;i< this.stack.length;i++){
 			aux[i] = this.stack[i];
 		}
 		
@@ -83,7 +83,7 @@ public class OperandStack {
 			
 			resultado =  true;
 		}else{
-			System.out.println("No");
+			System.out.println("La pila está vacía \n");
 			
 			resultado = false;
 		}
@@ -127,7 +127,7 @@ public class OperandStack {
 		//devuelve el contenido de la pila
 		String contenidoPila="";
 		if(this.cima == -1){
-			return "<vacia>";
+			return "<vacia>\n";
 		}
 		else{
 			for (int i=0; i<=this.cima; i++){

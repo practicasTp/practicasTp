@@ -10,6 +10,7 @@ public class Cpu {
 		this.memoria = new Memory ();
 		this.pila = new OperandStack ();
 		this.fin = false;
+		this.alu = new Alu();
 	}
 	
 	public boolean finished(){
@@ -60,6 +61,8 @@ public class Cpu {
 					resultado = alu.sub(subcima,cima);
 				} else if (operation.equals(TipoInstruction.DIV)) {
 					resultado = alu.div(subcima,cima);
+				} else if (operation.equals(TipoInstruction.MUL)) {
+					resultado = alu.mul(subcima,cima);
 				}
 				
 				if(resultado != null){

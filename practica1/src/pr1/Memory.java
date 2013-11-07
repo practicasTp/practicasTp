@@ -57,7 +57,7 @@ public class Memory {
 	private Integer[] redimensionar(Integer[] aux){
 		
 		//recorro todos los registros que tengo y los copio al auxiliar, el cual está previamente inicializado
-		for(int i=0;i<this.registros.length;i++){
+		for(int i=0;i< this.registros.length;i++){
 			aux[i] = this.registros[i];
 		}
 	
@@ -85,8 +85,8 @@ public class Memory {
 		String contenidoMemoria = "";
 		if(this.isEmpty()) contenidoMemoria = "<vacia>";
 		else{
-			for(int i = 0; i <= this.registros.length; i++){
-				contenidoMemoria = contenidoMemoria + this.registros[i] + " ";
+			for(int i = 0; i <= (this.registros.length - 1); i++){
+				if (this.registros[i] != null) contenidoMemoria += "["+ i + "]: " + this.registros[i] + ", ";
 			}
 		}
 		
