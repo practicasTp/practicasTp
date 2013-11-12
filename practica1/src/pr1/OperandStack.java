@@ -25,7 +25,7 @@ public class OperandStack {
 		
 	}
 	
-	private boolean isEmpty(){
+	public boolean isEmpty(){
 		boolean resultado;
 		
 		//si la cima es menos 1, considero que est√° vac√≠a
@@ -39,25 +39,31 @@ public class OperandStack {
 		return resultado;
 	}
 	
-	public void push (int value){
-		//compruebo si la pila est√° llena
+	public void stackData (int value){
+		//compruebo si la pila está llena
 		if(this.cima < (stack.length - 1)){
 			this.cima++;
-			//si no lo est√°, la relleno 
+			//si no lo está, la relleno 
 			stack[this.cima]=value;
-			
+					
 		}else{
-			
-			//doblo el tama√±o de la pila
+			//doblo el tamaño de la pila
 			int nuevoTamanio = this.stack.length*2;
-			
 			this.stack = this.redimensionaPila(nuevoTamanio);
-			
 			this.cima++;
 			//relleno el dato
 			stack[this.cima]=value;
 		}
+	}
 	
+	public boolean unstackData (){
+		//si la pila no está vacía, vacío la posicion más alta, y bajo el nivel en una posición 
+		if (!isEmpty()){
+			stack[this.cima] = null;
+			this.cima--;
+					
+			return true;
+		} else return false;
 	}
 	
 	private Integer[] redimensionaPila(int tamanio){
@@ -73,79 +79,17 @@ public class OperandStack {
 		return aux;
 	}
 	
-	
-	public boolean pop (){
-		boolean resultado;
-		//si la pila no est√° vac√≠a, vac√≠o la posicion m√°s alta, y bajo el nivel en una posicion 
-		if (isEmpty()==false){
-			stack[this.cima] = null;
-			this.cima--;
-			
-			resultado =  true;
-		}else{
-			System.out.println("La pila está vacía \n");
-			
-			resultado = false;
-		}
-		
-		return resultado;
-	}
-	
-	public boolean dup(){
-		boolean resultado;
-		
-		//si la pila no est√° vac√≠a, duplico el valor de la cima de la pila 
-		if (isEmpty()==false){
-			this.cima++;
-			stack[this.cima] = stack[this.cima - 1];
-			
-			resultado =  true;
-		}else{
-			System.out.println("Error: La pila est√° vac√≠a.");
-			resultado = false;
-		}
-		
-		return resultado;
-	}
-	
-	public Character out (){
-		Character resultado;
-		
-		//si la pila est√° vac√≠a devuelvo null
-		if (isEmpty()==true){
-			resultado = null;
-		//si la pila no lo est√° devuelvo lo almacenado en la cima de la pila
-		}else{
-			int intValue = stack[this.cima].intValue();
-			resultado 	 = (char)intValue; 
-		}
-		
-		return resultado;
-	}
-	
 	public String toString(){
 		//devuelve el contenido de la pila
 		String contenidoPila="";
 		if(this.cima == -1){
-			return "<vacia>\n";
+			return "Pila de operandos: <vacia>\n";
 		}
 		else{
 			for (int i=0; i<=this.cima; i++){
 				contenidoPila += this.stack[i] +" ";
 			}
-			return "Pila : "+contenidoPila+"\n";
-		}
-	}
-	
-	public boolean flip () {
-		int aux;
-		
-		if (this.stack.length < 2) return false;
-		else {
-			aux = this.stack[this.cima];
-			this.stack[this.cima] = this.stack[this.cima - 1];
-			this.stack[this.cima - 1] = aux;
-			return true;
+			return "Pila de operandos: "+contenidoPila+"\n";
 		}
 	}
 	

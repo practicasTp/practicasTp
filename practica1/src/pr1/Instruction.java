@@ -1,7 +1,6 @@
 package pr1;
 
 public class Instruction {
-	@SuppressWarnings("unused")
 	private int operando;
 	private TipoInstruction tipo;
 	

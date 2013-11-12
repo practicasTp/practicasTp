@@ -41,7 +41,7 @@ public class Alu {
 	public Integer div(Integer operando1, Integer operando2){
 		Integer resultado = null;
 		
-		if( operando2  != 0  || operando2 != null ){
+		if( operando2  != 0  && operando2 != null && operando1 != null ){
 			resultado = operando1.intValue() / operando2.intValue(); 
 		}else{
 			System.out.println("El denominador usado es 0 o no existe");
@@ -49,5 +49,4 @@ public class Alu {
 		
 		return resultado;
 	}
-	//Comentario   
 }

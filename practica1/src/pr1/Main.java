@@ -31,11 +31,8 @@ public class Main {
 				
 				boolean resultado = intel.execute(laInstruccion);
 				
-				if(!resultado){
-					System.out.println("Ha ocurrido un error en la instrucción.");
-				}
-				
-				System.out.println(intel.toString());
+				if(!resultado) System.out.println("Ha ocurrido un error en la instrucción.");
+				else System.out.println(intel.toString());
 				
 			}else{
 				System.out.println("La instrucción que has metido no existe o no está bien escrita.");
