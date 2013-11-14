@@ -2,6 +2,11 @@ package pr1;
 
 public class InstructionParser {
 	
+	/**
+	 * Método que interpreta un string y devuelve una instrucción
+	 * @param instruccionSinParsear
+	 * @return
+	 */
 	public static Instruction parser(String instruccionSinParsear){
 		String operando;
 		boolean continuar;
@@ -12,7 +17,7 @@ public class InstructionParser {
 		//divido la cadena obtenida en el prompt
 		cadenaInstruccion = instruccionSinParsear.split(" +");
 		
-		
+		//si hay dos elementos en la línea
 		if( cadenaInstruccion.length == 2){
 			
 			//separo las variables
@@ -20,6 +25,7 @@ public class InstructionParser {
 			//valido el dato operando
 			continuar = validarOperando(operando);
 			
+		//si hay más de dos elementos, considero la instrucción como erronea
 		}else if(cadenaInstruccion.length > 2){
 			//esto es un error
 			continuar = false;
@@ -89,13 +95,13 @@ public class InstructionParser {
 		return miInstruction;
 	}
 	
+	/**
+	 * Método que determina si el operando de la instrucción es un número o no
+	 * @param operando
+	 * @return boolean
+	 */
 	private static boolean validarOperando(String operando){
 		return operando.matches("[-+]?\\d*\\.?\\d+");
 	}
-	
-	/*public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}*/
 
 }
