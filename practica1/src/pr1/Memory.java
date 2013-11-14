@@ -26,23 +26,23 @@ public class Memory {
 	
 	public void storeData(int pos, int dato){		
 		
-		//si la posicion donde deseas guardar es menor que la posicion de mayor tama–o que tengo lo guardo
+		//si la posicion donde deseas guardar es menor que la posicion de mayor tamaï¿½o que tengo lo guardo
 		if(pos < this.registros.length){
 			
-			//almaceno el dato en la posici—n que me han indicado
+			//almaceno el dato en la posiciï¿½n que me han indicado
 			registros[pos] = dato;
 			
 		}else{
 			int nuevo_tamanio = this.registros.length;
 			
-			//si no, mientras la posicion sea mayor que la posicion de mayor tama–o redimensiono mi tama–o de memoria
+			//si no, mientras la posicion sea mayor que la posicion de mayor tamaï¿½o redimensiono mi tamaï¿½o de memoria
 			do{
-				//creo nuevo tama–o con el doble de lo que tengo ahora
+				//creo nuevo tamaï¿½o con el doble de lo que tengo ahora
 				nuevo_tamanio = nuevo_tamanio * 2;
 				
 			}while(pos > nuevo_tamanio);
 			
-			//inicializo una memoria auxiliar que posteriormente pasar‡ a ser la del sistema
+			//inicializo una memoria auxiliar que posteriormente pasarï¿½ a ser la del sistema
 			Integer[] aux = this.inicializarMemory(nuevo_tamanio);
 			
 			//redimensiono el numero de tamaÃ±o de memoria
@@ -77,8 +77,12 @@ public class Memory {
 		return empty;
 	}
 	
-	public int getDato (int pos){
-		return this.registros[pos];
+	public Integer getDato (int pos){
+		if(this.registros[pos]!=null){
+			return this.registros[pos];
+		}else{
+			return null;
+		}
 	}
 	
 	public String toString (){

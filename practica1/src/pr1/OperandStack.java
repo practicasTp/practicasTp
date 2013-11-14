@@ -40,14 +40,14 @@ public class OperandStack {
 	}
 	
 	public void stackData (int value){
-		//compruebo si la pila est‡ llena
+		//compruebo si la pila estï¿½ llena
 		if(this.cima < (stack.length - 1)){
 			this.cima++;
-			//si no lo est‡, la relleno 
+			//si no lo estï¿½, la relleno 
 			stack[this.cima]=value;
 					
 		}else{
-			//doblo el tama–o de la pila
+			//doblo el tamaï¿½o de la pila
 			int nuevoTamanio = this.stack.length*2;
 			this.stack = this.redimensionaPila(nuevoTamanio);
 			this.cima++;
@@ -57,7 +57,7 @@ public class OperandStack {
 	}
 	
 	public boolean unstackData (){
-		//si la pila no est‡ vac’a, vac’o la posicion m‡s alta, y bajo el nivel en una posici—n 
+		//si la pila no estï¿½ vacï¿½a, vacï¿½o la posicion mï¿½s alta, y bajo el nivel en una posiciï¿½n 
 		if (!isEmpty()){
 			stack[this.cima] = null;
 			this.cima--;
@@ -98,6 +98,10 @@ public class OperandStack {
 	}
 	
 	public Integer getDato (int pos) {
-		return this.stack[pos];
+		if(!this.isEmpty()){
+			return this.stack[pos];
+		}else{
+			return null;
+		}
 	}
 }

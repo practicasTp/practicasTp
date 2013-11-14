@@ -26,7 +26,7 @@ public class Cpu {
 	
 	private boolean pop () {
 		if (!this.pila.unstackData()) { 
-			System.out.println("Error: La pila está vacía.");
+			System.out.println("Error: La pila est√° vac√≠a.");
 			return false;
 		} else return true;
 	}
@@ -37,7 +37,7 @@ public class Cpu {
 			this.push(value);
 			return true;
 		} else {
-			System.out.println("Error: La pila está vacía.");
+			System.out.println("Error: La pila est√° vac√≠a.");
 			return false;
 		}
 	}
@@ -45,11 +45,11 @@ public class Cpu {
 	private Character out () {
 		Character resultado;
 		
-		//si la pila está vacía devuelvo null
+		//si la pila estÔøΩ vacÔøΩa devuelvo null
 		if (this.pila.isEmpty()){
-			System.out.println("Error: La pila está vacía.");
+			System.out.println("Error: La pila est√° vac√≠a.");
 			resultado = null;
-		//si la pila no lo está, devuelvo lo almacenado en la cima de la pila
+		//si la pila no lo estÔøΩ, devuelvo lo almacenado en la cima de la pila
 		}else{
 			int intValue = this.pila.getDato(this.pila.getCima()).intValue();
 			resultado = (char)intValue;
@@ -81,7 +81,7 @@ public class Cpu {
 			this.pop();
 			return true;
 		} else {
-			System.out.println("Error: La pila está vacía.");
+			System.out.println("Error: La pila est√° vac√≠a.");
 			return false;
 		}
 	}
@@ -105,14 +105,35 @@ public class Cpu {
 				} else execute = false;
 			}
 			else execute = this.flip();
-		}else if (operation.equals(TipoInstruction.STORE) || operation.equals(TipoInstruction.LOAD)) {
-			if (operation.equals(TipoInstruction.STORE)) execute = this.store(operando, this.pila.getDato(this.pila.getCima()).intValue());
-			else {
-				if (!this.memoria.isEmpty()) this.push(this.memoria.getDato(operando));
-				else execute = false;
+		}else if (operation.equals(TipoInstruction.STORE)){
+			
+			Integer dato = this.pila.getDato(this.pila.getCima());
+			
+			if(dato!=null){
+			
+				execute = this.store(operando, dato.intValue());
+			}else{
+				System.out.println("Error: No hay contenidos en la pila.");
 			}
+	 		
+		}else if(operation.equals(TipoInstruction.LOAD)) {
+			
+				if (!this.memoria.isEmpty()){
+					Integer dato = this.memoria.getDato(operando);
+					
+					if(dato !=null){
+						this.push(dato.intValue());
+					}else{
+						execute = false;
+						System.out.println("Error: La posici√≥n deseada no contiene valor.");
+					}
+				}else{
+					execute = false;
+					System.out.println("Error: No hay contenidos en la memoria.");
+				}
+				
 		}else if (operation.equals(TipoInstruction.HALT)) {
-			System.out.println("Se finaliza la ejecución.");
+			System.out.println("Se finaliza la ejecuci√≥n.");
 			this.fin = true;
 			execute = true;
 		}else if (operation.equals(TipoInstruction.ADD) || operation.equals(TipoInstruction.DIV) || operation.equals(TipoInstruction.MUL) || operation.equals(TipoInstruction.SUB)){
@@ -131,7 +152,7 @@ public class Cpu {
 				} else if (operation.equals(TipoInstruction.MUL)) {
 					resultado = alu.mul(subcima,cima);
 				}
-				//Elmino de la pila los valores usados en la operación.
+				//Elmino de la pila los valores usados en la operaciÔøΩn.
 				this.pop();
 				this.pop();
 				
@@ -156,7 +177,7 @@ public class Cpu {
 	
 	public String toString(){
 		String contenidoCpu;
-		System.out.println("El estado de la máquina tras ejecutar la instrucción es:");
+		System.out.println("El estado de la m√°quina tras ejecutar la instrucci√≥n es:");
 		contenidoCpu = this.memoria.toString();
 		contenidoCpu += this.pila.toString();
 		
