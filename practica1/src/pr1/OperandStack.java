@@ -10,6 +10,11 @@ public class OperandStack {
 		this.cima = -1;
 	}
 
+	/**
+	 * Método que inicializa la pila a null con el tamaño deseado
+	 * @param tamanio
+	 * @return pila inicializada
+	 */
 	private Integer[] inicializaPila(int tamanio){
 		
 		//creo un auxiliar con el tamaño que me indican
@@ -25,6 +30,10 @@ public class OperandStack {
 		
 	}
 	
+	/**
+	 * Método que determina si la pila está vacía o no
+	 * @return boolean
+	 */
 	public boolean isEmpty(){
 		boolean resultado;
 		
@@ -39,15 +48,19 @@ public class OperandStack {
 		return resultado;
 	}
 	
+	/**
+	 * Método que apila valores en la cima de la pila
+	 * @param value
+	 */
 	public void stackData (int value){
 		//compruebo si la pila est� llena
 		if(this.cima < (stack.length - 1)){
 			this.cima++;
-			//si no lo est�, la relleno 
+			//si no lo está, la relleno 
 			stack[this.cima]=value;
 					
 		}else{
-			//doblo el tama�o de la pila
+			//doblo el tamaño de la pila
 			int nuevoTamanio = this.stack.length*2;
 			this.stack = this.redimensionaPila(nuevoTamanio);
 			this.cima++;
@@ -56,8 +69,12 @@ public class OperandStack {
 		}
 	}
 	
+	/**
+	 * Método que desapila valores de la cima de la pila
+	 * @return
+	 */
 	public boolean unstackData (){
-		//si la pila no est� vac�a, vac�o la posicion m�s alta, y bajo el nivel en una posici�n 
+		//si la pila no está vacía, vacío la posicion más alta, y bajo el nivel en una posición 
 		if (!isEmpty()){
 			stack[this.cima] = null;
 			this.cima--;
@@ -66,6 +83,11 @@ public class OperandStack {
 		} else return false;
 	}
 	
+	/**
+	 * Método que redimensiona la pila a un tamaño deseado
+	 * @param tamanio
+	 * @return auxiliar
+	 */
 	private Integer[] redimensionaPila(int tamanio){
 		//creo un auxiliar con el tamaño que me pasan
 		Integer [] aux = new Integer[tamanio];
@@ -79,6 +101,9 @@ public class OperandStack {
 		return aux;
 	}
 	
+	/**
+	 * Método que devuelve el estado de la pila en formato string
+	 */
 	public String toString(){
 		//devuelve el contenido de la pila
 		String contenidoPila="";
@@ -93,10 +118,19 @@ public class OperandStack {
 		}
 	}
 	
+	/**
+	 * método que devuelve la posición de la cima de la pila
+	 * @return
+	 */
 	public int getCima () {
 		return this.cima;
 	}
 	
+	/**
+	 * Método que devuelve el valor de una posición de la pila
+	 * @param pos
+	 * @return
+	 */
 	public Integer getDato (int pos) {
 		if(!this.isEmpty()){
 			return this.stack[pos];

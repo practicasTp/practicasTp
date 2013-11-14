@@ -164,15 +164,15 @@ public class Cpu {
 					execute = false;
 				}
 				
-			} else execute = false;
-		} else execute = false;
+			} else{
+				
+				System.out.println("Error: No hay operandos suficientes en la pila.");
+				execute = false;
+			}
+			
+		}
 		
 		return execute;
-	}
-	
-	public boolean isEnd () {
-		if (this.fin) return true;
-		else return false;
 	}
 	
 	public String toString(){

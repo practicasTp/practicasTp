@@ -31,8 +31,6 @@ public class InstructionParser {
 			
 		}
 		
-		
-		
 		//si el operando está validado, valido la instruccion
 		if(continuar){
 			int number = 0;
@@ -78,10 +76,12 @@ public class InstructionParser {
 				}else if (literal.equals(TipoInstruction.LOAD.toString())){
 					miInstruction = new Instruction(TipoInstruction.LOAD,number);
 				}else{//si no hay ningúna instruccion identificada, devuelvo null
+					System.out.println("Error: La instrucción insertada no existe.\n");
 					miInstruction = null;
 				}
 			}
 		}else{
+			System.out.println("Error: El operando introducido no es un número.");
 			//si el operando no es correcto, la instruccion no es correcta
 			miInstruction = null;
 		}
