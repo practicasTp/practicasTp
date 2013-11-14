@@ -223,12 +223,12 @@ public class Cpu {
 					resultado = alu.mul(subcima,cima);
 				}
 				
+				//Elmino de la pila los valores usados en la operación.
+				this.pop();
+				this.pop();
+				
 				//si la ejecución ha ido bien
 				if(resultado != null){
-					
-					//Elmino de la pila los valores usados en la operación.
-					this.pop();
-					this.pop();
 					
 					//almaceno el resultado en la pila
 					int result = resultado.intValue();
