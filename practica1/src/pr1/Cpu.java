@@ -13,39 +13,64 @@ public class Cpu {
 		this.alu = new Alu();
 	}
 	
+	/**
+	 * Método que devuelve si la cpu ha sido finalizada o no
+	 * @return
+	 */
 	public boolean finished(){
 		return this.fin;
 	}
 	
 	//Operaciones de la pila
 	
+	/**
+	 * Método que almacena en la pila un valor
+	 * @param value
+	 * @return
+	 */
 	private boolean push (int value) {
 		this.pila.stackData(value);
 		return true;
 	}
 	
+	/**
+	 * Método que elimina de la pila el valor de la cima
+	 * @return
+	 */
 	private boolean pop () {
+		//si no se apila hay error
 		if (!this.pila.unstackData()) { 
 			System.out.println("Error: La pila está vacía.");
 			return false;
 		} else return true;
 	}
 	
+	/**
+	 * Método que duplica el valor de la cima
+	 * @return
+	 */
 	private boolean dup () {
+		//si la pila no está vacía
 		if (!this.pila.isEmpty()) {
+			//obtengo el valor de la cima, la salvo
 			int value = this.pila.getDato(this.pila.getCima());
 			this.push(value);
 			return true;
+		//si la pila está vacía aviso
 		} else {
 			System.out.println("Error: La pila está vacía.");
 			return false;
 		}
 	}
 	
+	/**
+	 * Método que devuelve el valor de la cima como caracter
+	 * @return
+	 */
 	private Character out () {
 		Character resultado;
 		
-		//si la pila est� vac�a devuelvo null
+		//si la pila está vacía devuelvo null
 		if (this.pila.isEmpty()){
 			System.out.println("Error: La pila está vacía.");
 			resultado = null;
@@ -58,15 +83,27 @@ public class Cpu {
 		return resultado;
 	}
 	
+	/**
+	 * Método que intercambia el valor de la subcima de la pila por el de la cima de la pila
+	 * @return
+	 */
 	private boolean flip () {
+		//si la pila tiene más de un operando
 		if (this.pila.getCima() >= 1) {
+			//obtengo la cima
 			int cima = this.pila.getDato(this.pila.getCima());
+			//elimino la cima
 			this.pop();
+			//obtengo la cima (que es la anterior sucima)
 			int subcima = this.pila.getDato(this.pila.getCima());
+			//elimino la cima
 			this.pop();
+			//añado la cima (que ahora pasa a ser la subcima)
 			this.push(cima);
+			//añado la subcima (que ahora pasa a ser la cima)
 			this.push(subcima);
 			return true;
+		//si no lo tiene, aviso de un error
 		} else {
 			System.out.println("Error: La pila no tiene suficientes valores.");
 			return false;
@@ -75,24 +112,42 @@ public class Cpu {
 	
 	//Operaciones de la memoria.
 	
+	/**
+	 * Método que almacena en una posicion de la memoria, un dato.
+	 * @param pos
+	 * @param dato
+	 * @return
+	 */
 	private boolean store (int pos, int dato) {
+		//Si la pila no está vacía
 		if (!this.pila.isEmpty()) {
+			//almaceno en la posicion deseada, el dato deseado
 			this.memoria.storeData(pos, dato);
+			//elimino el dato de la pila
 			this.pop();
 			return true;
+		//si está vacía, elimino.
 		} else {
 			System.out.println("Error: La pila está vacía.");
 			return false;
 		}
 	}
 	
+	/**
+	 * Método que ejecuta todas las instrucciones que puede usar la cpu
+	 * @param instr
+	 * @return
+	 */
 	public boolean execute (Instruction instr){
 		TipoInstruction operation;
 		int operando;
 		boolean execute = true;
 		
+		//obtengo el operando y la operacion
 		operando = instr.getOperando();
 		operation = instr.getTipoInstruccion();
+
+		//operaciones de la pila
 		if (operation.equals(TipoInstruction.PUSH) || operation.equals(TipoInstruction.POP) || operation.equals(TipoInstruction.FLIP) || operation.equals(TipoInstruction.DUP) || operation.equals(TipoInstruction.OUT)){
 			if (operation.equals(TipoInstruction.PUSH)) execute = this.push(operando);
 			else if (operation.equals(TipoInstruction.POP)) execute = this.pop();
@@ -105,6 +160,7 @@ public class Cpu {
 				} else execute = false;
 			}
 			else execute = this.flip();
+		//operaciones de memoria
 		}else if (operation.equals(TipoInstruction.STORE)){
 			
 			Integer dato = this.pila.getDato(this.pila.getCima());
@@ -131,11 +187,13 @@ public class Cpu {
 					execute = false;
 					System.out.println("Error: No hay contenidos en la memoria.");
 				}
-				
+		
+		//operacion de parada de la ejecución
 		}else if (operation.equals(TipoInstruction.HALT)) {
 			System.out.println("Se finaliza la ejecución.");
 			this.fin = true;
 			execute = true;
+		//operaciones aritmetico-lógicas
 		}else if (operation.equals(TipoInstruction.ADD) || operation.equals(TipoInstruction.DIV) || operation.equals(TipoInstruction.MUL) || operation.equals(TipoInstruction.SUB)){
 			if (this.pila.getCima() >= 1) {
 				
@@ -175,6 +233,9 @@ public class Cpu {
 		return execute;
 	}
 	
+	/**
+	 * Método que devuelve el estado de la cpu en formato string
+	 */
 	public String toString(){
 		String contenidoCpu;
 		System.out.println("El estado de la máquina tras ejecutar la instrucción es:");
