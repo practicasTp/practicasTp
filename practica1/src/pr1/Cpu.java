@@ -163,26 +163,35 @@ public class Cpu {
 		//operaciones de memoria
 		}else if (operation.equals(TipoInstruction.STORE)){
 			
+			//obtengo el dato
 			Integer dato = this.pila.getDato(this.pila.getCima());
 			
+			//si el dato no es null, lo guardo
 			if(dato!=null){
 			
 				execute = this.store(operando, dato.intValue());
+				
+			//si el dato es null aviso de que no hay contenido en la pila
 			}else{
 				System.out.println("Error: No hay contenidos en la pila.");
 			}
 	 		
 		}else if(operation.equals(TipoInstruction.LOAD)) {
-			
+				//si la memoria no está vacía
 				if (!this.memoria.isEmpty()){
+					//intento obtener el dato
 					Integer dato = this.memoria.getDato(operando);
 					
+					//si lo obtengo
 					if(dato !=null){
+						//lo almaceno en la pila
 						this.push(dato.intValue());
+					//si no lo obtengo, aviso
 					}else{
 						execute = false;
 						System.out.println("Error: La posición deseada no contiene valor.");
 					}
+				//si la memoria está vacía, lo aviso
 				}else{
 					execute = false;
 					System.out.println("Error: No hay contenidos en la memoria.");
@@ -195,12 +204,15 @@ public class Cpu {
 			execute = true;
 		//operaciones aritmetico-lógicas
 		}else if (operation.equals(TipoInstruction.ADD) || operation.equals(TipoInstruction.DIV) || operation.equals(TipoInstruction.MUL) || operation.equals(TipoInstruction.SUB)){
+			//si hay más de dos operandos en la pila
 			if (this.pila.getCima() >= 1) {
 				
+				//obtengo los dos operandos
 				Integer cima 		= this.pila.getDato (this.pila.getCima());
 				Integer subcima 	= this.pila.getDato (this.pila.getCima() - 1);
 				Integer resultado 	= null;
 				
+				//realizo las operaciones
 				if (operation.equals(TipoInstruction.ADD)) {
 					resultado = alu.add(subcima,cima);
 				} else if (operation.equals(TipoInstruction.SUB)) {
@@ -210,18 +222,23 @@ public class Cpu {
 				} else if (operation.equals(TipoInstruction.MUL)) {
 					resultado = alu.mul(subcima,cima);
 				}
-				//Elmino de la pila los valores usados en la operaci�n.
-				this.pop();
-				this.pop();
 				
+				//si la ejecución ha ido bien
 				if(resultado != null){
+					
+					//Elmino de la pila los valores usados en la operación.
+					this.pop();
+					this.pop();
+					
+					//almaceno el resultado en la pila
 					int result = resultado.intValue();
 					this.push(result);
 					execute = true;
 				}else{
+					//si no se ha ejecutado bien, todo se queda como estaba
 					execute = false;
 				}
-				
+			//si no hay 2 operandos, lo aviso	
 			} else{
 				
 				System.out.println("Error: No hay operandos suficientes en la pila.");
