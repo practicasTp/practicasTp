@@ -72,6 +72,7 @@ public class InstructionParser {
 				}else if (literal.equals(TipoInstruction.SUB.toString())){
 					miInstruction = new Instruction(TipoInstruction.SUB);
 				}else{//si no hay ningúna instruccion identificada, devuelvo null
+					System.out.println("Error: La instrucción insertada no existe.\n");
 					miInstruction = null;
 				}
 			}else{

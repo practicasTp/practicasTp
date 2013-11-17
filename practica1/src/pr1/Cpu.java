@@ -174,6 +174,7 @@ public class Cpu {
 			//si el dato es null aviso de que no hay contenido en la pila
 			}else{
 				System.out.println("Error: No hay contenidos en la pila.");
+				execute = false;
 			}
 	 		
 		}else if(operation.equals(TipoInstruction.LOAD)) {
