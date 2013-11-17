@@ -11,7 +11,7 @@ public class OperandStack {
 	}
 
 	/**
-	 * Método que inicializa la pila a null con el tamaño deseado
+	 * Metodo que inicializa la pila a null con el tamaño deseado
 	 * @param tamanio
 	 * @return pila inicializada
 	 */
@@ -31,7 +31,7 @@ public class OperandStack {
 	}
 	
 	/**
-	 * Método que determina si la pila está vacía o no
+	 * Metodo que determina si la pila esta vacia o no
 	 * @return boolean
 	 */
 	public boolean isEmpty(){
@@ -49,7 +49,7 @@ public class OperandStack {
 	}
 	
 	/**
-	 * Método que apila valores en la cima de la pila
+	 * Metodo que apila valores en la cima de la pila
 	 * @param value
 	 */
 	public void stackData (int value){
@@ -70,8 +70,8 @@ public class OperandStack {
 	}
 	
 	/**
-	 * Método que desapila valores de la cima de la pila
-	 * @return
+	 * Metodo que desapila valores de la cima de la pila
+	 * @return true/false
 	 */
 	public boolean unstackData (){
 		//si la pila no está vacía, vacío la posicion más alta, y bajo el nivel en una posición 
@@ -84,7 +84,7 @@ public class OperandStack {
 	}
 	
 	/**
-	 * Método que redimensiona la pila a un tamaño deseado
+	 * Metodo que redimensiona la pila a un tamaño deseado
 	 * @param tamanio
 	 * @return auxiliar
 	 */
@@ -102,7 +102,7 @@ public class OperandStack {
 	}
 	
 	/**
-	 * Método que devuelve el estado de la pila en formato string
+	 * Metodo que devuelve el estado de la pila en formato string
 	 */
 	public String toString(){
 		//devuelve el contenido de la pila
@@ -119,17 +119,17 @@ public class OperandStack {
 	}
 	
 	/**
-	 * método que devuelve la posición de la cima de la pila
-	 * @return
+	 * Metodo que devuelve la posicion de la cima de la pila
+	 * @return cima
 	 */
 	public int getCima () {
 		return this.cima;
 	}
 	
 	/**
-	 * Método que devuelve el valor de una posición de la pila
+	 * Metodo que devuelve el valor de una posicion de la pila
 	 * @param pos
-	 * @return
+	 * @return dato
 	 */
 	public Integer getDato (int pos) {
 		if(!this.isEmpty()){

@@ -14,8 +14,8 @@ public class Cpu {
 	}
 	
 	/**
-	 * Método que devuelve si la cpu ha sido finalizada o no
-	 * @return
+	 * Metodo que devuelve si la cpu ha sido finalizada o no
+	 * @return true/false
 	 */
 	public boolean finished(){
 		return this.fin;
@@ -24,9 +24,9 @@ public class Cpu {
 	//Operaciones de la pila
 	
 	/**
-	 * Método que almacena en la pila un valor
+	 * Metodo que almacena en la pila un valor
 	 * @param value
-	 * @return
+	 * @return true/false
 	 */
 	private boolean push (int value) {
 		this.pila.stackData(value);
@@ -34,8 +34,8 @@ public class Cpu {
 	}
 	
 	/**
-	 * Método que elimina de la pila el valor de la cima
-	 * @return
+	 * Metodo que elimina de la pila el valor de la cima
+	 * @return true/false
 	 */
 	private boolean pop () {
 		//si no se apila hay error
@@ -46,8 +46,8 @@ public class Cpu {
 	}
 	
 	/**
-	 * Método que duplica el valor de la cima
-	 * @return
+	 * Metodo que duplica el valor de la cima
+	 * @return tru/false
 	 */
 	private boolean dup () {
 		//si la pila no está vacía
@@ -64,8 +64,8 @@ public class Cpu {
 	}
 	
 	/**
-	 * Método que devuelve el valor de la cima como caracter
-	 * @return
+	 * Metodo que devuelve el valor de la cima como caracter
+	 * @return caracter resultado
 	 */
 	private Character out () {
 		Character resultado;
@@ -84,8 +84,8 @@ public class Cpu {
 	}
 	
 	/**
-	 * Método que intercambia el valor de la subcima de la pila por el de la cima de la pila
-	 * @return
+	 * Metodo que intercambia el valor de la subcima de la pila por el de la cima de la pila
+	 * @return true/false
 	 */
 	private boolean flip () {
 		//si la pila tiene más de un operando
@@ -113,10 +113,10 @@ public class Cpu {
 	//Operaciones de la memoria.
 	
 	/**
-	 * Método que almacena en una posicion de la memoria, un dato.
+	 * Metodo que almacena en una posicion de la memoria, un dato.
 	 * @param pos
 	 * @param dato
-	 * @return
+	 * @return true/false
 	 */
 	private boolean store (int pos, int dato) {
 		//Si la pila no está vacía
@@ -134,9 +134,9 @@ public class Cpu {
 	}
 	
 	/**
-	 * Método que ejecuta todas las instrucciones que puede usar la cpu
+	 * Metodo que ejecuta todas las instrucciones que puede usar la cpu
 	 * @param instr
-	 * @return
+	 * @return true/false
 	 */
 	public boolean execute (Instruction instr){
 		TipoInstruction operation;
@@ -251,7 +251,7 @@ public class Cpu {
 	}
 	
 	/**
-	 * Método que devuelve el estado de la cpu en formato string
+	 * Metodo que devuelve el estado de la cpu en formato string
 	 */
 	public String toString(){
 		String contenidoCpu;

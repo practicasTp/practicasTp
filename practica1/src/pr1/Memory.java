@@ -9,6 +9,11 @@ public class Memory {
 		this.registros =  inicializarMemory(TAMANIO);
 	}
 
+	/**
+	 * Metodo que inicializa la memoria a null con el tamaño deseado
+	 * @param tamanio
+	 * @return memoria inicializada
+	 */
 	private Integer[] inicializarMemory(int tam){
 		
 		//creo un auxiliar con el tamaño que me indican
@@ -24,6 +29,11 @@ public class Memory {
 		
 	}
 	
+	/**
+	 * Metodo que almacena un dato en una posicion de memoria
+	 * @param pos
+	 * @param dato
+	 */
 	public void storeData(int pos, int dato){		
 		
 		//si la posicion donde deseas guardar es menor que la posicion de mayor tama�o que tengo lo guardo
@@ -54,6 +64,11 @@ public class Memory {
 
 	}
 	
+	/**
+	 * Metodo que redimensiona la memoria a traves de una memoria auxiliar previamente inicializada
+	 * @param aux
+	 * @return memoria redimensionada
+	 */
 	private Integer[] redimensionar(Integer[] aux){
 		
 		//recorro todos los registros que tengo y los copio al auxiliar, el cual está previamente inicializado
@@ -64,6 +79,10 @@ public class Memory {
 		return aux;
 	}
 	
+	/**
+	 * Metodo que se encarga de determinar si la memoria esta vacia o no
+	 * @return true/false
+	 */
 	public boolean isEmpty () {
 		boolean empty = true;
 		
@@ -77,6 +96,11 @@ public class Memory {
 		return empty;
 	}
 	
+	/**
+	 * Metodo que devuelve el dato de una posicion deseada
+	 * @param pos
+	 * @return dato
+	 */
 	public Integer getDato (int pos){
 		if(this.registros[pos]!=null){
 			return this.registros[pos];
@@ -85,6 +109,9 @@ public class Memory {
 		}
 	}
 	
+	/**
+	 * Metodo que devuelve el estado de la memoria en formato String
+	 */
 	public String toString (){
 		String contenidoMemoria = "";
 		if(this.isEmpty()) contenidoMemoria = "<vacia>";

@@ -3,9 +3,9 @@ package pr1;
 public class InstructionParser {
 	
 	/**
-	 * Método que interpreta un string y devuelve una instrucción
+	 * Metodo que interpreta un string y devuelve una instruccion
 	 * @param instruccionSinParsear
-	 * @return
+	 * @return instruccion
 	 */
 	public static Instruction parser(String instruccionSinParsear){
 		String operando;
@@ -96,7 +96,7 @@ public class InstructionParser {
 	}
 	
 	/**
-	 * Método que determina si el operando de la instrucción es un número o no
+	 * Metodo que determina si el operando de la instruccion es un numero o no
 	 * @param operando
 	 * @return boolean
 	 */

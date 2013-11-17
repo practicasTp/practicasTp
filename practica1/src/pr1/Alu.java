@@ -3,7 +3,7 @@ package pr1;
 public class Alu {
 
 	/**
-	 * Funcíon que realiza la suma de dos operandos
+	 * Metodo que realiza la suma de dos operandos
 	 * @param operando1
 	 * @param operando2
 	 * @return resultado
@@ -22,7 +22,7 @@ public class Alu {
 	}
 	
 	/**
-	 * Funcíon que realiza la resta de dos operandos
+	 * Metodo que realiza la resta de dos operandos
 	 * @param operando1
 	 * @param operando2
 	 * @return resultado
@@ -41,7 +41,7 @@ public class Alu {
 	}
 	
 	/**
-	 * Funcíon que realiza la multiplicación de dos operandos
+	 * Metodo que realiza la multiplicacion de dos operandos
 	 * @param operando1
 	 * @param operando2
 	 * @return resultado
@@ -60,7 +60,7 @@ public class Alu {
 	}
 	
 	/**
-	 * Funcíon que realiza la división de dos operandos
+	 * Metodo que realiza la division de dos operandos
 	 * @param operando1
 	 * @param operando2
 	 * @return resultado

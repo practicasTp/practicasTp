@@ -15,16 +15,16 @@ public class Instruction {
 	}
 	
 	/**
-	 * Método que devuelve el operando de la instrucción
-	 * @return
+	 * Metodo que devuelve el operando de la instruccion
+	 * @return operando
 	 */
 	public int getOperando(){
 		return this.operando;
 	}
 	
 	/**
-	 * Método que devuelve el tipo de instrucción
-	 * @return
+	 * Metodo que devuelve el tipo de instruccion
+	 * @return tipo de instruccion
 	 */
 	public TipoInstruction getTipoInstruccion(){
 		return this.tipo;
