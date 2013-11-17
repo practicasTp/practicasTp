@@ -88,7 +88,7 @@ public class InstructionParser {
 				}
 			}
 		}else{
-			System.out.println("Error: El operando introducido no es un número.");
+			System.out.println("Error: El operando introducido no es un número.\n");
 			//si el operando no es correcto, la instruccion no es correcta
 			miInstruction = null;
 		}
