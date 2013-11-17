@@ -72,7 +72,7 @@ public class Alu {
 		if( operando2  != 0  && operando2 != null && operando1 != null ){
 			resultado = operando1.intValue() / operando2.intValue(); 
 		}else{
-			System.out.println("El denominador usado es 0 o no existe");
+			System.out.println("El denominador usado es 0.");
 		}
 		
 		return resultado;
