@@ -184,32 +184,21 @@ public class Cpu {
 			}
 	 		
 		}else if(operation.equals(TipoInstruction.LOAD)) {
-				//si la memoria no está vacía
-				if (!this.memoria.isEmpty()){
-					
+				
 					//el operando (posicion) no puede ser negativo
 					if(operando >= 0){
 						//intento obtener el dato
 						Integer dato = this.memoria.getDato(operando);
-						
-						//si lo obtengo
-						if(dato !=null){
-							//lo almaceno en la pila
-							this.push(dato.intValue());
+						//lo almaceno en la pila
+						this.push(dato.intValue());
 						//si no lo obtengo, aviso
-						}else{
-							execute = false;
-							System.out.println("Error: La posición deseada no contiene valor.");
-						}
+						
 					}else{
 						execute = false;
 						System.out.println("Error: No se pueden cargar posiciones negativas.");
 					}
-				//si la memoria está vacía, lo aviso
-				}else{
-					execute = false;
-					System.out.println("Error: No hay contenidos en la memoria.");
-				}
+				
+				
 		
 		//operacion de parada de la ejecución
 		}else if (operation.equals(TipoInstruction.HALT)) {

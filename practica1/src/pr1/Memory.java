@@ -42,17 +42,12 @@ public class Memory {
 			//almaceno el dato en la posici�n que me han indicado
 			registros[pos] = dato;
 			
-		}else{
-			int nuevo_tamanio = this.registros.length;
+		}else{			
 			
-			//si no, mientras la posicion sea mayor que la posicion de mayor tama�o redimensiono mi tama�o de memoria
-			do{
-				//creo nuevo tama�o con el doble de lo que tengo ahora
-				nuevo_tamanio = nuevo_tamanio * 2;
-				
-			}while(pos > nuevo_tamanio);
+			//creo nuevo tama�o con el doble de lo que tengo ahora
+			int nuevo_tamanio = pos * 2;			
 			
-			//inicializo una memoria auxiliar que posteriormente pasar� a ser la del sistema
+			//inicializo una memoria auxiliar que posteriormente pasará a ser la del sistema
 			Integer[] aux = this.inicializarMemory(nuevo_tamanio);
 			
 			//redimensiono el numero de tamaño de memoria
@@ -83,7 +78,7 @@ public class Memory {
 	 * Metodo que se encarga de determinar si la memoria esta vacia o no
 	 * @return true/false
 	 */
-	public boolean isEmpty () {
+	private boolean isEmpty () {
 		boolean empty = true;
 		
 		for(int i = 0; i <= (this.registros.length-1); i++){
@@ -96,17 +91,23 @@ public class Memory {
 		return empty;
 	}
 	
+	
+	
+	
+	
 	/**
 	 * Metodo que devuelve el dato de una posicion deseada
 	 * @param pos
 	 * @return dato
 	 */
-	public Integer getDato (int pos){
-		if(this.registros[pos]!=null){
-			return this.registros[pos];
-		}else{
-			return null;
+	public int getDato (int pos){
+		if (pos < this.registros.length)
+		     if(this.registros[pos]!=null){
+			        return this.registros[pos];
+	       	}else{
+			return 0;
 		}
+		else return 0;
 	}
 	
 	/**
