@@ -1,6 +1,10 @@
 package mv;
 import java.util.Scanner;
 
+import mv.cpu.Cpu;
+import mv.instructions.Instruction;
+import mv.instructions.InstructionParser;
+
 public class Main {
 
 	/**

@@ -1,10 +1,10 @@
-package mv;
+package mv.instructions;
 
-public class Instruction {
+abstract public class Instruction {
 	private int operando;
 	private TipoInstruction tipo;
 	
-	public Instruction(TipoInstruction tipo){
+	public Instruction (TipoInstruction tipo){
 		this.operando = 0;
 		this.tipo = tipo;
 	}

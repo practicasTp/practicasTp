@@ -1,16 +1,20 @@
-package mv;
+package mv.cpu;
+
+import mv.instructions.Arithmetic;
+import mv.instructions.Instruction;
+import mv.instructions.TipoInstruction;
 
 public class Cpu {
 	private Memory memoria;
 	private OperandStack pila;
-	private Alu alu;
+	private Arithmetic alu;
 	private boolean fin;
 	
 	public Cpu(){
 		this.memoria = new Memory ();
 		this.pila = new OperandStack ();
 		this.fin = false;
-		this.alu = new Alu();
+		this.alu = new Arithmetic();
 	}
 	
 	/**

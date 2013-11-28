@@ -1,4 +1,4 @@
-package mv;
+package mv.cpu;
 
 public class OperandStack {
 	private int cima;

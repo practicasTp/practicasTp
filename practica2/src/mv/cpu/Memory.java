@@ -1,4 +1,4 @@
-package mv;
+package mv.cpu;
 
 public class Memory {
 	private Integer[] registros;

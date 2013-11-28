@@ -1,4 +1,4 @@
-package mv;
+package mv.instructions;
 
 public class InstructionParser {
 	

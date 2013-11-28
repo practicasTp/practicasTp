@@ -1,4 +1,4 @@
-package mv;
+package mv.instructions;
 
 /**
  * Clase que tiene un enumerado con todas las instrucciones que se pueden ejecutar 
