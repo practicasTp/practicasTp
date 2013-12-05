@@ -1,8 +1,13 @@
 package mv.instructions;
+import mv.cpu.Cpu;
 
 abstract public class Instruction {
 	private int operando;
 	private TipoInstruction tipo;
+	
+	abstract public boolean execute (Cpu cpu);
+	
+	abstract public Instruction parse (String[] s);
 	
 	public Instruction (TipoInstruction tipo){
 		this.operando = 0;

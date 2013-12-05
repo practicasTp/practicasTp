@@ -9,6 +9,9 @@ public class Cpu {
 	private OperandStack pila;
 	private Arithmetic alu;
 	private boolean fin;
+	private ProgramMv program;
+	private int pc;
+	private boolean correctPc;
 	
 	public Cpu(){
 		this.memoria = new Memory ();
@@ -32,7 +35,7 @@ public class Cpu {
 	 * @param value
 	 * @return true/false
 	 */
-	private boolean push (int value) {
+	public boolean push (int value) {
 		this.pila.stackData(value);
 		return true;
 	}
@@ -41,12 +44,12 @@ public class Cpu {
 	 * Metodo que elimina de la pila el valor de la cima
 	 * @return true/false
 	 */
-	private boolean pop () {
+	public int pop () {
 		//si no se apila hay error
-		if (!this.pila.unstackData()) { 
-			System.out.println("Error: La pila está vacía.");
-			return false;
-		} else return true;
+		int value = this.pila.getDato(this.pila.getCima());
+		this.pila.unstackData();
+		
+		return value;
 	}
 	
 	/**
@@ -255,6 +258,18 @@ public class Cpu {
 		}
 		
 		return execute;
+	}
+	
+	/**
+	 * Método que devuelve el tamaño de la pila.
+	 * @return tamaño de la pila.
+	 */
+	public int getSizeStack () {
+		return this.pila.getCima() + 1;
+	}
+	
+	public void increaseProgramCounter() {
+		this.pc++;
 	}
 	
 	/**
