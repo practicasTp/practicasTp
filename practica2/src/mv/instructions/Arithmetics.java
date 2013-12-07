@@ -25,5 +25,6 @@ abstract public class Arithmetics extends Instruction {
 	}
 	
 	abstract public Instruction parse (String[] s);
-		//Si tiene éxito (sólo un extring y la componente 0 es igual a A) return new Add ();
+	
+	abstract public String toString ();
 }

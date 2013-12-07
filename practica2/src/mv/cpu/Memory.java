@@ -101,13 +101,11 @@ public class Memory {
 	 * @return dato
 	 */
 	public int getDato (int pos){
-		if (pos < this.registros.length)
-		     if(this.registros[pos]!=null){
+		if (pos < this.registros.length) {
+			if(this.registros[pos]!=null)
 			        return this.registros[pos];
-	       	}else{
-			return 0;
-		}
-		else return 0;
+			else return 0;
+		} else return 0;
 	}
 	
 	/**

@@ -5,5 +5,5 @@ package mv.instructions;
  *
  */
 public enum TipoInstruction {
-	 PUSH,POP,DUP,FLIP,LOAD,STORE,ADD,SUB,MUL,DIV,OUT,HALT;
+	 PUSH,POP,DUP,FLIP,LOAD,STORE,NEG,ADD,SUB,MUL,DIV,OUT,AND,NOT,OR,LT,EQ,LE,GT,JUMP,BT,BF,HALT;
 }

@@ -9,7 +9,7 @@ abstract public class Compare extends Instruction {
 		super(tipo);
 	}
 	
-	protected abstract boolean compare (int cima, int subcima);
+	abstract protected boolean compare (int cima, int subcima);
 	
 	public boolean execute (Cpu cpu) {
 		if (cpu.getSizeStack() >= 2) {
@@ -23,4 +23,8 @@ abstract public class Compare extends Instruction {
 		}
 		else return false;
 	}
+	
+	abstract public Instruction parse (String[] s);
+	
+	abstract public String toString ();
 }

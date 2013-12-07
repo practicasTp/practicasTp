@@ -1,13 +1,14 @@
 package mv.cpu;
 
-import mv.instructions.Arithmetic;
+import mv.instructions.Arithmetics;
 import mv.instructions.Instruction;
 import mv.instructions.TipoInstruction;
+import mv.program.ProgramMv;
 
 public class Cpu {
 	private Memory memoria;
 	private OperandStack pila;
-	private Arithmetic alu;
+	private Arithmetics alu;
 	private boolean fin;
 	private ProgramMv program;
 	private int pc;
@@ -17,7 +18,6 @@ public class Cpu {
 		this.memoria = new Memory ();
 		this.pila = new OperandStack ();
 		this.fin = false;
-		this.alu = new Arithmetic();
 	}
 	
 	/**
@@ -52,71 +52,6 @@ public class Cpu {
 		return value;
 	}
 	
-	/**
-	 * Metodo que duplica el valor de la cima
-	 * @return tru/false
-	 */
-	private boolean dup () {
-		//si la pila no está vacía
-		if (!this.pila.isEmpty()) {
-			//obtengo el valor de la cima, la salvo
-			int value = this.pila.getDato(this.pila.getCima());
-			this.push(value);
-			return true;
-		//si la pila está vacía aviso
-		} else {
-			System.out.println("Error: La pila está vacía.");
-			return false;
-		}
-	}
-	
-	/**
-	 * Metodo que devuelve el valor de la cima como caracter
-	 * @return caracter resultado
-	 */
-	private Character out () {
-		Character resultado;
-		
-		//si la pila está vacía devuelvo null
-		if (this.pila.isEmpty()){
-			System.out.println("Error: La pila está vacía.");
-			resultado = null;
-		//si la pila no lo est�, devuelvo lo almacenado en la cima de la pila
-		}else{
-			int intValue = this.pila.getDato(this.pila.getCima()).intValue();
-			resultado = (char)intValue;
-		}
-		
-		return resultado;
-	}
-	
-	/**
-	 * Metodo que intercambia el valor de la subcima de la pila por el de la cima de la pila
-	 * @return true/false
-	 */
-	private boolean flip () {
-		//si la pila tiene más de un operando
-		if (this.pila.getCima() >= 1) {
-			//obtengo la cima
-			int cima = this.pila.getDato(this.pila.getCima());
-			//elimino la cima
-			this.pop();
-			//obtengo la cima (que es la anterior sucima)
-			int subcima = this.pila.getDato(this.pila.getCima());
-			//elimino la cima
-			this.pop();
-			//añado la cima (que ahora pasa a ser la subcima)
-			this.push(cima);
-			//añado la subcima (que ahora pasa a ser la cima)
-			this.push(subcima);
-			return true;
-		//si no lo tiene, aviso de un error
-		} else {
-			System.out.println("Error: La pila no tiene suficientes valores.");
-			return false;
-		}
-	}
-	
 	//Operaciones de la memoria.
 	
 	/**
@@ -125,19 +60,9 @@ public class Cpu {
 	 * @param dato
 	 * @return true/false
 	 */
-	private boolean store (int pos, int dato) {
-		//Si la pila no está vacía
-		if (!this.pila.isEmpty()) {
-			//almaceno en la posicion deseada, el dato deseado
-			this.memoria.storeData(pos, dato);
-			//elimino el dato de la pila
-			this.pop();
-			return true;
-		//si está vacía, elimino.
-		} else {
-			System.out.println("Error: La pila está vacía.");
-			return false;
-		}
+	public boolean store (int pos, int dato) {
+		this.memoria.storeData(pos, dato);
+		return true;
 	}
 	
 	/**
@@ -190,17 +115,17 @@ public class Cpu {
 				execute = false;
 			}
 	 		
-		}else if(operation.equals(TipoInstruction.LOAD)) {
+		} else if (operation.equals(TipoInstruction.LOAD)) {
 				
 					//el operando (posicion) no puede ser negativo
-					if(operando >= 0){
+					if (operando >= 0){
 						//intento obtener el dato
 						Integer dato = this.memoria.getDato(operando);
 						//lo almaceno en la pila
 						this.push(dato.intValue());
 						//si no lo obtengo, aviso
 						
-					}else{
+					} else {
 						execute = false;
 						System.out.println("Error: No se pueden cargar posiciones negativas.");
 					}
@@ -268,8 +193,28 @@ public class Cpu {
 		return this.pila.getCima() + 1;
 	}
 	
+	/**
+	 * Método que consigue un dato de la memoria situado en la posición indicada.
+	 * @param pos
+	 * @return un entero
+	 */
+	public int getMemoryValue (int pos) {
+		return this.memoria.getDato(pos);
+	}
+	
+	/**
+	 * Incrementa en uno el valor del contador de programa
+	 */
 	public void increaseProgramCounter() {
 		this.pc++;
+	}
+	
+	/**
+	 * Actualiza el contador de programa a la posición indicada.
+	 * @param pos
+	 */
+	public void jumpProgramCounter(int pos) {
+		this.pc = pos;
 	}
 	
 	/**
