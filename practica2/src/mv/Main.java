@@ -47,7 +47,7 @@ public class Main {
 				if(instruccion !=null){
 					userProgram.push(instruccion);
 				}else{
-					System.out.println("Error de instrucción");
+					System.err.println("Error de instrucción");					
 				}
 			}else{
 				stop = true;
