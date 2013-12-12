@@ -4,6 +4,7 @@ import java.util.Scanner;
 import mv.cpu.Cpu;
 import mv.instructions.Instruction;
 import mv.instructions.InstructionParser;
+import mv.program.ProgramMv;
 
 public class Main {
 
@@ -11,15 +12,11 @@ public class Main {
 	 * Función que se encarga de pedir la instrucción
 	 * @return line
 	 */
-	public static String prompt(){
+	public static String promptUserProgram(){
 		String line;
-	
-		System.out.print("Instrucción a ejecutar:");
 		
 		Scanner sc = new Scanner(System.in);
 		line = sc.nextLine();
-		
-		System.out.println("Comienza la ejecución de "+line.toUpperCase());
 		
 		return line;
 	}
@@ -29,33 +26,36 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Cpu intel = new Cpu();
+		ProgramMv userProgram = new ProgramMv();
+		boolean stop = false;
+		String[] instruccionCortada;
+		
+		System.out.println("Introduce el programa fuente:");
 		
 		do{
 			//pido la instrucción
-			String line = prompt();
+			String instructionLine = promptUserProgram();
 			
-			//identifico la instrucción
-			Instruction laInstruccion = InstructionParser.parser(line);
+			//divido la cadena obtenida en el prompt
+			instruccionCortada = instructionLine.split(" +");
 			
-			//si he identificado la instrucción
-			if(laInstruccion!=null){
+			if(!instruccionCortada[0].equalsIgnoreCase("END")){
+				//parseo la instruccion
+				Instruction instruccion = InstructionParser.parser(instruccionCortada);
 				
-				//la ejecuto
-				boolean resultado = intel.execute(laInstruccion);
-				
-				//si la ejecución se ha ejecutado correctamente, muestro el estado de la máquina
-				if(resultado){
-					System.out.println(intel.toString());
-				//si falla sólo añado una línea para que la ejecución sea más clara de cara al usuario
+				//si he identificado la instrucción
+				if(instruccion !=null){
+					userProgram.push(instruccion);
 				}else{
-					System.out.println();
+					System.out.println("Error de instrucción");
 				}
-				
+			}else{
+				stop = true;
 			}
 			
-			//repito la ejecución hasta que la instrucción que finaliza la máquina es introducida (halt)
-		}while(!intel.finished());
+		}while(stop==false);
+		
+		System.out.println(userProgram.toString());
 	}
 
 }

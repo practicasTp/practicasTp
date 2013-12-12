@@ -7,7 +7,7 @@ public class Halt extends SystemMv {
 	}
 	
 	public boolean executeAux (Cpu cpu) {
-		
+		return true;
 	}
 	
 	public Instruction parse (String[] s) {
