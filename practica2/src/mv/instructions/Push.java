@@ -22,6 +22,6 @@ public class Push extends SystemMv {
 	}
 	
 	public String toString () {
-		return "PUSH";
+		return "PUSH " + this.operando;
 	}
 }

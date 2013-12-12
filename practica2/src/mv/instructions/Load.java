@@ -23,6 +23,6 @@ public class Load extends SystemMv {
 	}
 	
 	public String toString () {
-		return "LOAD";
+		return "LOAD " + this.operando;
 	}
 }

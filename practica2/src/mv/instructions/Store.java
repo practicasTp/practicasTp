@@ -31,6 +31,6 @@ public class Store extends SystemMv{
 	}
 	
 	public String toString () {
-		return "STORE";
+		return "STORE " + this.operando;
 	}
 }

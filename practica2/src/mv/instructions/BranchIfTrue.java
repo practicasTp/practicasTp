@@ -20,6 +20,6 @@ public class BranchIfTrue extends ConditionalJump {
 	}
 	
 	public String toString () {
-		return "BT";
+		return "BT " + this.operando;
 	}
 }
