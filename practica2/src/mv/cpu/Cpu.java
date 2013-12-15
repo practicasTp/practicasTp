@@ -111,8 +111,12 @@ public class Cpu {
 	 * Ejecuta la siguiente instrucción, es decir, la situada en el contador de programa.
 	 * @return
 	 */
-	public boolean step () {
-		
+	public boolean step (Cpu cpu) {
+		Instruction inst = this.getCurrentInstruction();
+		if (inst != null) {
+			if (inst.execute(cpu)) return true;
+			else return false;
+		} else return false;
 	}
 	
 	/**
