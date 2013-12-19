@@ -7,9 +7,14 @@ public class Step extends CommandInterpreter {
 	}
 	
 	public boolean executeCommand() {
-		if (CommandInterpreter.cpu.step(CommandInterpreter.cpu))
-			return true;
-		else return false;
+		boolean resultado = false;
+		if (CommandInterpreter.cpu.step()) resultado = true;
+		
+		if(CommandInterpreter.cpu.finished()){
+			this.isFinished = true;
+		}
+		
+		return resultado;
 	}
 	
 	public String toString () {

@@ -6,4 +6,29 @@ public class Steps extends Step {
 	public Steps (int steps) {
 		this.steps = steps;
 	}
+	
+	public boolean executeCommand() {		
+		int contador = this.steps;
+		boolean resultado = false;
+		
+		do{
+			
+			if (CommandInterpreter.cpu.step()){
+				resultado = true;
+			}else{
+				resultado = false;
+				contador = 0;
+			}
+			
+			contador--;
+		}while(contador!=0);
+			
+		
+		
+		return resultado;
+	}
+	
+	public String toString () {
+		return "STEP "+this.steps;
+	}
 }
