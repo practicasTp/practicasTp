@@ -72,15 +72,22 @@ public class Cpu {
 		this.program = p;
 	}
 	
+	/**
+	 * Realiza la misma función que a instrucción halt.
+	 */
 	public void exit () {
-		
+		this.fin = true;
 	}
 	
 	/**
 	 * Inicializa todos los atributos de la Cpu para preparar una ejecución con run.
 	 */
 	public void resetCpu () {
-		
+		this.fin = false;
+		this.pc = 0;
+		this.correctPc = true;
+		pila.clean();
+		memoria.clean();
 	}
 	
 	/**
@@ -111,10 +118,10 @@ public class Cpu {
 	 * Ejecuta la siguiente instrucción, es decir, la situada en el contador de programa.
 	 * @return
 	 */
-	public boolean step (Cpu cpu) {
+	public boolean step () {
 		Instruction inst = this.getCurrentInstruction();
 		if (inst != null) {
-			if (inst.execute(cpu)) return true;
+			if (inst.execute(this)) return true;
 			else return false;
 		} else return false;
 	}

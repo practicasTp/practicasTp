@@ -91,10 +91,6 @@ public class Memory {
 		return empty;
 	}
 	
-	
-	
-	
-	
 	/**
 	 * Metodo que devuelve el dato de una posicion deseada
 	 * @param pos
@@ -106,6 +102,13 @@ public class Memory {
 			        return this.registros[pos];
 			else return 0;
 		} else return 0;
+	}
+	
+	/**
+	 * Reinicia la memoria vaciando el array de registros.
+	 */
+	public void clean () {
+		this.registros =  inicializarMemory(TAMANIO);
 	}
 	
 	/**

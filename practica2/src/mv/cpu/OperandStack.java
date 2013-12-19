@@ -53,7 +53,7 @@ public class OperandStack {
 	 * @param value
 	 */
 	public void stackData (int value){
-		//compruebo si la pila est� llena
+		//compruebo si la pila está llena
 		if(this.cima < (stack.length - 1)){
 			this.cima++;
 			//si no lo está, la relleno 
@@ -137,5 +137,13 @@ public class OperandStack {
 		}else{
 			return null;
 		}
+	}
+	
+	/**
+	 * Reinicia la pila limpiando el array y reiniciando el contador de la cima.
+	 */
+	public void clean () {
+		this.stack = this.inicializaPila(TAMANIO);
+		this.cima = -1;
 	}
 }
