@@ -3,7 +3,7 @@ import mv.instructions.Instruction;
 import mv.instructions.TipoInstruction;
 
 public class ProgramMv {
-	static private final int MAX_PROGRAM = 100;
+	static private final int MAX_PROGRAM = 2;
 	private Instruction[] userProgram;
 	private int numberInstructions;
 	private int sizeProgram;
@@ -118,6 +118,6 @@ public class ProgramMv {
 			}
 		}
 		
-		return "El programa introducido es: \n"+contenidoProgram+"\n";
+		return "El programa introducido es: \n"+contenidoProgram;
 	}
 }

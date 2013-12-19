@@ -7,7 +7,7 @@ public class CommandParser {
 	 * @param line es el string que contiene el comando completo.
 	 * @return comando que contiene el objeto del tipo correspondiente.
 	 */
-	public CommandInterpreter parseCommand (String line) {
+	public static CommandInterpreter parseCommand (String line) {
 		String[] cadena = line.split(" +");
 		CommandInterpreter comando = null;
 		
