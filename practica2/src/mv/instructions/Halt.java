@@ -1,5 +1,7 @@
 package mv.instructions;
 
+import mv.cpu.Cpu;
+
 public class Halt extends SystemMv {
 
 	public Halt () {
@@ -7,6 +9,8 @@ public class Halt extends SystemMv {
 	}
 	
 	public boolean executeAux (Cpu cpu) {
+		cpu.exit();
+		
 		return true;
 	}
 	
