@@ -2,6 +2,7 @@ package mv;
 import java.util.Scanner;
 
 import mv.commands.CommandInterpreter;
+import mv.commands.CommandParser;
 import mv.cpu.Cpu;
 import mv.instructions.Instruction;
 import mv.instructions.InstructionParser;
@@ -10,34 +11,16 @@ import mv.program.ProgramMv;
 public class Main {
 
 	/**
-	 * Función que se encarga de pedir la instrucción
+	 * Función que se encarga de pedir el programa
 	 * @return line
 	 */
-	/*public static String promptUserProgram(){
-		String line;
-		
-		Scanner sc = new Scanner(System.in);
-		line = sc.nextLine();
-		
-		return line;
-	}*/
-	
-	private static ProgramMv readProgram () {
-		
-		 // bucle que utiliza ParserInstruction.parseProgramInstruction(line);
-	}
-	
-	/**
-	 * Función que inicia la ejecución
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		ProgramMv userProgram = new ProgramMv();
+	private static ProgramMv readProgram(){
+		ProgramMv program = new ProgramMv();
 		boolean stop = false;
 		String[] instruccionCortada;
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("Introduce el programa fuente:");
+		System.out.println("> Introduce el programa fuente:");
 		//Primera fase:
 		
 		//Se lee el programa
@@ -54,7 +37,7 @@ public class Main {
 				
 				//si he identificado la instrucción
 				if(instruccion !=null){
-					userProgram.push(instruccion);
+					program.push(instruccion);
 				}else{
 					System.err.println("Error de instrucción");					
 				}
@@ -64,22 +47,51 @@ public class Main {
 			
 		}while(stop==false);
 		
+		return program;
+	}
+	
+	/**
+	 * Función que inicia la ejecución
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		ProgramMv program = null;
+		Scanner sc = new Scanner(System.in);
+		boolean end = false;
+		
+		program =  readProgram();
+		
 		//Muestra el programa introducido.
-		System.out.println(userProgram.toString());
+		System.out.println(program.toString());
 		
 		//Segunda fase:
 		
-		//Muestra el prompt y lee el comando.
-		String commandLine = sc.nextLine();
-		
 		//Creamos la CPU y cargamos el programa.
 		Cpu cpu = new Cpu ();
-		cpu.loadProgram(userProgram);
+		cpu.loadProgram(program);
 		
 		//Pasamos al intérprete de comandos la cpu.
 		CommandInterpreter.configureCommandInterpreter(cpu);
 		
-		//Interpretamos los comandos.
+		do{
+			System.out.print("> ");
+			//Muestra el prompt y lee el comando.
+			String commandLine = sc.nextLine();
+			
+			//Parseamos los comandos.
+			CommandInterpreter command = CommandParser.parseCommand(commandLine);
+			
+			if(command != null){
+				command.executeCommand();
+				if(command.isFinished()){
+					end = true;
+				}
+			}else{
+				System.err.println("Error de comando.");
+			}
+			
+		}while(!end);
+		
 		
 	}
 
