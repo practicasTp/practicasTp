@@ -89,6 +89,7 @@ public class Main {
 			}else{
 				System.err.println("Error de comando.");
 			}
+			
 			CommandInterpreter.printStateMachine();
 			
 		}while(!end);

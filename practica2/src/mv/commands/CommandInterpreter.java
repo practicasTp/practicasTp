@@ -35,6 +35,6 @@ abstract public class CommandInterpreter {
 	}
 	
 	public static void printStateMachine () {
-		CommandInterpreter.cpu.toString();
+		System.out.println(CommandInterpreter.cpu.toString());
 	}
 }

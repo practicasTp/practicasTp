@@ -87,7 +87,7 @@ public class ProgramMv {
 	}
 	
 	public int getSizeProgram(){
-		return this.numberInstructions;
+		return this.userProgram.length;
 	}
 	/**
 	 * Metodo que se encarga de determinar si la memoria esta vacia o no

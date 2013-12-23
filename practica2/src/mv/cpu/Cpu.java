@@ -96,7 +96,7 @@ public class Cpu {
 	 * @return
 	 */
 	public Instruction getCurrentInstruction () {
-		if (this.program.getSizeProgram() < this.pc)
+		if (this.program.getSizeProgram() > this.pc)
 			return this.program.get(this.pc);
 		else {
 			this.correctPc = false;
