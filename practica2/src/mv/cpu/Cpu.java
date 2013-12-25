@@ -96,7 +96,7 @@ public class Cpu {
 	 * @return
 	 */
 	public Instruction getCurrentInstruction () {
-		if (this.program.getSizeProgram() > this.pc)
+		if (this.program.getSizeProgram() >= this.pc)
 			return this.program.get(this.pc);
 		else {
 			this.correctPc = false;
@@ -121,6 +121,7 @@ public class Cpu {
 	public boolean step () {
 		Instruction inst = this.getCurrentInstruction();
 		if (inst != null) {
+			System.out.println("Comienza la ejecución de "+inst.toString());
 			if (inst.execute(this)) return true;
 			else return false;
 		} else return false;

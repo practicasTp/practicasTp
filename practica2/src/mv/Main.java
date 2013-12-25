@@ -90,8 +90,6 @@ public class Main {
 				System.err.println("Error de comando.");
 			}
 			
-			CommandInterpreter.printStateMachine();
-			
 		}while(!end);
 		
 		

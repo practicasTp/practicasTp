@@ -14,6 +14,8 @@ public class Step extends CommandInterpreter {
 			this.isFinished = true;
 		}
 		
+		CommandInterpreter.printStateMachine();
+		
 		return resultado;
 	}
 	

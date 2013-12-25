@@ -19,7 +19,7 @@ public class CommandParser {
 			else if (cadena[0].equalsIgnoreCase("QUIT"))
 				comando = new Quit ();
 		} else if (cadena.length == 2 && CommandParser.validarOperando(cadena[1])) {
-			if (cadena[0].equalsIgnoreCase("STEPS")) 
+			if (cadena[0].equalsIgnoreCase("STEP")) 
 				comando = new Steps (Integer.parseInt(cadena[1]));
 		}
 		

@@ -6,7 +6,25 @@ public class Run extends Step {
 	}
 	
 	public boolean executeCommand(){
+		CommandInterpreter.cpu.resetCpu();
+		boolean resultado = false;
 		
-		return true;
-	}	
+		do{
+			
+			if (CommandInterpreter.cpu.step()){
+				resultado = true;
+				CommandInterpreter.printStateMachine();
+			}else{
+				resultado = false;
+			}
+			
+		}while(resultado!=false);
+			
+		
+		return resultado;
+	}
+	
+	public String toString () {
+		return "RUN ";
+	}
 }

@@ -15,6 +15,7 @@ public class Steps extends Step {
 			
 			if (CommandInterpreter.cpu.step()){
 				resultado = true;
+				CommandInterpreter.printStateMachine();
 			}else{
 				resultado = false;
 				contador = 0;
@@ -22,8 +23,6 @@ public class Steps extends Step {
 			
 			contador--;
 		}while(contador!=0);
-			
-		
 		
 		return resultado;
 	}
