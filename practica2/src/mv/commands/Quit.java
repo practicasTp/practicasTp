@@ -6,10 +6,20 @@ public class Quit extends CommandInterpreter {
 		super();
 	}
 	
+	/**
+	 * Método que se encarga de parar la máquina
+	 * @return true
+	 */
 	public boolean executeCommand(){
-		System.out.println("Se termina la ejecución de la máquina.");
-		CommandInterpreter.printStateMachine();
 		this.isFinished = true;
 		return true;
+	}
+	
+	/**
+	 * Método que pasa a string el comando ejecutado
+	 * @return QUIT
+	 */
+	public String toString () {
+		return "QUIT ";
 	}
 }

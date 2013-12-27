@@ -19,8 +19,17 @@ public class CommandParser {
 			else if (cadena[0].equalsIgnoreCase("QUIT"))
 				comando = new Quit ();
 		} else if (cadena.length == 2 && CommandParser.validarOperando(cadena[1])) {
-			if (cadena[0].equalsIgnoreCase("STEP")) 
-				comando = new Steps (Integer.parseInt(cadena[1]));
+			if (cadena[0].equalsIgnoreCase("STEP")){
+				if(CommandParser.validarOperando(cadena[1])){
+					if( Integer.parseInt(cadena[1]) > 0){
+						comando = new Steps (Integer.parseInt(cadena[1]));
+					}else{
+						System.err.println("No puedes ejecutar "+cadena[1]+" instrucciones.");
+					}
+				}else{
+					System.err.println("Debes introducir un número.");
+				}
+			}
 		}
 		
 		return comando;

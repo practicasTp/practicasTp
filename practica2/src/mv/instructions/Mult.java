@@ -12,12 +12,12 @@ public class Mult extends Arithmetics {
 	}
 	
 	public Instruction parse (String[] s) {
-		if ((s.length == 1) && s[0].equalsIgnoreCase("MUL")) 
+		if ((s.length == 1) && s[0].equalsIgnoreCase("MULT")) 
 			return new Mult();
 		else return null;
 	}
 	
 	public String toString () {
-		return "MUL";
+		return "MULT";
 	}
 }

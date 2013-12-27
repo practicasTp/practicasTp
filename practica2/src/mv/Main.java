@@ -39,7 +39,7 @@ public class Main {
 				if(instruccion !=null){
 					program.push(instruccion);
 				}else{
-					System.err.println("Error de instrucción");					
+					System.err.println("Error: Instrucción incorrecta");					
 				}
 			}else{
 				stop = true;
@@ -87,7 +87,7 @@ public class Main {
 					end = true;
 				}
 			}else{
-				System.err.println("Error de comando.");
+				System.err.println("No te entiendo.");
 			}
 			
 		}while(!end);

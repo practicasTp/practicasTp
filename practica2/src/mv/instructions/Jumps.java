@@ -1,5 +1,4 @@
 package mv.instructions;
-
 import mv.cpu.Cpu;
 
 abstract public class Jumps extends Instruction {
@@ -7,6 +6,7 @@ abstract public class Jumps extends Instruction {
 	
 	public Jumps (TipoInstruction tipo, int operando) {
 		super(tipo, operando);
+		this.operando = operando;
 	}
 	
 	abstract protected boolean executeAux (Cpu cpu);

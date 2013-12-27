@@ -17,9 +17,14 @@ public class Store extends SystemMv{
 	 */
 	public boolean executeAux (Cpu cpu) {
 		if (cpu.getSizeStack() >= 1) {
-			int cima = cpu.pop();
-			cpu.store(this.operando, cima);
-			return true;
+			if(this.operando>=0){
+				int cima = cpu.pop();
+				cpu.store(this.operando, cima);
+				return true;
+			}else{
+				System.out.println("La posición a guardar no puede ser negativa.");
+				return false;
+			}
 		} else return false;
 	}
 	

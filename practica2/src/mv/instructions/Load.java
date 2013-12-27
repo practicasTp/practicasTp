@@ -10,9 +10,14 @@ public class Load extends SystemMv {
 	}
 	
 	public boolean executeAux (Cpu cpu) {
-		int value = cpu.getMemoryValue(this.operando);
-		cpu.push(value);
-		return true;
+		if(this.operando>=0){
+			int value = cpu.getMemoryValue(this.operando);
+			cpu.push(value);
+			return true;
+		}else{
+			System.out.println("La posición a cargar no puede ser negativa.");
+			return false;
+		}
 	}
 	
 	public Instruction parse (String[] s) {
