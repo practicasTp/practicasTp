@@ -12,7 +12,7 @@ abstract public class Jumps extends Instruction {
 	abstract protected boolean executeAux (Cpu cpu);
 	
 	public boolean execute (Cpu cpu) {
-		if(cpu.getSizeStack() >= 2) {
+		if(cpu.getSizeStack() >= 1) {
 			if(executeAux(cpu)) return true;
 			else return false;
 		} else return false;

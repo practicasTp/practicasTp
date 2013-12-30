@@ -15,7 +15,10 @@ abstract public class ConditionalJump extends Jumps{
 		if (this.execute(cima)) {
 			cpu.jumpProgramCounter(this.operando);
 			return true;
-		} else return false;
+		} else {
+			cpu.increaseProgramCounter ();
+			return true;
+		}
 	}
 	
 	abstract public Instruction parse (String[] s);
