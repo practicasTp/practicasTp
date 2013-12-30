@@ -3,9 +3,11 @@ package mv.instructions;
 import mv.cpu.Cpu;
 
 abstract public class ConditionalJump extends Jumps{
+	protected boolean relative;
 
 	public ConditionalJump (TipoInstruction tipo, int operando) {
 		super (tipo, operando);
+		this.relative = false;
 	}
 	
 	abstract protected boolean execute (int cima);
@@ -13,7 +15,10 @@ abstract public class ConditionalJump extends Jumps{
 	public boolean executeAux (Cpu cpu) {
 		int cima = cpu.pop();
 		if (this.execute(cima)) {
-			cpu.jumpProgramCounter(this.operando);
+			if (!this.relative)
+				cpu.jumpProgramCounter(this.operando);
+			else 
+				cpu.increaseProgramCounter(this.operando);
 			return true;
 		} else {
 			cpu.increaseProgramCounter ();

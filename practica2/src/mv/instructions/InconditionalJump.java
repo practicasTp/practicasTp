@@ -22,6 +22,6 @@ public class InconditionalJump extends Jumps{
 	}
 	
 	public String toString () {
-		return "JUMP";
+		return "JUMP " + this.operando;
 	}
 }

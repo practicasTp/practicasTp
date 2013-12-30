@@ -1,12 +1,10 @@
 package mv.program;
 import mv.instructions.Instruction;
-import mv.instructions.TipoInstruction;
 
 public class ProgramMv {
 	static private final int MAX_PROGRAM = 2;
 	private Instruction[] userProgram;
 	private int numberInstructions;
-	private int sizeProgram;
 	
 	public ProgramMv(){	
 		//inicializo los atributos

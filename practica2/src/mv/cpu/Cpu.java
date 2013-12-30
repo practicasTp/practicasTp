@@ -158,6 +158,10 @@ public class Cpu {
 		this.pc++;
 	}
 	
+	public void increaseProgramCounter(int n){
+		this.pc = this.pc + n;
+	}
+	
 	/**
 	 * Actualiza el contador de programa a la posición indicada.
 	 * @param pos
