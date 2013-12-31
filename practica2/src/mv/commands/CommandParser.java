@@ -18,6 +18,8 @@ public class CommandParser {
 				comando = new Run ();
 			else if (cadena[0].equalsIgnoreCase("QUIT"))
 				comando = new Quit ();
+			else if (cadena[0].equalsIgnoreCase("POP"))
+				comando = new Pop ();
 		} else if (cadena.length == 2 && CommandParser.validarOperando(cadena[1])) {
 			if (cadena[0].equalsIgnoreCase("STEP")){
 				if(CommandParser.validarOperando(cadena[1])){
@@ -29,9 +31,18 @@ public class CommandParser {
 				}else{
 					System.err.println("Debes introducir un número.");
 				}
+			}else if(cadena[0].equalsIgnoreCase("PUSH")){
+				if(CommandParser.validarOperando(cadena[1])){
+					comando = new Push (Integer.parseInt(cadena[1]));
+				}else{
+					System.err.println("Debes introducir un número.");
+				}
+			}
+		} else if (cadena.length == 3 && CommandParser.validarOperando(cadena[1]) && CommandParser.validarOperando(cadena[2])) {
+			if (cadena[0].equalsIgnoreCase("WRITE")){
+				comando = new Write (Integer.parseInt(cadena[1]), Integer.parseInt(cadena[2])); 
 			}
 		}
-		
 		return comando;
 	}
 	

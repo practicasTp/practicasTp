@@ -8,7 +8,7 @@ public class Steps extends Step {
 	}
 	
 	/**
-	 * Metodo que se encarga de ejecurar N instrucciones
+	 * Metodo que se encarga de ejecutar N instrucciones
 	 * @return resultado
 	 */
 	public boolean executeCommand() {

@@ -10,8 +10,11 @@ public class Not extends Boolean {
 	
 	public boolean executeAux (Cpu cpu) {
 		int n1 = cpu.pop();
-		if (n1 == 1) return false;
-		else return true;
+		if (n1 == 1){
+			return false;
+		}else{
+			return true;
+		}
 	}
 	
 	public Instruction parse (String[] s) {
