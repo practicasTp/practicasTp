@@ -79,9 +79,7 @@ public class ProgramMv {
 	}
 	
 	public Instruction get(int i){
-		
 		return this.userProgram[i];
-		
 	}
 	
 	public int getSizeProgram(){

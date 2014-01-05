@@ -8,9 +8,11 @@ public class CommandParser {
 	 * @return comando que contiene el objeto del tipo correspondiente.
 	 */
 	public static CommandInterpreter parseCommand (String line) {
+		//divido la cadena e inicializo el comando a null
 		String[] cadena = line.split(" +");
 		CommandInterpreter comando = null;
 		
+		//proceso los comandos sin operando
 		if (cadena.length == 1) {
 			if (cadena[0].equalsIgnoreCase("STEP"))
 				comando = new Step ();
@@ -20,24 +22,21 @@ public class CommandParser {
 				comando = new Quit ();
 			else if (cadena[0].equalsIgnoreCase("POP"))
 				comando = new Pop ();
+		//proceso los comandos con 1 operando y que el operando sea un número
 		} else if (cadena.length == 2 && CommandParser.validarOperando(cadena[1])) {
+			//si la cadena es un step
 			if (cadena[0].equalsIgnoreCase("STEP")){
-				if(CommandParser.validarOperando(cadena[1])){
-					if( Integer.parseInt(cadena[1]) > 0){
-						comando = new Steps (Integer.parseInt(cadena[1]));
-					}else{
-						System.err.println("No puedes ejecutar "+cadena[1]+" instrucciones.");
-					}
+				//si el número es mayor a 0
+				if( Integer.parseInt(cadena[1]) > 0){
+					comando = new Steps (Integer.parseInt(cadena[1]));
 				}else{
-					System.err.println("Debes introducir un número.");
+					System.err.println("No puedes ejecutar "+cadena[1]+" instrucciones.");
 				}
+			//cadena del push
 			}else if(cadena[0].equalsIgnoreCase("PUSH")){
-				if(CommandParser.validarOperando(cadena[1])){
-					comando = new Push (Integer.parseInt(cadena[1]));
-				}else{
-					System.err.println("Debes introducir un número.");
-				}
+				comando = new Push (Integer.parseInt(cadena[1]));
 			}
+		//proceso los comandos que tengan 2 operandos
 		} else if (cadena.length == 3 && CommandParser.validarOperando(cadena[1]) && CommandParser.validarOperando(cadena[2])) {
 			if (cadena[0].equalsIgnoreCase("WRITE")){
 				comando = new Write (Integer.parseInt(cadena[1]), Integer.parseInt(cadena[2])); 

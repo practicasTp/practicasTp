@@ -6,7 +6,7 @@ public class Run extends Step {
 	}
 	
 	/**
-	 * Metodo que se encarga de ejecurar todas las instrucciones
+	 * Metodo que se encarga de ejecutar todas las instrucciones
 	 * @return resultado
 	 */
 	public boolean executeCommand(){
@@ -21,9 +21,8 @@ public class Run extends Step {
 				//muestro el estado de la máquina
 				CommandInterpreter.printStateMachine();
 			}else{
-				//si no, paro ejecución y ¿reinicio la máquina?
+				//si no, paro ejecución
 				resultado = false;
-				//CommandInterpreter.cpu.resetCpu();
 			}
 		//repito hasta que la cpu me diga que no hay más instrucciones a ejecutar	
 		}while(resultado!=false);

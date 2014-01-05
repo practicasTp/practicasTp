@@ -18,8 +18,6 @@ public class Step extends CommandInterpreter {
 			resultado = true;
 			CommandInterpreter.printStateMachine();
 			//si hay fallo de ejecución ¿reinicio la máquina?
-		}else{
-			//CommandInterpreter.cpu.resetCpu();
 		}
 		
 		//si la cpu me dice que no hay más instrucciones entonces paro la máquina

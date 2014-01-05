@@ -96,9 +96,12 @@ public class Cpu {
 	 * @return
 	 */
 	public Instruction getCurrentInstruction () {
+		//si el contador del programa es menor que el tamaño
 		if (this.program.getSizeProgram() > this.pc)
+			//devuelvo la instrución
 			return this.program.get(this.pc);
 		else {
+			//si no entonces ya no tengo contador del programa
 			this.correctPc = false;
 			return null;
 		}
@@ -119,15 +122,20 @@ public class Cpu {
 	 * @return
 	 */
 	public boolean step () {
+		//obtengo una instruccion
 		Instruction inst = this.getCurrentInstruction();
+		//si obtengo una
 		if (inst != null) {
+			//la ejecuto
 			System.out.println("Comienza la ejecución de "+inst.toString());
+			//retorno cómo ha ido la ejecución
 			if (inst.execute(this)){
 				return true;
 			}else{
 				System.out.println("Error en la ejecución.");
 				return false;
 			}
+		//si no, finalizo la ejecución
 		} else{
 			this.exit();
 			return false;

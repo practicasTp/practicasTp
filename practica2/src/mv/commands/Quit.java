@@ -11,6 +11,7 @@ public class Quit extends CommandInterpreter {
 	 * @return true
 	 */
 	public boolean executeCommand(){
+		//pongo la variable a true
 		this.isFinished = true;
 		return true;
 	}

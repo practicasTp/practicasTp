@@ -28,9 +28,8 @@ public class Steps extends Step {
 				if(contadorInstruccionesRestantes == 0){
 					resultado = false;
 				}
-			//si no ha ido bien, paro la ejecución y ¿reinicio la máquina?
+			//si no ha ido bien, paro la ejecución
 			}else{
-				//CommandInterpreter.cpu.resetCpu();
 				resultado = false;
 			}
 		//repito hasta parar la ejecución	

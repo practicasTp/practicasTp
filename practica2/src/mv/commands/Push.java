@@ -14,6 +14,7 @@ public class Push extends CommandInterpreter {
 	public boolean executeCommand() {
 		boolean resultado = true;
 		
+		//apilo el número
 		CommandInterpreter.cpu.push(this.pushedNumber);
 		//muestro estado de la máquina
 		CommandInterpreter.printStateMachine();

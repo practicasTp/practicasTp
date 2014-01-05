@@ -15,6 +15,7 @@ abstract public class CommandInterpreter {
 	 * @param cpu
 	 */
 	public static void configureCommandInterpreter (Cpu cpu) {
+		//inicializo la cpu con una cpu con un programa cargado
 		CommandInterpreter.cpu = cpu;
 	}
 	
@@ -29,11 +30,15 @@ abstract public class CommandInterpreter {
 	 * @return
 	 */
 	public boolean isFinished () {
+		//devuelvo true o false en función del valor de la variable 
 		if (this.isFinished)
 			return true;
 		else return false;
 	}
 	
+	/**
+	 * Método que printa el estado de la máquina
+	 */
 	public static void printStateMachine () {
 		System.out.println(CommandInterpreter.cpu.toString());
 	}
