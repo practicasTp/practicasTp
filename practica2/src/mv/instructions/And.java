@@ -8,6 +8,10 @@ public class And extends Boolean{
 		super (TipoInstruction.AND);
 	}
 	
+	/**
+	 * Método que ejecuta una operación de tipo and entre 2 números
+	 * @return resultado
+	 */
 	public boolean executeAux(Cpu cpu) {
 		int n1 = cpu.pop();
 		int n2 = cpu.pop();
@@ -15,12 +19,20 @@ public class And extends Boolean{
 		else return false;
 	}
 	
+	/**
+	 * método que parsea un string para identificarse como una instrucción and
+	 * @return new and o null
+	 */
 	public Instruction parse(String[] s) {
 		if ((s.length == 1) && s[0].equalsIgnoreCase("AND"))
 			return new And ();
 		else return null;
 	}
 	
+	/**
+	 * Método que pasa a string la instrucción AND
+	 * @return "And"
+	 */
 	public String toString () {
 		return "AND";
 	}
