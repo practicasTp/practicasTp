@@ -22,12 +22,20 @@ public class Flip extends SystemMv {
 		} else return false;
 	}
 	
+	/**
+	 * método que parsea un string para identificarse como una instrucción flip
+	 * @return new flip o null
+	 */
 	public Instruction parse (String[] s) {
 		if (s.length == 1 && s[0].equalsIgnoreCase("FLIP"))
 			return new Flip ();
 		else return null;
 	}
 	
+	/**
+	 * método que pasa a string la instrucción flip
+	 * @return "FLIP"
+	 */
 	public String toString () {
 		return "FLIP";
 	}

@@ -21,12 +21,21 @@ public class Dup extends SystemMv{
 		} else return false;
 	}
 	
+	
+	/**
+	 * método que parsea un string para identificarse como una instrucción dup
+	 * @return new dup o null
+	 */
 	public Instruction parse (String[] s) {
 		if (s.length == 1 && s[0].equalsIgnoreCase("DUP"))
 			return new Dup ();
 		else return null;
 	}
 	
+	/**
+	 * método que pasa a string la instrucción add
+	 * @return "ADD"
+	 */
 	public String toString () {
 		return "DUP";
 	}

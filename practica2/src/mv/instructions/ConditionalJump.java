@@ -10,8 +10,18 @@ abstract public class ConditionalJump extends Jumps{
 		this.relative = false;
 	}
 	
+	/**
+	 * Método que ejecuta la instrucción
+	 * @param cima
+	 * @return boolean
+	 */
 	abstract protected boolean execute (int cima);
 	
+	/**
+	 * Método que ejecuta las acciones comunes a todas las intrucciones condicionales
+	 * y ejecuta el método que ejecuta la instrucción.
+	 * @return boolean
+	 */
 	public boolean executeAux (Cpu cpu) {
 		int cima = cpu.pop();
 		if (this.execute(cima)) {
@@ -26,7 +36,15 @@ abstract public class ConditionalJump extends Jumps{
 		}
 	}
 	
+	/**
+	 * Parsea un string para identificar la instrucción.
+	 * @return instruction.
+	 */
 	abstract public Instruction parse (String[] s);
 	
+	/**
+	 * Pasa a string la instrucción.
+	 * @return string
+	 */
 	abstract public String toString ();
 }

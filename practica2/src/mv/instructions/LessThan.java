@@ -6,17 +6,30 @@ public class LessThan extends Compare{
 		super (TipoInstruction.LT);
 	}
 	
+	/**
+	 * Comprueba si la cima es menor que la subcima.
+	 * @param cima
+	 * @param subcima
+	 */
 	public boolean compare (int cima, int subcima) {
 		if (cima < subcima) return true;
 		else return false;
 	}
 	
+	/**
+	 * método que parsea un string para identificarse como una instrucción lt
+	 * @return new LessThan o null
+	 */
 	public Instruction parse (String[] s) {
 		if (s.length == 1 && s[0].equalsIgnoreCase("LT"))
 			return new LessThan ();
 		else return null;
 	}
 	
+	/**
+	 * método que pasa a string la instrucción lt
+	 * @return "LT"
+	 */
 	public String toString () {
 		return "LT";
 	}

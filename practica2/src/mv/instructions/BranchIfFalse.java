@@ -7,11 +7,18 @@ public class BranchIfFalse extends ConditionalJump {
 		this.operando = operando;
 	}
 	
+	/**
+	 * Comprueba si la cima esta a 0 devolviendo un booleano.
+	 */
 	public boolean execute (int cima) {
 		if (cima == 0) return true;
 		else return false;
 	}
 	
+	/**
+	 * método que parsea un string para identificarse como una instrucción bf.
+	 * @return new bf o null
+	 */
 	public Instruction parse (String[] s) {
 		if (s.length == 2 && s[0].equalsIgnoreCase("BF")){
 			int operando = Integer.parseInt(s[1]);
@@ -19,6 +26,10 @@ public class BranchIfFalse extends ConditionalJump {
 		} else return null;
 	}
 	
+	/**
+	 * método que pasa a string la instrucción bf.
+	 * @return "BF"
+	 */
 	public String toString () {
 		return "BF " + this.operando;
 	}

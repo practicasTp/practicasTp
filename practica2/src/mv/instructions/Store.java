@@ -28,6 +28,10 @@ public class Store extends SystemMv{
 		} else return false;
 	}
 	
+	/**
+	 * método que parsea un string para identificarse como una instrucción store
+	 * @return new Store o null
+	 */
 	public Instruction parse (String[] s) {
 		if (s.length == 2 && s[0].equalsIgnoreCase("STORE")) {
 			int operando = Integer.parseInt(s[1]);
@@ -35,6 +39,10 @@ public class Store extends SystemMv{
 		} else return null;
 	}
 	
+	/**
+	 * método que pasa a string la instrucción store
+	 * @return "STORE"
+	 */
 	public String toString () {
 		return "STORE " + this.operando;
 	}

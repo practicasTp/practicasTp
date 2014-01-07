@@ -9,8 +9,16 @@ abstract public class Jumps extends Instruction {
 		this.operando = operando;
 	}
 	
+	/**
+	 * Método abstracto que ejecutará la instrucción.
+	 * @param cpu
+	 * @return boolean
+	 */
 	abstract protected boolean executeAux (Cpu cpu);
 	
+	/**
+	 * Comprueba que la pila tiene más de 0 componentes.
+	 */
 	public boolean execute (Cpu cpu) {
 		if(cpu.getSizeStack() >= 1) {
 			if(executeAux(cpu)) return true;
@@ -18,7 +26,15 @@ abstract public class Jumps extends Instruction {
 		} else return false;
 	}
 	
+	/**
+	 * Método que parseará un string para identificar la instrucción.
+	 * @return Instruction
+	 */
 	abstract public Instruction parse (String[] s);
 	
+	/**
+	 * Pasa a string la instrucción.
+	 * @return string
+	 */
 	abstract public String toString ();
 }

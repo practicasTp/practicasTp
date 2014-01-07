@@ -8,6 +8,10 @@ public class Neg extends SystemMv {
 		super (TipoInstruction.NEG);
 	}
 	
+	/**
+	 * Hace el opuesto de la cima de la pila y lo cambia
+	 * @param cpu
+	 */
 	public boolean executeAux (Cpu cpu) {
 		if (cpu.getSizeStack() >= 1) {
 			int cima = cpu.pop();
@@ -21,12 +25,20 @@ public class Neg extends SystemMv {
 		} else return false;
 	}
 	
+	/**
+	 * método que parsea un string para identificarse como una instrucción neg
+	 * @return new Neg o null
+	 */
 	public Instruction parse (String[] s) {
 		if (s.length >= 1 && s[0].equalsIgnoreCase("NEG"))
 			return new Neg ();
 		else return null;
 	}
 	
+	/**
+	 * método que pasa a string la instrucción neg
+	 * @return "NEG"
+	 */
 	public String toString () {
 		return "NEG";
 	}

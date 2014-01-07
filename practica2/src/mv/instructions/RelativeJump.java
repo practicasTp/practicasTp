@@ -9,11 +9,19 @@ public class RelativeJump extends Jumps {
 		this.operando = operando;
 	}
 	
+	/**
+	 * Incrementa el contador de programa en función del atributo operando.
+	 * @param cpu.
+	 */
 	public boolean executeAux (Cpu cpu) {
 		cpu.increaseProgramCounter(this.operando);
 		return true;
 	}
 	
+	/**
+	 * método que parsea un string para identificarse como una instrucción rjump
+	 * @return new RelativeJump o null
+	 */
 	public Instruction parse (String[] s) {
 		if (s.length == 2 && s[0].equalsIgnoreCase("RJUMP")) {
 			int operando = Integer.parseInt(s[1]);
@@ -21,6 +29,10 @@ public class RelativeJump extends Jumps {
 		} else return null;
 	}
 	
+	/**
+	 * método que pasa a string la instrucción rjump
+	 * @return "RJUMP"
+	 */
 	public String toString () {
 		return "RJUMP " + this.operando;
 	}

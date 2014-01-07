@@ -27,7 +27,7 @@ public class Add extends Arithmetics{
 	
 	/**
 	 * método que pasa a string la instrucción add
-	 * return "ADD"
+	 * @return "ADD"
 	 */
 	public String toString () {
 		return "ADD";

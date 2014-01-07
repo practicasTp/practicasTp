@@ -8,6 +8,10 @@ public class Pop extends SystemMv {
 		super (TipoInstruction.POP);
 	}
 	
+	/**
+	 * Extrae la cima de la pila
+	 * @param cpu
+	 */
 	public boolean executeAux (Cpu cpu) {
 		if (cpu.getSizeStack() >= 1) {
 			cpu.pop();
@@ -15,12 +19,20 @@ public class Pop extends SystemMv {
 		} else return false;
 	}
 	
+	/**
+	 * método que parsea un string para identificarse como una instrucción pop
+	 * @return new Pop o null
+	 */
 	public Instruction parse (String[] s) {
 		if (s.length == 1 && s[0].equalsIgnoreCase("POP"))
 			return new Pop ();
 		else return null;
 	}
 	
+	/**
+	 * método que pasa a string la instrucción pop
+	 * @return "POP"
+	 */
 	public String toString () {
 		return "POP";
 	}

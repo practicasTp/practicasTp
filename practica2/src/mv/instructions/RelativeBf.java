@@ -7,6 +7,9 @@ public class RelativeBf extends ConditionalJump {
 		this.operando = operando;
 	}
 	
+	/**
+	 * Si la cima es igual a 0 hace un salto relativo
+	 */
 	public boolean execute (int cima) {
 		if (cima == 0) {
 			this.relative = true;
@@ -15,6 +18,10 @@ public class RelativeBf extends ConditionalJump {
 		else return false;
 	}
 	
+	/**
+	 * método que parsea un string para identificarse como una instrucción rbf
+	 * @return new RelativeBf o null
+	 */
 	public Instruction parse (String[] s) {
 		if (s.length == 2 && s[0].equalsIgnoreCase("RBF")){
 			int operando = Integer.parseInt(s[1]);
@@ -22,6 +29,10 @@ public class RelativeBf extends ConditionalJump {
 		} else return null;
 	}
 	
+	/**
+	 * método que pasa a string la instrucción rbf
+	 * @return "RBF"
+	 */
 	public String toString () {
 		return "RBF " + this.operando;
 	}

@@ -20,12 +20,20 @@ public class Out extends SystemMv {
 		} return false;
 	}
 	
+	/**
+	 * método que parsea un string para identificarse como una instrucción out
+	 * @return new Out o null
+	 */
 	public Instruction parse (String[] s) {
 		if (s.length == 1 && s[0].equalsIgnoreCase("OUT"))
 			return new Out ();
 		else return null;
 	}
 	
+	/**
+	 * método que pasa a string la instrucción out
+	 * @return "OUT"
+	 */
 	public String toString () {
 		return "OUT";
 	}

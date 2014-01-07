@@ -8,6 +8,10 @@ public class Or extends Boolean {
 		super (TipoInstruction.OR);
 	}
 	
+	/**
+	 * Ejecuta una operación del tipo or o ||
+	 * @param cpu
+	 */
 	public boolean executeAux (Cpu cpu) {
 		int n1 = cpu.pop();
 		int n2 = cpu.pop();
@@ -15,12 +19,20 @@ public class Or extends Boolean {
 		else return false;
 	}
 	
+	/**
+	 * método que parsea un string para identificarse como una instrucción or
+	 * @return new Or o null
+	 */
 	public Instruction parse (String[] s) {
 		if (s.length == 1 && s[0].equalsIgnoreCase("OR"))
 			return new Or ();
 		else return null;
 	}
 	
+	/**
+	 * método que pasa a string la instrucción or
+	 * @return "OR"
+	 */
 	public String toString () {
 		return "OR";
 	}

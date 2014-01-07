@@ -9,8 +9,17 @@ abstract public class SystemMv extends Instruction {
 		super(tipo);
 	}
 	
+	/**
+	 * Método que ejecuta la instrucción
+	 * @param cpu
+	 * @return boolean
+	 */
 	abstract protected boolean executeAux(Cpu cpu);
 	
+	/**
+	 * Se encarga de ejecutar las instrucciones propias del sistema, incrementando el 
+	 * contador de programa en caso de que se ejecuten correctamente.
+	 */
 	public boolean execute(Cpu cpu) {
 		if(this.executeAux(cpu)) {
 			cpu.increaseProgramCounter();
@@ -18,7 +27,15 @@ abstract public class SystemMv extends Instruction {
 		} else return false;
 	}
 	
+	/**
+	 * Parsea un string para identificar la instrucción.
+	 * @return instruction.
+	 */
 	abstract public Instruction parse (String[] s);
 	
+	/**
+	 * Pasa a string la instrucción.
+	 * @return string
+	 */
 	abstract public String toString ();
 }
