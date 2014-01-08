@@ -1,5 +1,7 @@
 package mv.commands;
 
+import mv.instructions.Instruction;
+
 public class Steps extends Step {
 	private int steps;
 	
@@ -38,6 +40,12 @@ public class Steps extends Step {
 		//si la cpu me dice que no hay más instrucciones entonces paro la máquina
 		if(CommandInterpreter.cpu.finished()){
 			this.isFinished = true;
+		//si no, compruebo si esa ha sido la ultima instrucción para parar la máquina
+		}else{
+			Instruction nextInstruction = CommandInterpreter.cpu.getCurrentInstruction();
+			if(nextInstruction == null){
+				this.isFinished = true;
+			}
 		}
 		
 		return resultado;
