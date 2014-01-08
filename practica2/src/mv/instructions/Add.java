@@ -9,6 +9,8 @@ public class Add extends Arithmetics{
 	/**
 	 * Método que ejecuta una suma de 2 operandos
 	 * @return true
+	 * @param n1
+	 * @param n2
 	 */
 	public boolean execute (int n1, int n2) {
 		this.result = n1 + n2;
@@ -18,6 +20,7 @@ public class Add extends Arithmetics{
 	/**
 	 * método que parsea un string para identificarse como una instrucción add
 	 * @return new add o null
+	 * @param string[]
 	 */
 	public Instruction parse (String[] s) {
 		if ((s.length == 1) && s[0].equalsIgnoreCase("ADD")) 
