@@ -20,10 +20,10 @@ abstract public class Jumps extends Instruction {
 	 * Comprueba que la pila tiene más de 0 componentes.
 	 */
 	public boolean execute (Cpu cpu) {
-		if(cpu.getSizeStack() >= 1) {
-			if(executeAux(cpu)) return true;
-			else return false;
-		} else return false;
+		if(executeAux(cpu)) 
+			return true;
+		else 
+			return false;
 	}
 	
 	/**

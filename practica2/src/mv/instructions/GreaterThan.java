@@ -10,7 +10,7 @@ public class GreaterThan extends Compare {
 	 * Compara la cima y la subcima indicando si es mayor.
 	 */
 	public boolean compare (int cima, int subcima) {
-		if (cima > subcima) return true;
+		if (subcima > cima) return true;
 		else return false;
 	}
 	

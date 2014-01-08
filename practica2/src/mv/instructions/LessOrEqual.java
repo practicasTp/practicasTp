@@ -12,7 +12,7 @@ public class LessOrEqual extends Compare {
 	 * @param subcima
 	 */
 	public boolean compare (int cima, int subcima) {
-		if (cima <= subcima) return true;
+		if (subcima <= cima) return true;
 		else return false;
 	}
 	

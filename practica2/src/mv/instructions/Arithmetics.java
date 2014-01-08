@@ -24,8 +24,8 @@ abstract public class Arithmetics extends Instruction {
 		//si la pila tiene 2 o más operandos
 		if (cpu.getSizeStack () >= 2){
 			//saco 2 operandos
-			int n1 = cpu.pop();
 			int n2 = cpu.pop();
+			int n1 = cpu.pop();
 			//ejecuto la operación
 			if (this.execute (n1, n2)) {
 				//meto el resultado en la cpu

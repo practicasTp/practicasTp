@@ -23,17 +23,19 @@ abstract public class ConditionalJump extends Jumps{
 	 * @return boolean
 	 */
 	public boolean executeAux (Cpu cpu) {
-		int cima = cpu.pop();
-		if (this.execute(cima)) {
-			if (!this.relative)
-				cpu.jumpProgramCounter(this.operando);
-			else 
-				cpu.increaseProgramCounter(this.operando);
-			return true;
-		} else {
-			cpu.increaseProgramCounter ();
-			return true;
-		}
+		if(cpu.getSizeStack() >= 1) {	
+			int cima = cpu.pop();
+			if (this.execute(cima)) {
+				if (!this.relative)
+					cpu.jumpProgramCounter(this.operando);
+				else 
+					cpu.increaseProgramCounter(this.operando);
+				return true;
+			} else {
+				cpu.increaseProgramCounter ();
+				return true;
+			}
+		} else return false;
 	}
 	
 	/**
