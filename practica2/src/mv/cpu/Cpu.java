@@ -77,6 +77,7 @@ public class Cpu {
 	 */
 	public void exit () {
 		this.fin = true;
+		this.correctPc = false;
 	}
 	
 	/**
@@ -175,6 +176,10 @@ public class Cpu {
 	 * @param pos
 	 */
 	public void jumpProgramCounter(int pos) {
+		int prueba = this.program.getSizeProgram();
+		if(pos >= prueba){
+			System.err.println("Error: Contador de programa fuera de rango.");
+		}
 		this.pc = pos;
 	}
 	

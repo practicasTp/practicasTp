@@ -38,7 +38,7 @@ public class Steps extends Step {
 		}while(resultado);
 		
 		//si la cpu me dice que no hay más instrucciones entonces paro la máquina
-		if(CommandInterpreter.cpu.finished()){
+		if(CommandInterpreter.cpu.finished()  || CommandInterpreter.cpu.abortComputation()){
 			this.isFinished = true;
 		//si no, compruebo si esa ha sido la ultima instrucción para parar la máquina
 		}else{

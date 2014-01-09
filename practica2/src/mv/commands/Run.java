@@ -28,7 +28,7 @@ public class Run extends Step {
 		}while(resultado!=false);
 			
 		//si la cpu me dice que ha terminado, paro la máquina (del bucle se puede salir por fallo de instrucción)
-		if(CommandInterpreter.cpu.finished()){
+		if(CommandInterpreter.cpu.finished()  || CommandInterpreter.cpu.abortComputation()){
 			this.isFinished = true;
 		}
 		
