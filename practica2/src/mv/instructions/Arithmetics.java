@@ -12,7 +12,7 @@ abstract public class Arithmetics extends Instruction {
 	 * Método abstracto que ejecuta una instrucción con 2 operandos
 	 * @param n1
 	 * @param n2
-	 * @return
+	 * @return boolean
 	 */
 	abstract protected boolean execute (int n1, int n2);
 	

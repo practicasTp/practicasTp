@@ -27,7 +27,7 @@ abstract public class CommandInterpreter {
 	
 	/**
 	 * Indica si el programa ha terminado y por lo tanto no se pueden ejecutar más comandos.
-	 * @return
+	 * @return boolean
 	 */
 	public boolean isFinished () {
 		//devuelvo true o false en función del valor de la variable 

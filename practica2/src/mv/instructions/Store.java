@@ -11,8 +11,7 @@ public class Store extends SystemMv{
 	
 	/**
 	 * Metodo que almacena en una posicion de la memoria, un dato.
-	 * @param operando que actua como la posición
-	 * @param cima que actua como el dato a almacenar
+	 * @param cpu
 	 * @return boolean
 	 */
 	public boolean executeAux (Cpu cpu) {

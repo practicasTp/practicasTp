@@ -13,7 +13,7 @@ public class InconditionalJump extends Jumps{
 	 * Modifica el contador de programa de la cpu cambiando el valor por el indicado en el
 	 * atributo operando.
 	 * @param cpu
-	 * @param boolean
+	 * @return boolean
 	 */
 	public boolean executeAux (Cpu cpu) {
 		cpu.jumpProgramCounter(this.operando);

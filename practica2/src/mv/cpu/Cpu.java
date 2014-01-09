@@ -93,7 +93,7 @@ public class Cpu {
 	/**
 	 * Devuelve la instrucción a ejecutar en función del contador de programa,
 	 * en caso de que esté bien. En otro caso devuelve null.
-	 * @return
+	 * @return Instruction
 	 */
 	public Instruction getCurrentInstruction () {
 		//si el contador del programa es menor que el tamaño
@@ -110,7 +110,7 @@ public class Cpu {
 	/**
 	 * Devuelve true si la ejecución debe detenerse, bien porque el contador de programa
 	 * no es correcto, o bien por que se ha ejecutado la instrucción halt.
-	 * @return
+	 * @return boolean
 	 */
 	public boolean abortComputation () {
 		if (!this.correctPc) return true;
@@ -119,7 +119,7 @@ public class Cpu {
 	
 	/**
 	 * Ejecuta la siguiente instrucción, es decir, la situada en el contador de programa.
-	 * @return
+	 * @return boolean
 	 */
 	public boolean step () {
 		//obtengo una instruccion

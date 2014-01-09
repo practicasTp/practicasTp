@@ -11,7 +11,7 @@ public class RelativeJump extends Jumps {
 	
 	/**
 	 * Incrementa el contador de programa en función del atributo operando.
-	 * @param cpu.
+	 * @param cpu
 	 * @return boolean
 	 */
 	public boolean executeAux (Cpu cpu) {
