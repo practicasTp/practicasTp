@@ -10,7 +10,8 @@ public class Dup extends SystemMv{
 	
 	/**
 	 * Metodo que duplica el valor de la cima
-	 * @return true/false
+	 * @param cpu
+	 * @return boolean
 	 */
 	public boolean executeAux (Cpu cpu) {
 		if (cpu.getSizeStack() >= 1) {
@@ -24,6 +25,7 @@ public class Dup extends SystemMv{
 	
 	/**
 	 * método que parsea un string para identificarse como una instrucción dup
+	 * @param s
 	 * @return new dup o null
 	 */
 	public Instruction parse (String[] s) {

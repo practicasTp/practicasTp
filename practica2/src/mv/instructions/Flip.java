@@ -10,7 +10,8 @@ public class Flip extends SystemMv {
 	
 	/**
 	 * Metodo que intercambia el valor de la subcima de la pila por el de la cima de la pila
-	 * @return true/false
+	 * @param cpu
+	 * @return boolean
 	 */
 	public boolean executeAux (Cpu cpu) {
 		if (cpu.getSizeStack() >= 2) {
@@ -24,6 +25,7 @@ public class Flip extends SystemMv {
 	
 	/**
 	 * método que parsea un string para identificarse como una instrucción flip
+	 * @param s
 	 * @return new flip o null
 	 */
 	public Instruction parse (String[] s) {

@@ -20,6 +20,7 @@ abstract public class ConditionalJump extends Jumps{
 	/**
 	 * Método que ejecuta las acciones comunes a todas las intrucciones condicionales
 	 * y ejecuta el método que ejecuta la instrucción.
+	 * @param cpu
 	 * @return boolean
 	 */
 	public boolean executeAux (Cpu cpu) {
@@ -40,6 +41,7 @@ abstract public class ConditionalJump extends Jumps{
 	
 	/**
 	 * Parsea un string para identificar la instrucción.
+	 * @param s
 	 * @return instruction.
 	 */
 	abstract public Instruction parse (String[] s);

@@ -10,6 +10,7 @@ public class Mult extends Arithmetics {
 	 * Ejecuta una multiplicación
 	 * @param n1
 	 * @param n2
+	 * @return boolean
 	 */
 	public boolean execute (int n1, int n2) {
 		this.result = n1 * n2;
@@ -18,6 +19,7 @@ public class Mult extends Arithmetics {
 	
 	/**
 	 * método que parsea un string para identificarse como una instrucción mult
+	 * @param s
 	 * @return new Mult o null
 	 */
 	public Instruction parse (String[] s) {

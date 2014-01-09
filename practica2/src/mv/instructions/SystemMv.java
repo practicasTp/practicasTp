@@ -19,6 +19,8 @@ abstract public class SystemMv extends Instruction {
 	/**
 	 * Se encarga de ejecutar las instrucciones propias del sistema, incrementando el 
 	 * contador de programa en caso de que se ejecuten correctamente.
+	 * @param cpu
+	 * @return boolean
 	 */
 	public boolean execute(Cpu cpu) {
 		if(this.executeAux(cpu)) {
@@ -29,6 +31,7 @@ abstract public class SystemMv extends Instruction {
 	
 	/**
 	 * Parsea un string para identificar la instrucción.
+	 * @param s
 	 * @return instruction.
 	 */
 	abstract public Instruction parse (String[] s);

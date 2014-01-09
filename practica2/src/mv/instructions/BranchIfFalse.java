@@ -9,6 +9,8 @@ public class BranchIfFalse extends ConditionalJump {
 	
 	/**
 	 * Comprueba si la cima esta a 0 devolviendo un booleano.
+	 * @param cima
+	 * @return boolean
 	 */
 	public boolean execute (int cima) {
 		if (cima == 0) return true;
@@ -17,6 +19,7 @@ public class BranchIfFalse extends ConditionalJump {
 	
 	/**
 	 * método que parsea un string para identificarse como una instrucción bf.
+	 * param s
 	 * @return new bf o null
 	 */
 	public Instruction parse (String[] s) {

@@ -10,6 +10,7 @@ public class RelativeBt extends ConditionalJump {
 	/**
 	 * Si la cima es igual a 1 hace un salto relativo en función del atributo operando.
 	 * @param cima
+	 * @return boolean
 	 */
 	public boolean execute (int cima) {
 		if (cima == 1) {
@@ -21,6 +22,7 @@ public class RelativeBt extends ConditionalJump {
 	
 	/**
 	 * método que parsea un string para identificarse como una instrucción rbt
+	 * @param s
 	 * @return new RelativeBt o null
 	 */
 	public Instruction parse (String[] s) {

@@ -9,6 +9,8 @@ public class RelativeBf extends ConditionalJump {
 	
 	/**
 	 * Si la cima es igual a 0 hace un salto relativo
+	 * @param cima
+	 * @return boolean
 	 */
 	public boolean execute (int cima) {
 		if (cima == 0) {
@@ -20,6 +22,7 @@ public class RelativeBf extends ConditionalJump {
 	
 	/**
 	 * método que parsea un string para identificarse como una instrucción rbf
+	 * @param s
 	 * @return new RelativeBf o null
 	 */
 	public Instruction parse (String[] s) {

@@ -5,8 +5,18 @@ abstract public class Instruction {
 	private int operando;
 	private TipoInstruction tipo;
 	
+	/**
+	 * Ejecuta la instrucción
+	 * @param cpu
+	 * @return boolean
+	 */
 	abstract public boolean execute (Cpu cpu);
 	
+	/**
+	 * Recibe un string para identificar la instrucción a ejecutar
+	 * @param s
+	 * @return Instruction
+	 */
 	abstract public Instruction parse (String[] s);
 	
 	public Instruction (TipoInstruction tipo){

@@ -39,6 +39,7 @@ abstract public class Boolean extends Instruction {
 	
 	/**
 	 * método que parsea un string para identificarse como una instrucción booleana
+	 * @param s
 	 * @return instrucción
 	 */
 	abstract public Instruction parse (String[] s);

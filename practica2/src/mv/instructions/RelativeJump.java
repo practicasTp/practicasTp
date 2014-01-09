@@ -12,6 +12,7 @@ public class RelativeJump extends Jumps {
 	/**
 	 * Incrementa el contador de programa en función del atributo operando.
 	 * @param cpu.
+	 * @return boolean
 	 */
 	public boolean executeAux (Cpu cpu) {
 		cpu.increaseProgramCounter(this.operando);
@@ -20,6 +21,7 @@ public class RelativeJump extends Jumps {
 	
 	/**
 	 * método que parsea un string para identificarse como una instrucción rjump
+	 * @param s
 	 * @return new RelativeJump o null
 	 */
 	public Instruction parse (String[] s) {

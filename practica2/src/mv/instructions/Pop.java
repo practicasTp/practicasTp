@@ -11,6 +11,7 @@ public class Pop extends SystemMv {
 	/**
 	 * Extrae la cima de la pila
 	 * @param cpu
+	 * @return boolean
 	 */
 	public boolean executeAux (Cpu cpu) {
 		if (cpu.getSizeStack() >= 1) {
@@ -21,6 +22,7 @@ public class Pop extends SystemMv {
 	
 	/**
 	 * método que parsea un string para identificarse como una instrucción pop
+	 * @param s
 	 * @return new Pop o null
 	 */
 	public Instruction parse (String[] s) {

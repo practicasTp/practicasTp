@@ -23,7 +23,7 @@ public class And extends Boolean{
 	/**
 	 * método que parsea un string para identificarse como una instrucción and
 	 * @return new and o null
-	 * @param string[]
+	 * @param s
 	 */
 	public Instruction parse(String[] s) {
 		if ((s.length == 1) && s[0].equalsIgnoreCase("AND"))

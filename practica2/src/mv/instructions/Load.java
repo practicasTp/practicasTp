@@ -13,6 +13,7 @@ public class Load extends SystemMv {
 	 * Captura el valor de la memoria en la posición indicada por el atributo operando y lo 
 	 * introduce en la pila.
 	 * @param cpu
+	 * @return boolean
 	 */
 	public boolean executeAux (Cpu cpu) {
 		if(this.operando>=0){
@@ -27,6 +28,7 @@ public class Load extends SystemMv {
 	
 	/**
 	 * método que parsea un string para identificarse como una instrucción load
+	 * @param s
 	 * @return new Load o null
 	 */
 	public Instruction parse (String[] s) {

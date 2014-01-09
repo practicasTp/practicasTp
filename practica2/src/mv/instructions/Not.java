@@ -10,6 +10,8 @@ public class Not extends Boolean {
 	
 	/**
 	 * Ejecuta una operación del tipo not o !
+	 * @param cpu
+	 * @return boolean
 	 */
 	public boolean executeAux (Cpu cpu) {
 		int n1 = cpu.pop();
@@ -22,6 +24,7 @@ public class Not extends Boolean {
 	
 	/**
 	 * método que parsea un string para identificarse como una instrucción not
+	 * @param s
 	 * @return new Not o null
 	 */
 	public Instruction parse (String[] s) {

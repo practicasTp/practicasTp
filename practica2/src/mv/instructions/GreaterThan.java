@@ -8,6 +8,9 @@ public class GreaterThan extends Compare {
 	
 	/**
 	 * Compara la cima y la subcima indicando si es mayor.
+	 * @param cima
+	 * @param subcima
+	 * @return boolean
 	 */
 	public boolean compare (int cima, int subcima) {
 		if (subcima > cima) return true;
@@ -16,6 +19,7 @@ public class GreaterThan extends Compare {
 	
 	/**
 	 * método que parsea un string para identificarse como una instrucción gt
+	 * @param s
 	 * @return new GreaterThan o null
 	 */
 	public Instruction parse (String[] s) {

@@ -9,6 +9,11 @@ public class InstructionParser {
 		new Not(), new Or(), new Out(), new Pop(), new Push(0), new Store(0), new Sub(), new InconditionalJump(0), new Equals()
 	};
 	
+	/**
+	 * Método estático que identifica la instrucción parseando un string
+	 * @param instruccionSinParsear
+	 * @return Instruction
+	 */
 	public static Instruction parser(String[] instruccionSinParsear){
 		int i = 0;
 		boolean stop = false;

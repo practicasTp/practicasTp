@@ -12,6 +12,7 @@ public class Push extends SystemMv {
 	/**
 	 * Introcude un nuevo valor en la pila.
 	 * @param cpu
+	 * @return boolean
 	 */
 	public boolean executeAux (Cpu cpu) {
 		cpu.push(this.operando);
@@ -20,6 +21,7 @@ public class Push extends SystemMv {
 	
 	/**
 	 * método que parsea un string para identificarse como una instrucción push
+	 * @param s
 	 * @return new Push o null
 	 */
 	public Instruction parse (String[] s) {

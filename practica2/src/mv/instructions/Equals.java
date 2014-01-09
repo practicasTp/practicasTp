@@ -8,6 +8,9 @@ public class Equals extends Compare {
 	
 	/**
 	 * Compara la cima y la subcima indicando si son iguales
+	 * @param cima
+	 * @param subcima
+	 * @return boolean
 	 */
 	public boolean compare (int cima, int subcima) {
 		if (cima == subcima) return true;
@@ -16,6 +19,7 @@ public class Equals extends Compare {
 	
 	/**
 	 * método que parsea un string para identificarse como una instrucción eq
+	 * @param s
 	 * @return new Equals o null
 	 */
 	public Instruction parse (String[] s) {

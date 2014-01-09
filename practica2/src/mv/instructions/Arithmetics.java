@@ -19,6 +19,7 @@ abstract public class Arithmetics extends Instruction {
 	/**
 	 * Método que ejecuta una instrucción de la cpu
 	 * @return resultado
+	 * @param cpu
 	 */
 	public boolean execute (Cpu cpu) {
 		//si la pila tiene 2 o más operandos
@@ -43,6 +44,7 @@ abstract public class Arithmetics extends Instruction {
 	/**
 	 * Método abstracto que parsea una instrucción arithmética
 	 * @return instruccion
+	 * @param s
 	 */
 	abstract public Instruction parse (String[] s);
 	

@@ -11,6 +11,7 @@ public class Or extends Boolean {
 	/**
 	 * Ejecuta una operación del tipo or o ||
 	 * @param cpu
+	 * @return boolean
 	 */
 	public boolean executeAux (Cpu cpu) {
 		int n1 = cpu.pop();
@@ -21,6 +22,7 @@ public class Or extends Boolean {
 	
 	/**
 	 * método que parsea un string para identificarse como una instrucción or
+	 * @param s
 	 * @return new Or o null
 	 */
 	public Instruction parse (String[] s) {

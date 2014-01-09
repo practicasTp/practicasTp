@@ -8,6 +8,9 @@ public class Div extends Arithmetics {
 	
 	/**
 	 * Ejecuta una división.
+	 * @param n1
+	 * @param n2
+	 * @return boolean
 	 */
 	public boolean execute (int n1, int n2) {
 		if (n2 != 0) {
@@ -18,6 +21,7 @@ public class Div extends Arithmetics {
 	
 	/**
 	 * método que parsea un string para identificarse como una instrucción div
+	 * @param s
 	 * @return new div o null
 	 */
 	public Instruction parse (String[] s) {

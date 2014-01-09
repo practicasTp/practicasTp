@@ -10,6 +10,8 @@ public class Halt extends SystemMv {
 	
 	/**
 	 * Finaliza la ejecución de la cpu.
+	 * @param cpu
+	 * @return boolean
 	 */
 	public boolean executeAux (Cpu cpu) {
 		cpu.exit();
@@ -19,6 +21,7 @@ public class Halt extends SystemMv {
 	
 	/**
 	 * método que parsea un string para identificarse como una instrucción add
+	 * @param s
 	 * @return new add o null
 	 */
 	public Instruction parse (String[] s) {

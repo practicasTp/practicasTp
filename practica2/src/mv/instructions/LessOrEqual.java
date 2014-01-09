@@ -10,6 +10,7 @@ public class LessOrEqual extends Compare {
 	 * Comprueba si la cima es menor o igual que la subcima.
 	 * @param cima
 	 * @param subcima
+	 * @return boolean
 	 */
 	public boolean compare (int cima, int subcima) {
 		if (subcima <= cima) return true;
@@ -18,6 +19,7 @@ public class LessOrEqual extends Compare {
 	
 	/**
 	 * método que parsea un string para identificarse como una instrucción le
+	 * @param s
 	 * @return new LessOrEqual o null
 	 */
 	public Instruction parse (String[] s) {

@@ -11,6 +11,7 @@ public class Neg extends SystemMv {
 	/**
 	 * Hace el opuesto de la cima de la pila y lo cambia
 	 * @param cpu
+	 * @return boolean
 	 */
 	public boolean executeAux (Cpu cpu) {
 		if (cpu.getSizeStack() >= 1) {
@@ -27,6 +28,7 @@ public class Neg extends SystemMv {
 	
 	/**
 	 * método que parsea un string para identificarse como una instrucción neg
+	 * @param s
 	 * @return new Neg o null
 	 */
 	public Instruction parse (String[] s) {

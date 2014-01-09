@@ -20,7 +20,7 @@ public class Add extends Arithmetics{
 	/**
 	 * método que parsea un string para identificarse como una instrucción add
 	 * @return new add o null
-	 * @param string[]
+	 * @param s
 	 */
 	public Instruction parse (String[] s) {
 		if ((s.length == 1) && s[0].equalsIgnoreCase("ADD")) 

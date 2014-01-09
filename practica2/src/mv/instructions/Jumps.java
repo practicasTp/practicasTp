@@ -18,6 +18,8 @@ abstract public class Jumps extends Instruction {
 	
 	/**
 	 * Comprueba que la pila tiene más de 0 componentes.
+	 * @param cpu
+	 * @return boolean
 	 */
 	public boolean execute (Cpu cpu) {
 		if(executeAux(cpu)) 
@@ -28,6 +30,7 @@ abstract public class Jumps extends Instruction {
 	
 	/**
 	 * Método que parseará un string para identificar la instrucción.
+	 * @param s
 	 * @return Instruction
 	 */
 	abstract public Instruction parse (String[] s);

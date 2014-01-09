@@ -13,7 +13,7 @@ public class Store extends SystemMv{
 	 * Metodo que almacena en una posicion de la memoria, un dato.
 	 * @param operando que actua como la posición
 	 * @param cima que actua como el dato a almacenar
-	 * @return true/false
+	 * @return boolean
 	 */
 	public boolean executeAux (Cpu cpu) {
 		if (cpu.getSizeStack() >= 1) {
@@ -30,6 +30,7 @@ public class Store extends SystemMv{
 	
 	/**
 	 * método que parsea un string para identificarse como una instrucción store
+	 * @param s
 	 * @return new Store o null
 	 */
 	public Instruction parse (String[] s) {

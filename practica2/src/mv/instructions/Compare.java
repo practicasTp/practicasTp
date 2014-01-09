@@ -20,6 +20,7 @@ abstract public class Compare extends Instruction {
 	/**
 	 * Método que se encarga de realizar las acciones comunes a todas las instrucciones de
 	 * comparación y de ejecutar la instrucción.
+	 * @param cpu
 	 * @return boolean.
 	 */
 	public boolean execute (Cpu cpu) {
@@ -36,8 +37,9 @@ abstract public class Compare extends Instruction {
 	}
 	
 	/**
-	 * método que parsea un string para identificarse como una instrucción booleana
-	 * @return instrucción
+	 * Método que parsea un string para identificarse como una instrucción booleana.
+	 * @param s
+	 * @return instruction
 	 */
 	abstract public Instruction parse (String[] s);
 	

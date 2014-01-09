@@ -10,7 +10,8 @@ public class Out extends SystemMv {
 	
 	/**
 	 * Metodo que devuelve el valor de la cima como caracter
-	 * @return caracter resultado
+	 * @param cpu
+	 * @return boolean
 	 */
 	public boolean executeAux (Cpu cpu) {
 		if (cpu.getSizeStack() >= 1) {
@@ -22,6 +23,7 @@ public class Out extends SystemMv {
 	
 	/**
 	 * método que parsea un string para identificarse como una instrucción out
+	 * @param s
 	 * @return new Out o null
 	 */
 	public Instruction parse (String[] s) {
