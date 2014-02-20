@@ -9,6 +9,10 @@ abstract public class Jumps extends Instruction {
 		this.operando = operando;
 	}
 	
+	public Jumps (TipoInstruction tipo) {
+		super(tipo);
+	}
+	
 	/**
 	 * Método abstracto que ejecutará la instrucción.
 	 * @param cpu
