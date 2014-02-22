@@ -8,6 +8,8 @@ import mv.instructions.Instruction;
 import mv.instructions.InstructionParser;
 import mv.program.ProgramMv;
 
+import org.apache.commons.cli.*;  
+
 public class Main {
 
 	/**
@@ -59,7 +61,44 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		boolean end = false;
 		
-		program =  readProgram();
+		
+		String asmRoute = null;
+		String input = null;
+		String mode = null;
+		String outputRoute = null;
+		CommandLineParser parser  = null;  
+        CommandLine       cmdLine = null; 
+		
+		Options options = new Options();  
+		options.addOption("a", true,  "Fichero con el codigo en ASM del programa a ejecutar.");
+		options.addOption("h",  false, "Imprime el mensaje de ayuda");
+		options.addOption("i", true,  "Entrada del programa de la maquina.");
+		options.addOption("m", true,  "Modo de funcionamiento (batch | interactive). Por defecto, batch.");
+		options.addOption("o", true,  "Fichero donde se guarda la salida del programa de la maquina.");
+		
+		
+		try {
+			
+			parser  = new BasicParser();  
+            cmdLine = parser.parse(options, args); 
+			
+			 // Si está la opcion de ayuda, la imprimimos y salimos.  
+            if (cmdLine.hasOption("h")){    // No hace falta preguntar por el parámetro "help". Ambos son sinónimos  
+                new HelpFormatter().printHelp(Main.class.getCanonicalName(), options );  
+                return;  
+            } 
+            
+            // Si el usuario ha especificado el puerto lo leemos          
+            if (cmdLine.hasOption("a")){  
+            	asmRoute = cmdLine.getOptionValue("a"); 
+            	program = null;
+            } else {          		
+        		program = readProgram();  
+            } 
+            
+		} catch (Exception e) {
+			
+		}
 		
 		//Muestra el programa introducido.
 		System.out.println(program.toString());
