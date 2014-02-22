@@ -13,8 +13,9 @@ abstract public class SystemMv extends Instruction {
 	 * Método que ejecuta la instrucción
 	 * @param cpu
 	 * @return boolean
+	 * @throws Exception 
 	 */
-	abstract protected boolean executeAux(Cpu cpu);
+	abstract protected boolean executeAux(Cpu cpu) ;
 	
 	/**
 	 * Se encarga de ejecutar las instrucciones propias del sistema, incrementando el 
@@ -22,7 +23,7 @@ abstract public class SystemMv extends Instruction {
 	 * @param cpu
 	 * @return boolean
 	 */
-	public boolean execute(Cpu cpu) {
+	public boolean execute(Cpu cpu){
 		if(this.executeAux(cpu)) {
 			cpu.increaseProgramCounter();
 			return true;

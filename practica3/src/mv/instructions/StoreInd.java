@@ -2,20 +2,28 @@ package mv.instructions;
 
 import mv.cpu.Cpu;
 
-public class StoreInd extends Instruction{
+public class StoreInd extends SystemMv {
 
 	public StoreInd () {
 		super (TipoInstruction.STOREIND);
 	}
 	
 	/**
-	 * Modifica el contador de programa de la cpu cambiando el valor por el indicado en la cima de la pila
+	 * Guardo en la posicióin de memoria que me da la cima de la pila, el dato que está en la subcima de la pila
 	 * @param cpu
 	 * @return boolean
 	 */
-	public boolean execute (Cpu cpu) {
+	public boolean executeAux (Cpu cpu) {
+		try {
+			int positionToStore = cpu.pop();
+			int valueToStore	= cpu.pop();
+			cpu.store(positionToStore, valueToStore);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+			
 		
-		return true;
 	}
 	
 	/**

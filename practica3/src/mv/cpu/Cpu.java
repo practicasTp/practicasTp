@@ -121,6 +121,7 @@ public class Cpu {
 	/**
 	 * Ejecuta la siguiente instrucción, es decir, la situada en el contador de programa.
 	 * @return boolean
+	 * @throws Exception 
 	 */
 	public boolean step () {
 		//obtengo una instruccion

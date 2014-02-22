@@ -2,20 +2,26 @@ package mv.instructions;
 
 import mv.cpu.Cpu;
 
-public class LoadInd extends Instruction{
+public class LoadInd extends SystemMv {
 
 	public LoadInd () {
 		super (TipoInstruction.LOADIND);
 	}
 	
 	/**
-	 * Modifica el contador de programa de la cpu cambiando el valor por el indicado en la cima de la pila
+	 * Cargo de memoria una posición que está almacenada en la pila y apilo el valor extraido
 	 * @param cpu
 	 * @return boolean
 	 */
-	public boolean execute (Cpu cpu) {
-		
-		return true;
+	public boolean executeAux (Cpu cpu) {
+		try {
+			int positionToLoad = cpu.pop();
+			int MemoryValue = cpu.getMemoryValue(positionToLoad);
+			cpu.push(MemoryValue);
+			return true; 
+		} catch (Exception e) {
+			return false;
+		}
 	}
 	
 	/**
