@@ -2,7 +2,7 @@ package mv.writing;
 
 public class NullOut implements OutputMethod {
 	
-	public void writeChar() {
+	public void writeChar(char c) {
 		
 	}
 }

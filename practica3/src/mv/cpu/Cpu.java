@@ -2,6 +2,8 @@ package mv.cpu;
 
 import mv.instructions.Instruction;
 import mv.program.ProgramMv;
+import mv.reading.InputMethod;
+import mv.writing.OutputMethod;
 
 public class Cpu {
 	private Memory memoria;
@@ -10,13 +12,17 @@ public class Cpu {
 	private ProgramMv program;
 	private int pc;
 	private boolean correctPc;
+	private InputMethod input;
+	private OutputMethod output;
 	
-	public Cpu(){
+	public Cpu(InputMethod input, OutputMethod output){
 		this.memoria = new Memory ();
 		this.pila = new OperandStack ();
 		this.fin = false;
 		this.pc = 0;
 		this.correctPc = true;
+		this.input = input;
+		this.output = output;
 	}
 	
 	/**
