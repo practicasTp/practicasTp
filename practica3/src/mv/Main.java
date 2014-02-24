@@ -7,6 +7,8 @@ import mv.cpu.Cpu;
 import mv.instructions.Instruction;
 import mv.instructions.InstructionParser;
 import mv.program.ProgramMv;
+import mv.reading.InputMethod;
+import mv.writing.OutputMethod;
 
 import org.apache.commons.cli.*;  
 
@@ -63,11 +65,15 @@ public class Main {
 		
 		
 		String asmRoute = null;
-		String input = null;
+		String inputRoute = null;
 		String mode = null;
 		String outputRoute = null;
 		CommandLineParser parser  = null;  
-        CommandLine       cmdLine = null; 
+        CommandLine       cmdLine = null;
+        
+        /*--------------------------------FALTA REVISIÓN DE JAVI --------------------------------*/
+        InputMethod input = null; //Hay que inicializarlo con el tipo correspondiente (Polimorfismo) ->StdIn, NullIn o FromInputStreamIn.
+        OutputMethod output = null; //Hay que inicializarlo con el tipo correspondiente (Polimorfismo) ->StdOut, NullOut o FromOutputStreamOut.
 		
 		Options options = new Options();  
 		options.addOption("a", true,  "Fichero con el codigo en ASM del programa a ejecutar.");
@@ -106,8 +112,8 @@ public class Main {
 		//Segunda fase:
 		
 		//Creamos la CPU y cargamos el programa.
-		Cpu cpu = new Cpu ();
-		cpu.loadProgram(program);
+		Cpu cpu = new Cpu (input, output, program); //Se pasan las E/S y el programa.
+		/*cpu.loadProgram(program);*/ //No es necesario, se pasa a la CPU directamente.
 		
 		//Pasamos al intérprete de comandos la cpu.
 		CommandInterpreter.configureCommandInterpreter(cpu);

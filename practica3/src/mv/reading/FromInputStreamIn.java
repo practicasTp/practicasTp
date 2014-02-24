@@ -18,6 +18,10 @@ public class FromInputStreamIn implements InputMethod {
 		}
 	}
 	
+	/**
+	 * Lee un caracter del archivo indicado y lo trasnforma a entero en formato ASCII.
+	 * @return int entrada
+	 */
 	public int readChar() {
 		int entrada = -1;
 		try {

@@ -15,7 +15,7 @@ public class Cpu {
 	private InputMethod input;
 	private OutputMethod output;
 	
-	public Cpu(InputMethod input, OutputMethod output){
+	public Cpu(InputMethod input, OutputMethod output, ProgramMv program){
 		this.memoria = new Memory ();
 		this.pila = new OperandStack ();
 		this.fin = false;
@@ -23,6 +23,7 @@ public class Cpu {
 		this.correctPc = true;
 		this.input = input;
 		this.output = output;
+		this.program = program;
 	}
 	
 	/**
@@ -68,14 +69,6 @@ public class Cpu {
 	public boolean store (int pos, int dato) {
 		this.memoria.storeData(pos, dato);
 		return true;
-	}
-	
-	/**
-	 * Carga en la cpu un programa una vez haya sido completado.
-	 * @param p contiene el programa
-	 */
-	public void loadProgram (ProgramMv p) {
-		this.program = p;
 	}
 	
 	//Operaciones E/S

@@ -18,6 +18,10 @@ public class FromOutputStreamOut implements OutputMethod{
 		}
 	}
 	
+	/**
+	 * Escribe un caracter en el archivo indicado
+	 * @param char c.
+	 */
 	public void writeChar(char c) {
 		try {
 			out.write(c);

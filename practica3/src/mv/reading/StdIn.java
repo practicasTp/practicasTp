@@ -4,6 +4,10 @@ import java.io.IOException;
 
 public class StdIn implements InputMethod {
 	
+	/**
+	 * Lee un caracter de consola y los transforma en entero en formato ASCII.
+	 * @return int in.
+	 */
 	public int readChar() {
 		int in = -1;
 		try {
