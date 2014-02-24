@@ -78,6 +78,20 @@ public class Cpu {
 		this.program = p;
 	}
 	
+	//Operaciones E/S
+	
+	public void writeChar(char c) {
+		this.output.writeChar(c);
+	}
+	
+	public int readChar() {
+		int lectura = this.input.readChar();
+		
+		return lectura;
+	}
+	
+	//Operaciones CPU
+	
 	/**
 	 * Realiza la misma función que a instrucción halt.
 	 */
