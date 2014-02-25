@@ -208,11 +208,7 @@ public class Main {
             // Si el usuario ha especificado el in lo leemos y procesamos          
             if (cmdLine.hasOption("i")){  
             	String inReceived = cmdLine.getOptionValue("m");
-            	if(inReceived.length() == 1){
-            		input = new FromInputStreamIn(inReceived);
-            	}else{
-            		input = new FromInputStreamIn(inReceived);
-            	}
+            	input = new FromInputStreamIn(inReceived);
             }else{
             	input = new NullIn();
             }
@@ -220,11 +216,7 @@ public class Main {
             // Si el usuario ha especificado el out lo leemos y procesamos          
             if (cmdLine.hasOption("o")){  
             	String outReceived = cmdLine.getOptionValue("m");
-            	
-            	//?¿?¿
             	output = new FromOutputStreamOut(outReceived);
-            	
-            	
             }else{
             	output = new NullOut();
             }
