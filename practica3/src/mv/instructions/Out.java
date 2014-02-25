@@ -16,7 +16,7 @@ public class Out extends SystemMv {
 	public boolean executeAux (Cpu cpu) {
 		if (cpu.getSizeStack() >= 1) {
 			int cima = cpu.pop();
-			System.out.println((char)cima);
+			cpu.writeChar((char)cima);
 			return true;
 		} return false;
 	}
