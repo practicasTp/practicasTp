@@ -4,7 +4,7 @@ package mv.instructions;
 public class InstructionParser {
 	
 	private static Instruction instructionSet[] = {
-		new Add(), new And(), new RelativeBf(0), new RelativeBt(0), new RelativeJump(0), new BranchIfFalse(0), 
+		new Push(0), new Add(), new And(), new RelativeBf(0), new RelativeBt(0), new RelativeJump(0), new BranchIfFalse(0), 
 		new BranchIfTrue(0), new Div(), new Dup(), new Flip(), new GreaterThan(), new Halt(), new LessOrEqual(), new LessThan(), new Load(0), new Mult(), new Neg(),
 		new Not(), new Or(), new Out(), new Pop(), new Push(0), new Store(0), new Sub(), new InconditionalJump(0), new Equals(), new JumpInd(), new LoadInd(), new StoreInd()
 	};
