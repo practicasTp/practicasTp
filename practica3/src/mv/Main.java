@@ -226,12 +226,6 @@ public class Main {
 			System.exit(1);
 		}
 		
-		
-		 /*--------------------------------FALTA REVISIÓN DE JAVI --------------------------------*/
-        //InputMethod input = null; //Hay que inicializarlo con el tipo correspondiente (Polimorfismo) ->StdIn, NullIn o FromInputStreamIn.
-        //OutputMethod output = null; //Hay que inicializarlo con el tipo correspondiente (Polimorfismo) ->StdOut, NullOut o FromOutputStreamOut.
-		
-		
 		//Muestra el programa introducido.
 		System.out.println(program.toString());
 		
