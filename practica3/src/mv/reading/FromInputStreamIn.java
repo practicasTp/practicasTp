@@ -14,8 +14,12 @@ public class FromInputStreamIn implements InputMethod {
 			this.in = new FileInputStream (archivo);
 		}
 		catch(FileNotFoundException e) {
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 		}
+	}
+	
+	public InputStream getInputStream(){
+		return this.in;
 	}
 	
 	/**

@@ -15,6 +15,7 @@ import mv.program.ProgramMv;
 import mv.reading.FromInputStreamIn;
 import mv.reading.InputMethod;
 import mv.reading.NullIn;
+import mv.reading.StdIn;
 import mv.writing.FromOutputStreamOut;
 import mv.writing.NullOut;
 import mv.writing.OutputMethod;
@@ -207,18 +208,32 @@ public class Main {
             
             // Si el usuario ha especificado el in lo leemos y procesamos          
             if (cmdLine.hasOption("i")){  
-            	String inReceived = cmdLine.getOptionValue("m");
-            	input = new FromInputStreamIn(inReceived);
+            	String inReceived = cmdLine.getOptionValue("i");
+            	
+            	//intentamos abrir el archivo de entrada que nos pasan
+            	try{
+            		new FileReader(inReceived);
+            		input = new FromInputStreamIn(inReceived);
+            	}catch (FileNotFoundException e) { 
+            		//si no existe el fichero, capturo la excepción  y activo el modo interactivo
+        			System.err.println("No se ha encontrado el fichero de entrada, se activa el modo interactivo");
+        			mode	= ExecutionMode.INTERACTIVE;
+        		}
+        
             }else{
-            	input = new NullIn();
+            	//si no lo ha especificado, forzamos el modo interactivo
+            	input 	= new StdIn();
+            	mode	= ExecutionMode.INTERACTIVE;
             }
             
             // Si el usuario ha especificado el out lo leemos y procesamos          
             if (cmdLine.hasOption("o")){  
-            	String outReceived = cmdLine.getOptionValue("m");
+            	String outReceived = cmdLine.getOptionValue("o");
             	output = new FromOutputStreamOut(outReceived);
             }else{
+            	//si no lo ha especificado, forzamos el modo interactivo
             	output = new NullOut();
+            	mode	= ExecutionMode.INTERACTIVE;
             }
             
 		} catch (Exception e) {
@@ -236,7 +251,6 @@ public class Main {
 		
 		//Creamos la CPU y cargamos el programa.
 		Cpu cpu = new Cpu (input, output, program); //Se pasan las E/S y el programa.
-		/*cpu.loadProgram(program);*/ //No es necesario, se pasa a la CPU directamente.
 		
 		//Pasamos al intérprete de comandos la cpu.
 		CommandInterpreter.configureCommandInterpreter(cpu);
@@ -255,8 +269,7 @@ public class Main {
 			}else if(mode == ExecutionMode.BACH){
 				//si el método de ejecución es bach, entonces ejecutamos un run que ejecute toda la aplicación del programa
 				command = new Run();
-			}
-			
+			}	
 			
 			
 			if(command != null){
