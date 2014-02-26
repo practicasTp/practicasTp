@@ -5,7 +5,6 @@ import mv.cpu.Cpu;
 public class Load extends SystemMv {
 
 	public Load (int operando) {
-		super (TipoInstruction.LOAD);
 		this.operando = operando;
 	}
 	

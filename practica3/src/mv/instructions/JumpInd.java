@@ -3,10 +3,6 @@ package mv.instructions;
 import mv.cpu.Cpu;
 
 public class JumpInd extends Jumps{
-
-	public JumpInd () {
-		super (TipoInstruction.JUMPIND);
-	}
 	
 	/**
 	 * Modifica el contador de programa de la cpu cambiando el valor por el indicado en la cima de la pila

@@ -4,9 +4,6 @@ import mv.cpu.Cpu;
 
 public class Pop extends SystemMv {
 
-	public Pop () {
-		super (TipoInstruction.POP);
-	}
 	
 	/**
 	 * Extrae la cima de la pila

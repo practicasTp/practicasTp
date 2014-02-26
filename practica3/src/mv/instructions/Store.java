@@ -5,7 +5,6 @@ import mv.cpu.Cpu;
 public class Store extends SystemMv{
 
 	public Store (int operando) {
-		super (TipoInstruction.STORE);
 		this.operando = operando;
 	}
 	

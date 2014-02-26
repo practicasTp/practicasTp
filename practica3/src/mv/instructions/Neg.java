@@ -4,9 +4,6 @@ import mv.cpu.Cpu;
 
 public class Neg extends SystemMv {
 	
-	public Neg () {
-		super (TipoInstruction.NEG);
-	}
 	
 	/**
 	 * Hace el opuesto de la cima de la pila y lo cambia

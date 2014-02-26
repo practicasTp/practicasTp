@@ -1,12 +1,8 @@
 package mv.instructions;
 import mv.cpu.Cpu;
 
-abstract public class Arithmetics extends Instruction {
+abstract public class Arithmetics implements Instruction {
 	protected int result;
-	
-	public Arithmetics(TipoInstruction tipo) {
-		super(tipo);
-	}
 	
 	/**
 	 * Método abstracto que ejecuta una instrucción con 2 operandos

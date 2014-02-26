@@ -3,7 +3,7 @@ package mv.instructions;
 public class BranchIfTrue extends ConditionalJump {
 
 	public BranchIfTrue (int operando) {
-		super (TipoInstruction.BT, operando);
+		super (operando);
 		this.operando = operando;
 	}
 	

@@ -1,10 +1,6 @@
 package mv.instructions;
 
 public class LessOrEqual extends Compare {
-
-	public LessOrEqual () {
-		super (TipoInstruction.LE);
-	}
 	
 	/**
 	 * Comprueba si la cima es menor o igual que la subcima.

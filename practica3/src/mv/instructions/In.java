@@ -3,10 +3,6 @@ package mv.instructions;
 import mv.cpu.Cpu;
 
 public class In extends SystemMv {
-
-	public In () {
-		super (TipoInstruction.IN);
-	}
 	
 	/**
 	 * Metodo que devuelve el valor de la cima como caracter

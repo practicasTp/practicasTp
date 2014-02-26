@@ -4,9 +4,6 @@ import mv.cpu.Cpu;
 
 public class LoadInd extends SystemMv {
 
-	public LoadInd () {
-		super (TipoInstruction.LOADIND);
-	}
 	
 	/**
 	 * Cargo de memoria una posición que está almacenada en la pila y apilo el valor extraido

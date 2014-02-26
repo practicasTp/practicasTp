@@ -4,9 +4,6 @@ import mv.cpu.Cpu;
 
 public class Halt extends SystemMv {
 
-	public Halt () {
-		super (TipoInstruction.HALT);
-	}
 	
 	/**
 	 * Finaliza la ejecución de la cpu.

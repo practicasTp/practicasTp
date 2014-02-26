@@ -5,7 +5,6 @@ import mv.cpu.Cpu;
 public class RelativeJump extends Jumps {
 	
 	public RelativeJump (int operando) {
-		super (TipoInstruction.RJUMP, operando);
 		this.operando = operando;
 	}
 	
