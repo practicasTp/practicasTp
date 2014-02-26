@@ -217,10 +217,10 @@ public class Main {
             		input = new FromInputStreamIn(inReceived);
             	}catch (FileNotFoundException e) { 
             		//si no existe el fichero, capturo la excepción  y activo el modo interactivo
-        			System.err.println("No se ha encontrado el fichero de entrada, se activa el modo interactivo");
         			mode	= ExecutionMode.INTERACTIVE;
+        			System.err.println("No se ha encontrado el fichero de entrada, se activa el modo interactivo");
+        			input = new NullIn();
         		}
-        
             }else{
             	//si no lo ha especificado, forzamos el modo interactivo
             	input 	= new StdIn();
