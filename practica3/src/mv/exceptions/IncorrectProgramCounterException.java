@@ -1,6 +1,6 @@
 package mv.exceptions;
 
-public class IncorrectProgramCounterException extends Error {
+public class IncorrectProgramCounterException extends Exception {
 
 	/**
 	 * 

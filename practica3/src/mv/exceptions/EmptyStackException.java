@@ -1,6 +1,6 @@
 package mv.exceptions;
 
-public class EmptyStackException extends Error {
+public class EmptyStackException extends Exception {
 	
 	/**
 	 * 

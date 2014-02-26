@@ -1,6 +1,6 @@
 package mv.exceptions;
 
-public class IncorrectParsingInstruction extends Error {
+public class IncorrectParsingInstruction extends Exception {
 
 	/**
 	 * 

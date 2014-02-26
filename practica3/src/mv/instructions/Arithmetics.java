@@ -1,5 +1,6 @@
 package mv.instructions;
 import mv.cpu.Cpu;
+import mv.exceptions.InsufficientOperandsException;
 
 abstract public class Arithmetics implements Instruction {
 	protected int result;
@@ -17,7 +18,8 @@ abstract public class Arithmetics implements Instruction {
 	 * @return resultado
 	 * @param cpu
 	 */
-	public boolean execute (Cpu cpu) {
+	public boolean execute (Cpu cpu)
+		throws InsufficientOperandsException{
 		//si la pila tiene 2 o más operandos
 		if (cpu.getSizeStack () >= 2){
 			//saco 2 operandos
@@ -34,7 +36,9 @@ abstract public class Arithmetics implements Instruction {
 			}//si no ha ido bien la ejecución
 			else return false;
 		}//si no lo tiene retorno falso
-		else return false;
+		else {
+			throw new InsufficientOperandsException("Error: Faltan operandos para realizar la operación");
+		}
 	}
 	
 	/**

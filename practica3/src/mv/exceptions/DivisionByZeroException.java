@@ -1,6 +1,6 @@
 package mv.exceptions;
 
-public class DivisionByZeroException extends Error {
+public class DivisionByZeroException extends Exception {
 	
 	/**
 	 * 

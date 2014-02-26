@@ -1,6 +1,7 @@
 package mv.cpu;
 
 import mv.ExecutionMode;
+import mv.exceptions.InsufficientOperandsException;
 import mv.instructions.Instruction;
 import mv.program.ProgramMv;
 import mv.reading.InputMethod;
@@ -139,7 +140,7 @@ public class Cpu {
 	 * @return boolean
 	 * @throws Exception 
 	 */
-	public boolean step () {
+	public boolean step () throws InsufficientOperandsException {
 		//obtengo una instruccion
 		Instruction inst = this.getCurrentInstruction();
 		//si obtengo una
@@ -149,12 +150,16 @@ public class Cpu {
 				System.out.println("Comienza la ejecución de "+inst.toString());
 			}
 			//retorno cómo ha ido la ejecución
-			if (inst.execute(this)){
-				return true;
-			}else{
-				System.out.println("Error en la ejecución.");
+			try {
+				if (inst.execute(this)){
+					return true;
+				}
+			}
+			catch (InsufficientOperandsException e) {
+				System.err.println(e.getMessage());
 				return false;
 			}
+			
 		//si no, finalizo la ejecución
 		} else{
 			this.exit();
