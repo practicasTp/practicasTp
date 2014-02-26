@@ -1,5 +1,6 @@
 package mv.cpu;
 
+import mv.ExecutionMode;
 import mv.instructions.Instruction;
 import mv.program.ProgramMv;
 import mv.reading.InputMethod;
@@ -14,16 +15,18 @@ public class Cpu {
 	private boolean correctPc;
 	private InputMethod input;
 	private OutputMethod output;
+	public ExecutionMode mode;
 	
-	public Cpu(InputMethod input, OutputMethod output, ProgramMv program){
-		this.memoria = new Memory ();
-		this.pila = new OperandStack ();
-		this.fin = false;
-		this.pc = 0;
-		this.correctPc = true;
-		this.input = input;
-		this.output = output;
-		this.program = program;
+	public Cpu(ExecutionMode mode, InputMethod input, OutputMethod output, ProgramMv program){
+		this.memoria 	= new Memory ();
+		this.pila 		= new OperandStack ();
+		this.fin 		= false;
+		this.pc 		= 0;
+		this.correctPc 	= true;
+		this.input 		= input;
+		this.output 	= output;
+		this.program 	= program;
+		this.mode 		= mode;
 	}
 	
 	/**
@@ -142,7 +145,9 @@ public class Cpu {
 		//si obtengo una
 		if (inst != null) {
 			//la ejecuto
-			System.out.println("Comienza la ejecución de "+inst.toString());
+			if(mode == ExecutionMode.INTERACTIVE){
+				System.out.println("Comienza la ejecución de "+inst.toString());
+			}
 			//retorno cómo ha ido la ejecución
 			if (inst.execute(this)){
 				return true;

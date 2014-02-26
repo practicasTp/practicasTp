@@ -9,4 +9,5 @@ eq
 bt 0
 out
 jump 0
+halt
 end

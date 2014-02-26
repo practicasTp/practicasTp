@@ -223,7 +223,6 @@ public class Main {
             }else{
             	//si no lo ha especificado, forzamos el modo interactivo
             	input 	= new StdIn();
-            	mode	= ExecutionMode.INTERACTIVE;
             }
             
             // Si el usuario ha especificado el out lo leemos y procesamos          
@@ -232,8 +231,7 @@ public class Main {
             	output = new FromOutputStreamOut(outReceived);
             }else{
             	//si no lo ha especificado, forzamos el modo interactivo
-            	output = new NullOut();
-            	mode	= ExecutionMode.INTERACTIVE;
+            	output = new StdOut();
             }
             
 		} catch (Exception e) {
@@ -250,7 +248,7 @@ public class Main {
 		
 		
 		//Creamos la CPU y cargamos el programa.
-		Cpu cpu = new Cpu (input, output, program); //Se pasan las E/S y el programa.
+		Cpu cpu = new Cpu (mode, input, output, program); //Se pasan las E/S y el programa.
 		
 		//Pasamos al intérprete de comandos la cpu.
 		CommandInterpreter.configureCommandInterpreter(cpu);

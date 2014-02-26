@@ -1,5 +1,6 @@
 package mv.commands;
 
+import mv.ExecutionMode;
 import mv.cpu.Cpu;
 
 abstract public class CommandInterpreter {
@@ -40,6 +41,8 @@ abstract public class CommandInterpreter {
 	 * Método que printa el estado de la máquina
 	 */
 	public static void printStateMachine () {
-		System.out.println(CommandInterpreter.cpu.toString());
+		if(CommandInterpreter.cpu.mode == ExecutionMode.INTERACTIVE){
+			System.out.println(CommandInterpreter.cpu.toString());
+		}
 	}
 }
