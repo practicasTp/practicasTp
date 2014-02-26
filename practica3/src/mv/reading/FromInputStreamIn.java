@@ -32,10 +32,10 @@ public class FromInputStreamIn implements InputMethod {
 			entrada = in.read();
 		}
 		catch (EOFException e) {
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 		}
 		catch (IOException e) {
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 		}
 		
 		return entrada;
