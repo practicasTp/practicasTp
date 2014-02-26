@@ -2,9 +2,6 @@ package mv.instructions;
 
 public class Mult extends Arithmetics {
 	
-	public Mult () {
-		super(TipoInstruction.MUL);
-	}
 	
 	/**
 	 * Ejecuta una multiplicación

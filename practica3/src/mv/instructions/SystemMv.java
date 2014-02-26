@@ -2,12 +2,9 @@ package mv.instructions;
 
 import mv.cpu.Cpu;
 
-abstract public class SystemMv extends Instruction {
+abstract public class SystemMv implements Instruction {
 	protected int operando;
-	
-	public SystemMv (TipoInstruction tipo) {
-		super(tipo);
-	}
+
 	
 	/**
 	 * Método que ejecuta la instrucción

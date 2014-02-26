@@ -5,8 +5,7 @@ import mv.cpu.Cpu;
 abstract public class ConditionalJump extends Jumps{
 	protected boolean relative;
 
-	public ConditionalJump (TipoInstruction tipo, int operando) {
-		super (tipo, operando);
+	public ConditionalJump (int operando) {
 		this.relative = false;
 	}
 	

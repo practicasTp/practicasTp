@@ -2,10 +2,6 @@ package mv.instructions;
 
 public class LessThan extends Compare{
 	
-	public LessThan () {
-		super (TipoInstruction.LT);
-	}
-	
 	/**
 	 * Comprueba si la cima es menor que la subcima.
 	 * @param cima

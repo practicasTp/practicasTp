@@ -4,9 +4,6 @@ import mv.cpu.Cpu;
 
 public class Out extends SystemMv {
 
-	public Out () {
-		super (TipoInstruction.OUT);
-	}
 	
 	/**
 	 * Metodo que devuelve el valor de la cima como caracter

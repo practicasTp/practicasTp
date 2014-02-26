@@ -2,12 +2,7 @@ package mv.instructions;
 
 import mv.cpu.Cpu;
 
-abstract public class Compare extends Instruction {
-	
-	
-	public Compare (TipoInstruction tipo) {
-		super(tipo);
-	}
+abstract public class Compare implements Instruction {
 	
 	/**
 	 * Método que ejecuta la instrucción.

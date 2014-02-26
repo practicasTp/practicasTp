@@ -4,9 +4,6 @@ import mv.cpu.Cpu;
 
 public class Dup extends SystemMv{
 
-	public Dup () {
-		super (TipoInstruction.DUP);
-	}
 	
 	/**
 	 * Metodo que duplica el valor de la cima

@@ -1,10 +1,6 @@
 package mv.instructions;
 
 public class GreaterThan extends Compare {
-
-	public GreaterThan () {
-		super (TipoInstruction.GT);
-	}
 	
 	/**
 	 * Compara la cima y la subcima indicando si es mayor.

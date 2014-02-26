@@ -4,9 +4,6 @@ import mv.cpu.Cpu;
 
 public class StoreInd extends SystemMv {
 
-	public StoreInd () {
-		super (TipoInstruction.STOREIND);
-	}
 	
 	/**
 	 * Guardo en la posicióin de memoria que me da la cima de la pila, el dato que está en la subcima de la pila

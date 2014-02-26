@@ -4,9 +4,6 @@ import mv.cpu.Cpu;
 
 public class Flip extends SystemMv {
 
-	public Flip () {
-		super (TipoInstruction.DUP);
-	}
 	
 	/**
 	 * Metodo que intercambia el valor de la subcima de la pila por el de la cima de la pila

@@ -5,7 +5,6 @@ import mv.cpu.Cpu;
 public class InconditionalJump extends Jumps{
 
 	public InconditionalJump (int operando) {
-		super (TipoInstruction.JUMP, operando);
 		this.operando = operando;
 	}
 	

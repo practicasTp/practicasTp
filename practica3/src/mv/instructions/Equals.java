@@ -1,10 +1,6 @@
 package mv.instructions;
 
 public class Equals extends Compare {
-
-	public Equals () {
-		super (TipoInstruction.EQ);
-	}
 	
 	/**
 	 * Compara la cima y la subcima indicando si son iguales

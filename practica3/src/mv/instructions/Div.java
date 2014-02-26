@@ -2,10 +2,6 @@ package mv.instructions;
 
 public class Div extends Arithmetics {
 	
-	public Div () {
-		super(TipoInstruction.DIV);
-	}
-	
 	/**
 	 * Ejecuta una división.
 	 * @param n1

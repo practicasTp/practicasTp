@@ -2,10 +2,6 @@ package mv.instructions;
 
 public class Add extends Arithmetics{
 	
-	public Add () {
-		super(TipoInstruction.ADD);
-	}
-	
 	/**
 	 * Método que ejecuta una suma de 2 operandos
 	 * @return true

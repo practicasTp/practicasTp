@@ -5,7 +5,6 @@ import mv.cpu.Cpu;
 public class Push extends SystemMv {
 
 	public Push (int operando) {
-		super (TipoInstruction.PUSH);
 		this.operando = operando;
 	}
 	

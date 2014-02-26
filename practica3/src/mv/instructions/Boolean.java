@@ -2,11 +2,8 @@ package mv.instructions;
 
 import mv.cpu.Cpu;
 
-abstract public class Boolean extends Instruction {
-
-	public Boolean(TipoInstruction tipo) {
-		super(tipo);
-	}
+abstract public class Boolean implements Instruction {
+	private TipoInstruction tipo;
 	
 	/**
 	 * Método que ejecuta la instrucción
@@ -22,7 +19,7 @@ abstract public class Boolean extends Instruction {
 	 */
 	public boolean execute(Cpu cpu) {
 		//obtengo la instrucción
-		TipoInstruction instruccionBooleana = getTipoInstruccion();
+		TipoInstruction instruccionBooleana = this.tipo;
 		
 		//si tengo 2 operandos en la pila o tengo 1 y es una not
 		if (cpu.getSizeStack() >= 2 || (instruccionBooleana.equals(TipoInstruction.NOT) && cpu.getSizeStack() >= 1)) {

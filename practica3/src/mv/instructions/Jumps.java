@@ -1,17 +1,8 @@
 package mv.instructions;
 import mv.cpu.Cpu;
 
-abstract public class Jumps extends Instruction {
+abstract public class Jumps implements Instruction {
 	protected int operando;
-	
-	public Jumps (TipoInstruction tipo, int operando) {
-		super(tipo, operando);
-		this.operando = operando;
-	}
-	
-	public Jumps (TipoInstruction tipo) {
-		super(tipo);
-	}
 	
 	/**
 	 * Método abstracto que ejecutará la instrucción.

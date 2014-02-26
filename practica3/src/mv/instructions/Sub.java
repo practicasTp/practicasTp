@@ -2,9 +2,6 @@ package mv.instructions;
 
 public class Sub extends Arithmetics {
 	
-	public Sub () {
-		super(TipoInstruction.SUB);
-	}
 	
 	/**
 	 * Ejecuta una resta.

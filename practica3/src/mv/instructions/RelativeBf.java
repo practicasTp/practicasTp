@@ -3,7 +3,7 @@ package mv.instructions;
 public class RelativeBf extends ConditionalJump {
 	
 	public RelativeBf (int operando) {
-		super (TipoInstruction.RBF, operando);
+		super (operando);
 		this.operando = operando;
 	}
 	

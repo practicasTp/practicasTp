@@ -4,9 +4,6 @@ import mv.cpu.Cpu;
 
 public class Not extends Boolean {
 	
-	public Not () {
-		super (TipoInstruction.NOT);
-	}
 	
 	/**
 	 * Ejecuta una operación del tipo not o !
