@@ -1,12 +1,13 @@
 package mv.cpu;
 
+import java.util.ArrayList;
+
 public class OperandStack {
 	private int cima;
-	private Integer [] stack;
-	public final int TAMANIO = 2;
+	private ArrayList<Integer> stack;
 
 	public OperandStack(){
-		this.stack = this.inicializaPila(TAMANIO);
+		this.stack = this.inicializaPila();
 		this.cima = -1;
 	}
 
@@ -15,14 +16,13 @@ public class OperandStack {
 	 * @param tamanio
 	 * @return pila inicializada
 	 */
-	private Integer[] inicializaPila(int tamanio){
+	private ArrayList<Integer> inicializaPila(){
 		
-		//creo un auxiliar con el tamaño que me indican
-		Integer [] r = new Integer[tamanio];
+		ArrayList<Integer> r = new ArrayList<Integer>();
 		
 		//recorro ese array y lo voy inicializando
-		for(int i=0; i < tamanio; i++){
-			r[i] = null;
+		for(int i=0; i < r.size(); i++){
+			r.add(null);
 		}
 		
 		//devuelvo el array inicializado
@@ -53,20 +53,9 @@ public class OperandStack {
 	 * @param value
 	 */
 	public void stackData (int value){
-		//compruebo si la pila está llena
-		if(this.cima < (stack.length - 1)){
-			this.cima++;
-			//si no lo está, la relleno 
-			stack[this.cima]=value;
-					
-		}else{
-			//doblo el tamaño de la pila
-			int nuevoTamanio = this.stack.length*2;
-			this.stack = this.redimensionaPila(nuevoTamanio);
-			this.cima++;
-			//relleno el dato
-			stack[this.cima]=value;
-		}
+		this.cima++;
+		//si no lo está, la relleno 
+		stack.set(this.cima, value);
 	}
 	
 	/**
@@ -76,29 +65,11 @@ public class OperandStack {
 	public boolean unstackData (){
 		//si la pila no está vacía, vacío la posicion más alta, y bajo el nivel en una posición 
 		if (!isEmpty()){
-			stack[this.cima] = null;
+			stack.set(this.cima, null);
 			this.cima--;
 					
 			return true;
 		} else return false;
-	}
-	
-	/**
-	 * Metodo que redimensiona la pila a un tamaño deseado
-	 * @param tamanio
-	 * @return auxiliar
-	 */
-	private Integer[] redimensionaPila(int tamanio){
-		//creo un auxiliar con el tamaño que me pasan
-		Integer [] aux = new Integer[tamanio];
-		
-		//copio el contenido de la pila al axuliar
-		for(int i=0;i< this.stack.length;i++){
-			aux[i] = this.stack[i];
-		}
-		
-		//devuelvo el auxiliar con el nuevo tamaño y el contenido copiado de la pila
-		return aux;
 	}
 	
 	/**
@@ -112,7 +83,7 @@ public class OperandStack {
 		}
 		else{
 			for (int i=0; i<=this.cima; i++){
-				contenidoPila += this.stack[i] +" ";
+				contenidoPila += this.stack.get(i) +" ";
 			}
 			return "Pila de operandos: "+contenidoPila+"\n";
 		}
@@ -133,7 +104,7 @@ public class OperandStack {
 	 */
 	public Integer getDato (int pos) {
 		if(!this.isEmpty()){
-			return this.stack[pos];
+			return this.stack.get(pos);
 		}else{
 			return null;
 		}
@@ -143,7 +114,7 @@ public class OperandStack {
 	 * Reinicia la pila limpiando el array y reiniciando el contador de la cima.
 	 */
 	public void clean () {
-		this.stack = this.inicializaPila(TAMANIO);
+		this.stack.clear();
 		this.cima = -1;
 	}
 }
