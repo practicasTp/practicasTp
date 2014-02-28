@@ -141,6 +141,8 @@ public class Cpu {
 	 * @throws Exception 
 	 */
 	public boolean step () throws InsufficientOperandsException {
+		boolean execute = false;
+		
 		//obtengo una instruccion
 		Instruction inst = this.getCurrentInstruction();
 		//si obtengo una
@@ -152,19 +154,19 @@ public class Cpu {
 			//retorno cómo ha ido la ejecución
 			try {
 				if (inst.execute(this)){
-					return true;
+					execute = true;
 				}
 			}
 			catch (InsufficientOperandsException e) {
 				System.err.println(e.getMessage());
-				return false;
 			}
 			
 		//si no, finalizo la ejecución
 		} else{
 			this.exit();
-			return false;
 		}
+		
+		return execute;
 	}
 	
 	/**
