@@ -1,5 +1,7 @@
 package mv.instructions;
 
+import mv.exceptions.DivisionByZeroException;
+
 public class Div extends Arithmetics {
 	
 	/**
@@ -7,12 +9,18 @@ public class Div extends Arithmetics {
 	 * @param n1
 	 * @param n2
 	 * @return boolean
+	 * @throws DivisionByZeroException 
 	 */
-	public boolean execute (int n1, int n2) {
+	public boolean execute (int n1, int n2) throws DivisionByZeroException {
+		boolean execute = false;
 		if (n2 != 0) {
 			this.result = n1 / n2;
-			return true;
-		} else return false;
+			execute = true;
+		} else {
+			throw new DivisionByZeroException("Error: No se puede realizar una división con denominador 0.");
+		}
+		
+		return execute;
 	}
 	
 	/**

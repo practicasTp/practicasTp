@@ -9,6 +9,7 @@ import mv.commands.CommandParser;
 import mv.commands.Run;
 import mv.cpu.Cpu;
 import mv.exceptions.IncorrectParsingInstruction;
+import mv.exceptions.InsufficientOperandsException;
 import mv.instructions.Instruction;
 import mv.instructions.InstructionParser;
 import mv.program.ProgramMv;
@@ -164,8 +165,9 @@ public class Main {
 	/**
 	 * Función que inicia la ejecución
 	 * @param args
+	 * @throws InsufficientOperandsException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InsufficientOperandsException {
 		ProgramMv program = null;
 		String inputRoute = null;
 		ExecutionMode mode = ExecutionMode.BACH;

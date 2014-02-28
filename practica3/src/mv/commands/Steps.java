@@ -1,5 +1,6 @@
 package mv.commands;
 
+import mv.exceptions.InsufficientOperandsException;
 import mv.instructions.Instruction;
 
 public class Steps extends Step {
@@ -12,8 +13,9 @@ public class Steps extends Step {
 	/**
 	 * Metodo que se encarga de ejecutar N instrucciones
 	 * @return resultado
+	 * @throws InsufficientOperandsException 
 	 */
-	public boolean executeCommand() {
+	public boolean executeCommand() throws InsufficientOperandsException {
 		//inicializo el contador de instrucciones restantes al numero de instruciones que quiero ejecutar
 		int contadorInstruccionesRestantes = this.steps;
 		boolean resultado = false;

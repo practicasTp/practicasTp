@@ -1,5 +1,7 @@
 package mv.commands;
 
+import mv.exceptions.InsufficientOperandsException;
+
 public class Run extends Step {
 	public Run(){
 		super();
@@ -8,8 +10,9 @@ public class Run extends Step {
 	/**
 	 * Metodo que se encarga de ejecutar todas las instrucciones
 	 * @return resultado
+	 * @throws InsufficientOperandsException 
 	 */
-	public boolean executeCommand(){
+	public boolean executeCommand() throws InsufficientOperandsException{
 		//cuando hago un run, reseteo la máquina
 		CommandInterpreter.cpu.resetCpu();
 		boolean resultado = false;

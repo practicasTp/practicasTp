@@ -1,5 +1,6 @@
 package mv.commands;
 
+import mv.exceptions.InsufficientOperandsException;
 import mv.instructions.Instruction;
 
 public class Step extends CommandInterpreter {
@@ -11,8 +12,9 @@ public class Step extends CommandInterpreter {
 	/**
 	 * Método que ejecuta una sola instrucción
 	 * @return resultado
+	 * @throws InsufficientOperandsException 
 	 */
-	public boolean executeCommand() {
+	public boolean executeCommand() throws InsufficientOperandsException {
 		boolean resultado = false;
 		
 		//si la ejecución ha ido correctamente, muestro el estado de la máquina
