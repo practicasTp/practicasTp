@@ -1,6 +1,7 @@
 package mv.instructions;
 
 import mv.cpu.Cpu;
+import mv.exceptions.InsufficientOperandsException;
 
 abstract public class Compare implements Instruction {
 	
@@ -17,8 +18,11 @@ abstract public class Compare implements Instruction {
 	 * comparación y de ejecutar la instrucción.
 	 * @param cpu
 	 * @return boolean.
+	 * @throws InsufficientOperandsException 
 	 */
-	public boolean execute (Cpu cpu) {
+	public boolean execute (Cpu cpu) throws InsufficientOperandsException {
+		boolean execute = false;
+		
 		if (cpu.getSizeStack() >= 2) {
 			//obtener cima y subcima.
 			int cima = cpu.pop();
@@ -26,9 +30,12 @@ abstract public class Compare implements Instruction {
 			if (compare (cima, subcima)) cpu.push(1);
 			else cpu.push(0);
 			cpu.increaseProgramCounter();
-			return true;
+			execute = true;
 		}
-		else return false;
+		else 
+			throw new InsufficientOperandsException("Error: no hay operandos suficientes para realizar la operación.");
+		
+		return execute;
 	}
 	
 	/**

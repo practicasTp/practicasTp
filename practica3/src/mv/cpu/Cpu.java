@@ -1,6 +1,7 @@
 package mv.cpu;
 
 import mv.ExecutionMode;
+import mv.exceptions.IncorrectProgramCounterException;
 import mv.exceptions.InsufficientOperandsException;
 import mv.instructions.Instruction;
 import mv.program.ProgramMv;
@@ -112,17 +113,23 @@ public class Cpu {
 	 * Devuelve la instrucción a ejecutar en función del contador de programa,
 	 * en caso de que esté bien. En otro caso devuelve null.
 	 * @return Instruction
+	 * @throws IncorrectProgramCounterException 
 	 */
-	public Instruction getCurrentInstruction () {
+	public Instruction getCurrentInstruction () throws IncorrectProgramCounterException{
+		Instruction inst = null;
+		this.correctPc = false;
+		
 		//si el contador del programa es menor que el tamaño
-		if (this.program.getSizeProgram() > this.pc)
+		if (this.program.getSizeProgram() > this.pc) {
 			//devuelvo la instrución
-			return this.program.get(this.pc);
-		else {
+			this.correctPc = true;
+			inst = this.program.get(this.pc);
+		} else {
 			//si no entonces ya no tengo contador del programa
-			this.correctPc = false;
-			return null;
+			throw new IncorrectProgramCounterException("Error: el contador de programa no es correcto.");
 		}
+		
+		return inst;
 	}
 	
 	/**
@@ -140,14 +147,12 @@ public class Cpu {
 	 * @return boolean
 	 * @throws Exception 
 	 */
-	public boolean step () throws InsufficientOperandsException {
+	public boolean step () {
 		boolean execute = false;
 		
 		//obtengo una instruccion
-		Instruction inst = this.getCurrentInstruction();
-		//si obtengo una
-		if (inst != null) {
-			//la ejecuto
+		try {
+			Instruction inst = this.getCurrentInstruction();
 			if(mode == ExecutionMode.INTERACTIVE){
 				System.out.println("Comienza la ejecución de "+inst.toString());
 			}
@@ -160,9 +165,9 @@ public class Cpu {
 			catch (InsufficientOperandsException e) {
 				System.err.println(e.getMessage());
 			}
-			
-		//si no, finalizo la ejecución
-		} else{
+		}
+		catch (IncorrectProgramCounterException e) {
+			System.err.println(e.getMessage());
 			this.exit();
 		}
 		

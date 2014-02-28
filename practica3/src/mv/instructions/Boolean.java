@@ -1,6 +1,7 @@
 package mv.instructions;
 
 import mv.cpu.Cpu;
+import mv.exceptions.InsufficientOperandsException;
 
 abstract public class Boolean implements Instruction {
 	private TipoInstruction tipo;
@@ -16,8 +17,10 @@ abstract public class Boolean implements Instruction {
 	 * Método que ejecuta una instrucción booleana
 	 * @param cpu
 	 * @return boolean
+	 * @throws InsufficientOperandsException 
 	 */
-	public boolean execute(Cpu cpu) {
+	public boolean execute(Cpu cpu) throws InsufficientOperandsException {
+		boolean execute = false;
 		//obtengo la instrucción
 		TipoInstruction instruccionBooleana = this.tipo;
 		
@@ -28,10 +31,13 @@ abstract public class Boolean implements Instruction {
 			else cpu.push(0);
 			//incremento el contador del programa
 			cpu.increaseProgramCounter();
-			return true;
+			execute = true;
 		}
 		//si no, retorno false
-		else return false;
+		else 
+			throw new InsufficientOperandsException("Error: no hay operandos suficientes para realizar la operación.");
+		
+		return execute;
 	}
 	
 	/**

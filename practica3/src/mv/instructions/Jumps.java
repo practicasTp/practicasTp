@@ -1,5 +1,6 @@
 package mv.instructions;
 import mv.cpu.Cpu;
+import mv.exceptions.InsufficientOperandsException;
 
 abstract public class Jumps implements Instruction {
 	protected int operando;
@@ -8,15 +9,17 @@ abstract public class Jumps implements Instruction {
 	 * Método abstracto que ejecutará la instrucción.
 	 * @param cpu
 	 * @return boolean
+	 * @throws InsufficientOperandsException 
 	 */
-	abstract protected boolean executeAux (Cpu cpu);
+	abstract protected boolean executeAux (Cpu cpu) throws InsufficientOperandsException;
 	
 	/**
 	 * Comprueba que la pila tiene más de 0 componentes.
 	 * @param cpu
 	 * @return boolean
+	 * @throws InsufficientOperandsException 
 	 */
-	public boolean execute (Cpu cpu) {
+	public boolean execute (Cpu cpu) throws InsufficientOperandsException {
 		if(executeAux(cpu)) 
 			return true;
 		else 

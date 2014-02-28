@@ -1,6 +1,7 @@
 package mv.instructions;
 
 import mv.cpu.Cpu;
+import mv.exceptions.InsufficientOperandsException;
 
 abstract public class ConditionalJump extends Jumps{
 	protected boolean relative;
@@ -21,8 +22,11 @@ abstract public class ConditionalJump extends Jumps{
 	 * y ejecuta el método que ejecuta la instrucción.
 	 * @param cpu
 	 * @return boolean
+	 * @throws InsufficientOperandsException 
 	 */
-	public boolean executeAux (Cpu cpu) {
+	public boolean executeAux (Cpu cpu) throws InsufficientOperandsException {
+		boolean execute = false;
+		
 		if(cpu.getSizeStack() >= 1) {	
 			int cima = cpu.pop();
 			if (this.execute(cima)) {
@@ -30,12 +34,15 @@ abstract public class ConditionalJump extends Jumps{
 					cpu.jumpProgramCounter(this.operando);
 				else 
 					cpu.increaseProgramCounter(this.operando);
-				return true;
+				execute = true;
 			} else {
 				cpu.increaseProgramCounter ();
-				return true;
+				execute = true;
 			}
-		} else return false;
+		} else 
+			throw new InsufficientOperandsException("Error: no hay operandos suficientes para realizar la operación.");
+		
+		return execute;
 	}
 	
 	/**

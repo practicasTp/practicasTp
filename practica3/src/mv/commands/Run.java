@@ -12,7 +12,7 @@ public class Run extends Step {
 	 * @return resultado
 	 * @throws InsufficientOperandsException 
 	 */
-	public boolean executeCommand() throws InsufficientOperandsException{
+	public boolean executeCommand(){
 		//cuando hago un run, reseteo la máquina
 		CommandInterpreter.cpu.resetCpu();
 		boolean resultado = false;
