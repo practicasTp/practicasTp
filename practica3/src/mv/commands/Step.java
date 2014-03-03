@@ -32,10 +32,9 @@ public class Step extends CommandInterpreter {
 		}else{
 			try {
 				Instruction nextInstruction = CommandInterpreter.cpu.getCurrentInstruction();
-			}
-			catch (IncorrectProgramCounterException e){
-				System.err.println(e.getMessage());
+			}catch (IncorrectProgramCounterException e){
 				this.isFinished = true;
+				System.err.println(e.getMessage());
 			}
 		}
 		

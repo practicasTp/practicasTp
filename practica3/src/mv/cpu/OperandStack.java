@@ -55,7 +55,7 @@ public class OperandStack {
 	public void stackData (int value){
 		this.cima++;
 		//si no lo está, la relleno 
-		stack.set(this.cima, value);
+		stack.add(value);
 	}
 	
 	/**
@@ -65,9 +65,8 @@ public class OperandStack {
 	public boolean unstackData (){
 		//si la pila no está vacía, vacío la posicion más alta, y bajo el nivel en una posición 
 		if (!isEmpty()){
-			stack.set(this.cima, null);
+			stack.remove(this.cima);
 			this.cima--;
-					
 			return true;
 		} else return false;
 	}
