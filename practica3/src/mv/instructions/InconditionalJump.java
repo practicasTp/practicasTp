@@ -1,6 +1,7 @@
 package mv.instructions;
 
 import mv.cpu.Cpu;
+import mv.exceptions.IncorrectProgramCounterException;
 
 public class InconditionalJump extends Jumps{
 
@@ -15,7 +16,12 @@ public class InconditionalJump extends Jumps{
 	 * @return boolean
 	 */
 	public boolean executeAux (Cpu cpu) {
-		cpu.jumpProgramCounter(this.operando);
+		try {
+			cpu.jumpProgramCounter(this.operando);
+		}
+		catch(IncorrectProgramCounterException e) {
+			System.err.println(e.getMessage());
+		}
 		return true;
 	}
 	

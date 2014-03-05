@@ -1,6 +1,7 @@
 package mv.instructions;
 
 import mv.cpu.Cpu;
+import mv.exceptions.IncorrectProgramCounterException;
 import mv.exceptions.InsufficientOperandsException;
 
 abstract public class ConditionalJump extends Jumps{
@@ -31,7 +32,12 @@ abstract public class ConditionalJump extends Jumps{
 			int cima = cpu.pop();
 			if (this.execute(cima)) {
 				if (!this.relative)
-					cpu.jumpProgramCounter(this.operando);
+					try {
+						cpu.jumpProgramCounter(this.operando);
+					}
+				catch(IncorrectProgramCounterException e) {
+					System.err.println(e.getMessage());
+				}
 				else 
 					cpu.increaseProgramCounter(this.operando);
 				execute = true;
