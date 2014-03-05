@@ -1,32 +1,32 @@
 package mv.cpu;
 
-import java.util.ArrayList;
-
-public class OperandStack {
+public class OperandStack<T> {
 	private int cima;
-	private ArrayList<Integer> stack;
+	private Object[] stack;
+	public final int TAMANIO = 30;
 
 	public OperandStack(){
-		this.stack = this.inicializaPila();
+		this.stack = new Object[TAMANIO];
 		this.cima = -1;
 	}
-
+	
 	/**
-	 * Metodo que inicializa la pila a null con el tamaño deseado
+	 * Metodo que inicializa la pila a null con el tamaÃ±o deseado
 	 * @param tamanio
 	 * @return pila inicializada
 	 */
-	private ArrayList<Integer> inicializaPila(){
+	private T[] inicializaPila(int tamanio){
 		
-		ArrayList<Integer> r = new ArrayList<Integer>();
+		//creo un auxiliar con el tamaÃ±o que me indican
+		Object [] r = new Object[tamanio];
 		
 		//recorro ese array y lo voy inicializando
-		for(int i=0; i < r.size(); i++){
-			r.add(null);
+		for(int i=0; i < tamanio; i++){
+			r[i] = null;
 		}
 		
 		//devuelvo el array inicializado
-		return r;
+		return (T[])r;
 		
 	}
 	
@@ -37,7 +37,7 @@ public class OperandStack {
 	public boolean isEmpty(){
 		boolean resultado;
 		
-		//si la cima es menos 1, considero que está vacía
+		//si la cima es menos 1, considero que estÃ¡ vacÃ­a
 		if( this.cima == -1){
 			resultado = true;
 		}else{
@@ -52,10 +52,21 @@ public class OperandStack {
 	 * Metodo que apila valores en la cima de la pila
 	 * @param value
 	 */
-	public void stackData (int value){
-		this.cima++;
-		//si no lo está, la relleno 
-		stack.add(value);
+	public void stackData (T value){
+		//compruebo si la pila estÃ¡ llena
+		if(this.cima < (stack.length - 1)){
+			this.cima++;
+			//si no lo estÃ¡, la relleno 
+			stack[this.cima]=value;
+					
+		}else{
+			//doblo el tamaÃ±o de la pila
+			int nuevoTamanio = this.stack.length*2;
+			this.stack = this.redimensionaPila(nuevoTamanio);
+			this.cima++;
+			//relleno el dato
+			stack[this.cima]=value;
+		}
 	}
 	
 	/**
@@ -63,12 +74,31 @@ public class OperandStack {
 	 * @return true/false
 	 */
 	public boolean unstackData (){
-		//si la pila no está vacía, vacío la posicion más alta, y bajo el nivel en una posición 
+		//si la pila no estÃ¡ vacÃ­a, vacÃ­o la posicion mÃ¡s alta, y bajo el nivel en una posiciÃ³n 
 		if (!isEmpty()){
-			stack.remove(this.cima);
+			stack[this.cima] = null;
 			this.cima--;
+					
 			return true;
 		} else return false;
+	}
+	
+	/**
+	 * Metodo que redimensiona la pila a un tamaÃ±o deseado
+	 * @param tamanio
+	 * @return auxiliar
+	 */
+	private T[] redimensionaPila(int tamanio){
+		//creo un auxiliar con el tamaÃ±o que me pasan
+		Object [] aux = new Object[tamanio];
+		
+		//copio el contenido de la pila al axuliar
+		for(int i=0;i< this.stack.length;i++){
+			aux[i] = this.stack[i];
+		}
+		
+		//devuelvo el auxiliar con el nuevo tamaÃ±o y el contenido copiado de la pila
+		return (T[])aux;
 	}
 	
 	/**
@@ -82,7 +112,7 @@ public class OperandStack {
 		}
 		else{
 			for (int i=0; i<=this.cima; i++){
-				contenidoPila += this.stack.get(i) +" ";
+				contenidoPila += this.stack[i] +" ";
 			}
 			return "Pila de operandos: "+contenidoPila+"\n";
 		}
@@ -101,9 +131,9 @@ public class OperandStack {
 	 * @param pos
 	 * @return dato
 	 */
-	public Integer getDato (int pos) {
+	public T getDato (int pos) {
 		if(!this.isEmpty()){
-			return this.stack.get(pos);
+			return (T)this.stack[pos];
 		}else{
 			return null;
 		}
@@ -113,7 +143,7 @@ public class OperandStack {
 	 * Reinicia la pila limpiando el array y reiniciando el contador de la cima.
 	 */
 	public void clean () {
-		this.stack.clear();
+		this.stack = this.inicializaPila(TAMANIO);
 		this.cima = -1;
 	}
 }

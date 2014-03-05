@@ -1,28 +1,27 @@
 package mv.cpu;
 
-import java.util.ArrayList;
-
 public class Memory {
-	private ArrayList<Integer> registros;
+	private Integer[] registros;
+	public final int TAMANIO = 50;
 	
 	public Memory(){	
 		//inicializo los atributos
-		this.registros =  inicializarMemory();
+		this.registros =  inicializarMemory(TAMANIO);
 	}
 
 	/**
-	 * Metodo que inicializa la memoria a null con el tamaño deseado
+	 * Metodo que inicializa la memoria a null con el tamaÃ±o deseado
 	 * @param tamanio
 	 * @return memoria inicializada
 	 */
-	private ArrayList<Integer> inicializarMemory(){
+	private Integer[] inicializarMemory(int tam){
 		
-		//creo un auxiliar con el tamaño que me indican
-		ArrayList<Integer> r = new ArrayList<Integer>();
+		//creo un auxiliar con el tamaÃ±o que me indican
+		Integer[] r = new Integer[tam];
 		
 		//recorro ese array y lo voy inicializando
-		for(int i=0; i < r.size(); i++){
-			r.add(null);
+		for(int i=0; i < tam; i++){
+			r[i] = null;
 		}
 		
 		//devuelvo el array inicializado
@@ -36,8 +35,43 @@ public class Memory {
 	 * @param dato
 	 */
 	public void storeData(int pos, int dato){		
-		//almaceno el dato en la posici�n que me han indicado
-		registros.set(pos, dato);
+		
+		//si la posicion donde deseas guardar es menor que la posicion de mayor tamaï¿½o que tengo lo guardo
+		if(pos < this.registros.length){
+			
+			//almaceno el dato en la posiciï¿½n que me han indicado
+			registros[pos] = dato;
+			
+		}else{			
+			
+			//creo nuevo tamaï¿½o con el doble de lo que tengo ahora
+			int nuevo_tamanio = pos * 2;			
+			
+			//inicializo una memoria auxiliar que posteriormente pasarÃ¡ a ser la del sistema
+			Integer[] aux = this.inicializarMemory(nuevo_tamanio);
+			
+			//redimensiono el numero de tamaÃ±o de memoria
+			this.registros = this.redimensionar(aux);
+			
+			//almaceno el dato en la posiciÃ³n que me han indicado
+			this.registros[pos] = dato;
+		}
+
+	}
+	
+	/**
+	 * Metodo que redimensiona la memoria a traves de una memoria auxiliar previamente inicializada
+	 * @param aux
+	 * @return memoria redimensionada
+	 */
+	private Integer[] redimensionar(Integer[] aux){
+		
+		//recorro todos los registros que tengo y los copio al auxiliar, el cual estÃ¡ previamente inicializado
+		for(int i=0;i< this.registros.length;i++){
+			aux[i] = this.registros[i];
+		}
+	
+		return aux;
 	}
 	
 	/**
@@ -47,8 +81,8 @@ public class Memory {
 	private boolean isEmpty () {
 		boolean empty = true;
 		
-		for(int i = 0; i < this.registros.size(); i++){
-			if(this.registros.get(i) != null){
+		for(int i = 0; i <= (this.registros.length-1); i++){
+			if(this.registros[i] != null){
 				empty = false;
 				break;
 			}
@@ -63,9 +97,9 @@ public class Memory {
 	 * @return dato
 	 */
 	public int getDato (int pos){
-		if (pos < this.registros.size()) {
-			if(this.registros.get(pos)!=null)
-			        return this.registros.get(pos);
+		if (pos < this.registros.length) {
+			if(this.registros[pos]!=null)
+			        return this.registros[pos];
 			else return 0;
 		} else return 0;
 	}
@@ -74,7 +108,7 @@ public class Memory {
 	 * Reinicia la memoria vaciando el array de registros.
 	 */
 	public void clean () {
-		this.registros.clear();
+		this.registros =  inicializarMemory(TAMANIO);
 	}
 	
 	/**
@@ -84,8 +118,8 @@ public class Memory {
 		String contenidoMemoria = "";
 		if(this.isEmpty()) contenidoMemoria = "<vacia>";
 		else{
-			for(int i = 0; i <= this.registros.size(); i++){
-				if (this.registros.get(i) != null) contenidoMemoria += "["+ i + "]: " + this.registros.get(i) + ", ";
+			for(int i = 0; i <= (this.registros.length - 1); i++){
+				if (this.registros[i] != null) contenidoMemoria += "["+ i + "]: " + this.registros[i] + ", ";
 			}
 		}
 		
