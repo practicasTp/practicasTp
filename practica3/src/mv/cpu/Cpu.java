@@ -115,21 +115,16 @@ public class Cpu {
 	 * @return Instruction
 	 * @throws IncorrectProgramCounterException 
 	 */
-	public Instruction getCurrentInstruction () throws IncorrectProgramCounterException{
-		Instruction inst = null;
-		this.correctPc = false;
-		
+	public Instruction getCurrentInstruction() {
 		//si el contador del programa es menor que el tamaño
-		if (this.program.getSizeProgram() > this.pc) {
+		if (this.program.getSizeProgram() > this.pc)
 			//devuelvo la instrución
-			this.correctPc = true;
-			inst = this.program.get(this.pc);
-		} else {
+			return this.program.get(this.pc);
+		else {
 			//si no entonces ya no tengo contador del programa
-			throw new IncorrectProgramCounterException("Error: el contador de programa no es correcto.");
+			this.correctPc = false;
+			return null;
 		}
-		
-		return inst;
 	}
 	
 	/**
@@ -151,8 +146,8 @@ public class Cpu {
 		boolean execute = false;
 		
 		//obtengo una instruccion
-		try {
-			Instruction inst = this.getCurrentInstruction();
+		Instruction inst = this.getCurrentInstruction();
+		if (inst != null) {
 			if(mode == ExecutionMode.INTERACTIVE){
 				System.out.println("Comienza la ejecución de "+inst.toString());
 			}
@@ -165,9 +160,7 @@ public class Cpu {
 			catch (InsufficientOperandsException e) {
 				System.err.println(e.getMessage());
 			}
-		}
-		catch (IncorrectProgramCounterException e) {
-			System.err.println(e.getMessage());
+		} else{
 			this.exit();
 		}
 		

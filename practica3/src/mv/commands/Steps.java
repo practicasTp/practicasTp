@@ -1,6 +1,5 @@
 package mv.commands;
 
-import mv.exceptions.IncorrectProgramCounterException;
 import mv.exceptions.InsufficientOperandsException;
 import mv.instructions.Instruction;
 
@@ -45,11 +44,8 @@ public class Steps extends Step {
 			this.isFinished = true;
 		//si no, compruebo si esa ha sido la ultima instrucción para parar la máquina
 		}else{
-			try {
-				Instruction nextInstruction = CommandInterpreter.cpu.getCurrentInstruction();
-			}
-			catch (IncorrectProgramCounterException e) {
-				System.err.println(e.getMessage());
+			Instruction nextInstruction = CommandInterpreter.cpu.getCurrentInstruction();
+			if(nextInstruction == null){
 				this.isFinished = true;
 			}
 		}
