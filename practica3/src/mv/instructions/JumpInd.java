@@ -10,11 +10,13 @@ public class JumpInd extends Jumps{
 	 * @return boolean
 	 */
 	public boolean executeAux (Cpu cpu) {
+		int newProgramPosition = cpu.pop();
 		try{
-			int newProgramPosition = cpu.pop();
 			cpu.jumpProgramCounter(newProgramPosition);
 			return true;
 		} catch (Exception e) {
+			System.err.println(e.getMessage());
+			cpu.push(newProgramPosition);
 			return false;
 		}
 	}
