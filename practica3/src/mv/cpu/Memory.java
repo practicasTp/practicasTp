@@ -1,7 +1,7 @@
 package mv.cpu;
 
-public class Memory {
-	private Integer[] registros;
+public class Memory<T> {
+	private Object[] registros;
 	public final int TAMANIO = 50;
 	
 	public Memory(){	
@@ -14,10 +14,10 @@ public class Memory {
 	 * @param tamanio
 	 * @return memoria inicializada
 	 */
-	private Integer[] inicializarMemory(int tam){
+	private T[] inicializarMemory(int tam){
 		
 		//creo un auxiliar con el tamaÃ±o que me indican
-		Integer[] r = new Integer[tam];
+		Object[] r = new Object[tam];
 		
 		//recorro ese array y lo voy inicializando
 		for(int i=0; i < tam; i++){
@@ -25,7 +25,7 @@ public class Memory {
 		}
 		
 		//devuelvo el array inicializado
-		return r;
+		return (T[])r;
 		
 	}
 	
@@ -48,7 +48,7 @@ public class Memory {
 			int nuevo_tamanio = pos * 2;			
 			
 			//inicializo una memoria auxiliar que posteriormente pasarÃ¡ a ser la del sistema
-			Integer[] aux = this.inicializarMemory(nuevo_tamanio);
+			Object[] aux = this.inicializarMemory(nuevo_tamanio);
 			
 			//redimensiono el numero de tamaÃ±o de memoria
 			this.registros = this.redimensionar(aux);
@@ -64,14 +64,14 @@ public class Memory {
 	 * @param aux
 	 * @return memoria redimensionada
 	 */
-	private Integer[] redimensionar(Integer[] aux){
+	private T[] redimensionar(Object[] aux){
 		
 		//recorro todos los registros que tengo y los copio al auxiliar, el cual estÃ¡ previamente inicializado
 		for(int i=0;i< this.registros.length;i++){
-			aux[i] = this.registros[i];
+			aux[i] = (T) this.registros[i];
 		}
 	
-		return aux;
+		return (T[])aux;
 	}
 	
 	/**
@@ -96,12 +96,12 @@ public class Memory {
 	 * @param pos
 	 * @return dato
 	 */
-	public int getDato (int pos){
+	public T getDato (int pos){
 		if (pos < this.registros.length) {
 			if(this.registros[pos]!=null)
-			        return this.registros[pos];
-			else return 0;
-		} else return 0;
+			        return (T)this.registros[pos];
+			else return null;
+		} else return null;
 	}
 	
 	/**

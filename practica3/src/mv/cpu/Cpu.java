@@ -9,7 +9,7 @@ import mv.reading.InputMethod;
 import mv.writing.OutputMethod;
 
 public class Cpu {
-	private Memory memoria;
+	private Memory<Integer> memoria;
 	private OperandStack<Integer> pila;
 	private boolean fin;
 	private ProgramMv program;
@@ -20,7 +20,7 @@ public class Cpu {
 	public ExecutionMode mode;
 	
 	public Cpu(ExecutionMode mode, InputMethod input, OutputMethod output, ProgramMv program){
-		this.memoria 	= new Memory ();
+		this.memoria 	= new Memory<Integer> ();
 		this.pila 		= new OperandStack<Integer> ();
 		this.fin 		= false;
 		this.pc 		= 0;
