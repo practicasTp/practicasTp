@@ -1,6 +1,7 @@
 package mv.cpu;
 
 import mv.ExecutionMode;
+import mv.exceptions.EmptyStackException;
 import mv.exceptions.IncorrectMemoryPositionException;
 import mv.exceptions.IncorrectProgramCounterException;
 import mv.exceptions.InsufficientOperandsException;
@@ -58,8 +59,16 @@ public class Cpu {
 	 */
 	public int pop () {
 		//si no se apila hay error
-		int value = this.pila.getDato(this.pila.getCima());
-		this.pila.unstackData();
+		int value = 0;
+		
+		try {
+			value = this.pila.getDato(this.pila.getCima());
+			this.pila.unstackData();
+		}
+		catch(EmptyStackException e) {
+			System.err.println(e.getMessage());
+		}
+		
 		
 		return value;
 	}

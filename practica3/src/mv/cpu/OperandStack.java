@@ -1,5 +1,7 @@
 package mv.cpu;
 
+import mv.exceptions.EmptyStackException;
+
 public class OperandStack<T> {
 	private int cima;
 	private Object[] stack;
@@ -130,13 +132,16 @@ public class OperandStack<T> {
 	 * Metodo que devuelve el valor de una posicion de la pila
 	 * @param pos
 	 * @return dato
+	 * @throws EmptyStackException 
 	 */
-	public T getDato (int pos) {
+	public T getDato (int pos) throws EmptyStackException {
+		T dato = null;
 		if(!this.isEmpty()){
-			return (T)this.stack[pos];
-		}else{
-			return null;
-		}
+			dato = (T)this.stack[pos];
+		}else
+			throw new EmptyStackException("Error: la pila está vacía por lo que no se pueden extraer elementos.");
+		
+		return dato;
 	}
 	
 	/**

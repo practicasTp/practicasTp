@@ -19,15 +19,14 @@ public class Store extends SystemMv{
 	 */
 	public boolean executeAux (Cpu cpu) throws NegativeNumberIntoMemoryException, EmptyStackException {
 		boolean resultado = false;
-		if (cpu.getSizeStack() >= 1) {
-			if(this.operando>=0){
-				int cima = cpu.pop();
-				cpu.store(this.operando, cima);
-				resultado = true;
-			}else{
-				throw new NegativeNumberIntoMemoryException("Error: no existen posiciones negativas en la memoria.");
-			}
-		} else throw new EmptyStackException("Error: la pila está vacía por lo que no se puede guardar ningún valor en la memoria.");
+		
+		if(this.operando>=0){
+			int cima = cpu.pop();
+			cpu.store(this.operando, cima);
+			resultado = true;
+		}else{
+			throw new NegativeNumberIntoMemoryException("Error: no existen posiciones negativas en la memoria.");
+		}
 		
 		return resultado;
 	}
