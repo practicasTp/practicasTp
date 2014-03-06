@@ -3,6 +3,8 @@ package mv.commands;
 import mv.ExecutionMode;
 import mv.cpu.Cpu;
 import mv.exceptions.InsufficientOperandsException;
+import mv.exceptions.EmptyStackException;
+import mv.exceptions.NegativeNumberIntoMemoryException;
 
 abstract public class CommandInterpreter {
 	protected boolean isFinished;
@@ -25,8 +27,10 @@ abstract public class CommandInterpreter {
 	 * Método abstracto que debe implementar la ejecución de las subclases.
 	 * @return true si todo ha ido bien o false en caso contrario.
 	 * @throws InsufficientOperandsException 
+	 * @throws EmptyStackException 
+	 * @throws NegativeNumberIntoMemoryException 
 	 */
-	public abstract boolean executeCommand() throws InsufficientOperandsException;
+	public abstract boolean executeCommand() throws InsufficientOperandsException, EmptyStackException, NegativeNumberIntoMemoryException;
 	
 	/**
 	 * Indica si el programa ha terminado y por lo tanto no se pueden ejecutar más comandos.

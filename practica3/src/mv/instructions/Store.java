@@ -1,6 +1,8 @@
 package mv.instructions;
 
 import mv.cpu.Cpu;
+import mv.exceptions.EmptyStackException;
+import mv.exceptions.NegativeNumberIntoMemoryException;
 
 public class Store extends SystemMv{
 
@@ -12,18 +14,22 @@ public class Store extends SystemMv{
 	 * Metodo que almacena en una posicion de la memoria, un dato.
 	 * @param cpu
 	 * @return boolean
+	 * @throws NegativeNumberIntoMemoryException 
+	 * @throws EmptyStackException 
 	 */
-	public boolean executeAux (Cpu cpu) {
+	public boolean executeAux (Cpu cpu) throws NegativeNumberIntoMemoryException, EmptyStackException {
+		boolean resultado = false;
 		if (cpu.getSizeStack() >= 1) {
 			if(this.operando>=0){
 				int cima = cpu.pop();
 				cpu.store(this.operando, cima);
-				return true;
+				resultado = true;
 			}else{
-				System.out.println("La posición a guardar no puede ser negativa.");
-				return false;
+				throw new NegativeNumberIntoMemoryException("Error: no existen posiciones negativas en la memoria.");
 			}
-		} else return false;
+		} else throw new EmptyStackException("Error: la pila está vacía por lo que no se puede guardar ningún valor en la memoria.");
+		
+		return resultado;
 	}
 	
 	/**

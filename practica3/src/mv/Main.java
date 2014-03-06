@@ -8,8 +8,12 @@ import mv.commands.CommandInterpreter;
 import mv.commands.CommandParser;
 import mv.commands.Run;
 import mv.cpu.Cpu;
+import mv.exceptions.EmptyStackException;
+import mv.exceptions.IncorrectParsingCommandException;
 import mv.exceptions.IncorrectParsingInstruction;
+import mv.exceptions.InsufficientInstructionsException;
 import mv.exceptions.InsufficientOperandsException;
+import mv.exceptions.NegativeNumberIntoMemoryException;
 import mv.instructions.Instruction;
 import mv.instructions.InstructionParser;
 import mv.program.ProgramMv;
@@ -91,17 +95,13 @@ public class Main {
 					
 					if(!instruccionCortada[0].equalsIgnoreCase("END")){
 						//parseo la instruccion
-						Instruction instruccion = InstructionParser.parser(instruccionCortada);
 						
 						try{
-							//si he identificado la instrucción
-							if(instruccion !=null){
-								program.push(instruccion);
-							}else{
-								throw new IncorrectParsingInstruction("Instrucción incorrecta en la linea "+contLinea+": '"+instructionLine+"'");
-							}
+							Instruction instruccion = InstructionParser.parser(instruccionCortada);
+							program.push(instruccion);
 						}catch(IncorrectParsingInstruction e){
-							System.err.println(e);
+							System.err.println(e.getMessage());
+							System.err.println("La instrucción fallida se encuentra en la linea "+contLinea+": '"+instructionLine+"'");
 							System.exit(1);
 						}
 					}else{
@@ -125,8 +125,9 @@ public class Main {
 	/**
 	 * Función que se encarga de pedir el programa por consola
 	 * @return line
+	 * @throws IncorrectParsingInstruction 
 	 */
-	private static ProgramMv readProgramFromCmd(){
+	private static ProgramMv readProgramFromCmd() throws IncorrectParsingInstruction{
 		ProgramMv program = new ProgramMv();
 		boolean stop = false;
 		String[] instruccionCortada;
@@ -145,13 +146,12 @@ public class Main {
 			
 			if(!instruccionCortada[0].equalsIgnoreCase("END")){
 				//parseo la instruccion
-				Instruction instruccion = InstructionParser.parser(instruccionCortada);
-				
-				//si he identificado la instrucción
-				if(instruccion !=null){
+				Instruction instruccion = null;
+				try {
+					instruccion = InstructionParser.parser(instruccionCortada);
 					program.push(instruccion);
-				}else{
-					System.err.println("Error: Instrucción incorrecta");					
+				} catch (IncorrectParsingInstruction e) {
+					System.err.println(e.getMessage());
 				}
 			}else{
 				stop = true;
@@ -266,7 +266,13 @@ public class Main {
 				String commandLine = sc.nextLine();
 				
 				//Parseamos los comandos.
-				command = CommandParser.parseCommand(commandLine);
+				try {
+					command = CommandParser.parseCommand(commandLine);
+				} catch (InsufficientInstructionsException e) {
+					System.err.println(e.getMessage());
+				} catch (IncorrectParsingCommandException e) {
+					System.err.println(e.getMessage());
+				}
 			}else if(mode == ExecutionMode.BACH){
 				//si el método de ejecución es bach, entonces ejecutamos un run que ejecute toda la aplicación del programa
 				command = new Run();
@@ -274,12 +280,16 @@ public class Main {
 			
 			
 			if(command != null){
-				command.executeCommand();
+				try {
+					command.executeCommand();
+				} catch (EmptyStackException e) {
+					System.err.println(e.getMessage());
+				} catch (NegativeNumberIntoMemoryException e) {
+					System.err.println(e.getMessage());
+				}
 				if(command.isFinished()){
 					end = true;
 				}
-			}else{
-				System.err.println("No te entiendo.");
 			}
 			
 		}while(!end);

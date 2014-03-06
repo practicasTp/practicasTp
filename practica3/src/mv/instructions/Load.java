@@ -1,6 +1,7 @@
 package mv.instructions;
 
 import mv.cpu.Cpu;
+import mv.exceptions.NegativeNumberIntoMemoryException;
 
 public class Load extends SystemMv {
 
@@ -13,16 +14,19 @@ public class Load extends SystemMv {
 	 * introduce en la pila.
 	 * @param cpu
 	 * @return boolean
+	 * @throws NegativeNumberIntoMemoryException 
 	 */
-	public boolean executeAux (Cpu cpu) {
+	public boolean executeAux (Cpu cpu) throws NegativeNumberIntoMemoryException {
+		boolean resultado = false;
 		if(this.operando>=0){
 			int value = cpu.getMemoryValue(this.operando);
 			cpu.push(value);
-			return true;
+			resultado = true;
 		}else{
-			System.out.println("La posición a cargar no puede ser negativa.");
-			return false;
+			throw new NegativeNumberIntoMemoryException("Error: no existen posiciones negativas en la memoria.");
 		}
+		
+		return resultado;
 	}
 	
 	/**

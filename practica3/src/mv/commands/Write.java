@@ -1,5 +1,7 @@
 package mv.commands;
 
+import mv.exceptions.NegativeNumberIntoMemoryException;
+
 public class Write extends CommandInterpreter {
 	private int pos;
 	private int dato;
@@ -12,8 +14,9 @@ public class Write extends CommandInterpreter {
 	/**
 	 * Metodo que se encarga de escribir un operando en una posición de memoria
 	 * @return resultado
+	 * @throws NegativeNumberIntoMemoryException 
 	 */
-	public boolean executeCommand() {
+	public boolean executeCommand() throws NegativeNumberIntoMemoryException {
 		boolean resultado = false;
 		
 		//si la posición es mayor o igual a 0
@@ -25,7 +28,7 @@ public class Write extends CommandInterpreter {
 			resultado = true;
 		//si no, aviso
 		}else{
-			System.err.println("No puedes almacenar datos en posiciones negativas");
+			throw new NegativeNumberIntoMemoryException("Error no existen posiciones negativas en la memoria.");
 		}
 		
 		return resultado;

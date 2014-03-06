@@ -204,7 +204,6 @@ public class Cpu {
 		int prueba = this.program.getSizeProgram();
 		if(pos >= prueba){
 			throw new IncorrectProgramCounterException("Error: Contador de programa fuera de rango.");
-			//System.err.println("Error: Contador de programa fuera de rango.");
 		}
 		this.pc = pos;
 	}

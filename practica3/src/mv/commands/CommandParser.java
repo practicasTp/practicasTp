@@ -1,13 +1,18 @@
 package mv.commands;
 
+import mv.exceptions.IncorrectParsingCommandException;
+import mv.exceptions.InsufficientInstructionsException;
+
 public class CommandParser {
 	
 	/**
 	 * Este método se encarga de cortar y analizar el string e identificar el tipo de comando que es para crear un objeto de ese tipo.
 	 * @param line es el string que contiene el comando completo.
 	 * @return comando que contiene el objeto del tipo correspondiente.
+	 * @throws InsufficientInstructionsException 
+	 * @throws IncorrectParsingCommandException 
 	 */
-	public static CommandInterpreter parseCommand (String line) {
+	public static CommandInterpreter parseCommand (String line) throws InsufficientInstructionsException, IncorrectParsingCommandException {
 		//divido la cadena e inicializo el comando a null
 		String[] cadena = line.split(" +");
 		CommandInterpreter comando = null;
@@ -30,7 +35,7 @@ public class CommandParser {
 				if( Integer.parseInt(cadena[1]) > 0){
 					comando = new Steps (Integer.parseInt(cadena[1]));
 				}else{
-					System.err.println("No puedes ejecutar "+cadena[1]+" instrucciones.");
+					throw new InsufficientInstructionsException("No puedes ejecutar "+cadena[1]+" instrucciones.");
 				}
 			//cadena del push
 			}else if(cadena[0].equalsIgnoreCase("PUSH")){
@@ -42,6 +47,9 @@ public class CommandParser {
 				comando = new Write (Integer.parseInt(cadena[1]), Integer.parseInt(cadena[2])); 
 			}
 		}
+		if(comando == null)
+			throw new IncorrectParsingCommandException("No te entiendo, no conozco ese comando.\nPrueba con:\n- Step\n- Run\n- Step n\n- Push\n- Pop\n- Write\n- Quit");
+		
 		return comando;
 	}
 	

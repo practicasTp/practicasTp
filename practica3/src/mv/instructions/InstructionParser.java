@@ -1,5 +1,7 @@
 package mv.instructions;
 
+import mv.exceptions.IncorrectParsingInstruction;
+
 //argumentos de ejemplo
 //-a C:\\Users\Javier\git\practicasTp\.classpath\practica3\instrucciones.txt -m bach -i C:\\Users\Javier\git\practicasTp
 
@@ -15,8 +17,9 @@ public class InstructionParser {
 	 * Método estático que identifica la instrucción parseando un string
 	 * @param instruccionSinParsear
 	 * @return Instruction
+	 * @throws IncorrectParsingInstruction 
 	 */
-	public static Instruction parser(String[] instruccionSinParsear){
+	public static Instruction parser(String[] instruccionSinParsear) throws IncorrectParsingInstruction{
 		int i = 0;
 		boolean stop = false;
 		boolean operando_validado = true;
@@ -35,9 +38,10 @@ public class InstructionParser {
 					i++;
 				}
 			}
+			if(instruccion_parseada == null)
+				throw new IncorrectParsingInstruction("Error: la instrucción introducida no es correcta.");
 		}else{
-			System.err.println("El operando debe ser un número.");
-			instruccion_parseada = null;
+			throw new IncorrectParsingInstruction("Error: el operando debe ser un número.");
 		}
 		
 		return instruccion_parseada;

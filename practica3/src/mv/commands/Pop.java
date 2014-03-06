@@ -9,8 +9,9 @@ public class Pop extends CommandInterpreter {
 	/**
 	 * Metodo que se encarga de desapilar un número en la pila
 	 * @return resultado
+	 * @throws mv.exceptions.EmptyStackException 
 	 */
-	public boolean executeCommand() {
+	public boolean executeCommand() throws mv.exceptions.EmptyStackException {
 		boolean resultado = false;
 		
 		//si el contenido de la pila es mayor que 0
@@ -22,7 +23,7 @@ public class Pop extends CommandInterpreter {
 			resultado = true;
 		//si no, aviso
 		}else{
-			System.err.println("No hay elementos en la pila para eliminar.");
+			throw new mv.exceptions.EmptyStackException("Error: la pila está vacía por lo que no se pueden sacar elementos.");
 		}
 		
 		return resultado;
