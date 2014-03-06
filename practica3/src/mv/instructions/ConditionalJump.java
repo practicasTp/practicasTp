@@ -35,9 +35,9 @@ abstract public class ConditionalJump extends Jumps{
 					try {
 						cpu.jumpProgramCounter(this.operando);
 					}
-				catch(IncorrectProgramCounterException e) {
-					System.err.println(e.getMessage());
-				}
+					catch(IncorrectProgramCounterException e) {
+						System.err.println(e.getMessage());
+					}
 				else 
 					cpu.increaseProgramCounter(this.operando);
 				execute = true;
