@@ -1,5 +1,7 @@
 package mv.cpu;
 
+import mv.exceptions.IncorrectMemoryPositionException;
+
 public class Memory<T> {
 	private Object[] registros;
 	public final int TAMANIO = 50;
@@ -95,13 +97,17 @@ public class Memory<T> {
 	 * Metodo que devuelve el dato de una posicion deseada
 	 * @param pos
 	 * @return dato
+	 * @throws IncorrectMemoryPositionException 
 	 */
-	public T getDato (int pos){
+	public T getDato (int pos) throws IncorrectMemoryPositionException{
+		T dato = null;
 		if (pos < this.registros.length) {
 			if(this.registros[pos]!=null)
-			        return (T)this.registros[pos];
-			else return null;
-		} else return null;
+			        dato = (T)this.registros[pos];
+			else throw new IncorrectMemoryPositionException("Error: no hay ningún dato asignado a esa posición de memoria.");
+		} else throw new IncorrectMemoryPositionException("Error: la posición de memoria que has solicitado está fuera de rango.");
+		
+		return dato;
 	}
 	
 	/**

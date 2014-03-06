@@ -1,6 +1,7 @@
 package mv.cpu;
 
 import mv.ExecutionMode;
+import mv.exceptions.IncorrectMemoryPositionException;
 import mv.exceptions.IncorrectProgramCounterException;
 import mv.exceptions.InsufficientOperandsException;
 import mv.instructions.Instruction;
@@ -179,8 +180,9 @@ public class Cpu {
 	 * Método que consigue un dato de la memoria situado en la posición indicada.
 	 * @param pos
 	 * @return un entero
+	 * @throws IncorrectMemoryPositionException 
 	 */
-	public int getMemoryValue (int pos) {
+	public int getMemoryValue (int pos) throws IncorrectMemoryPositionException {
 		return this.memoria.getDato(pos);
 	}
 	
