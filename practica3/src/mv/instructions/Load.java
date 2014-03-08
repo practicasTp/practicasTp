@@ -29,7 +29,7 @@ public class Load extends SystemMv {
 				System.err.println(e.getMessage());
 			}
 		}else{
-			throw new NegativeNumberIntoMemoryException("Error: no existen posiciones negativas en la memoria.");
+			throw new NegativeNumberIntoMemoryException("Error: no existen posiciones negativas en la memoria.\n");
 		}
 		
 		return resultado;

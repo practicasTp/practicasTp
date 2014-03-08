@@ -1,6 +1,7 @@
 package mv.instructions;
 
 import mv.cpu.Cpu;
+import mv.exceptions.EmptyStackException;
 
 public class Neg extends SystemMv {
 	
@@ -11,16 +12,24 @@ public class Neg extends SystemMv {
 	 * @return boolean
 	 */
 	public boolean executeAux (Cpu cpu) {
-		if (cpu.getSizeStack() >= 1) {
-			int cima = cpu.pop();
-			if (cima == 0) cpu.push(0);
-			else {
-				cima = cima * -1;
-				cpu.push(cima);
+		boolean resultado = false;
+		
+		try {
+			if (cpu.getSizeStack() >= 1) {
+				int cima = cpu.pop();
+				if (cima == 0) cpu.push(0);
+				else {
+					cima = cima * -1;
+					cpu.push(cima);
+				}
+				
+				resultado = true;
 			}
-			
-			return true;
-		} else return false;
+		} catch(EmptyStackException e) {
+			System.err.println(e.getMessage());
+		}
+		
+		return resultado;
 	}
 	
 	/**

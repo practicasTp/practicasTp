@@ -1,6 +1,7 @@
 package mv.instructions;
 
 import mv.cpu.Cpu;
+import mv.exceptions.EmptyStackException;
 
 public class Flip extends SystemMv {
 
@@ -11,13 +12,21 @@ public class Flip extends SystemMv {
 	 * @return boolean
 	 */
 	public boolean executeAux (Cpu cpu) {
-		if (cpu.getSizeStack() >= 2) {
-			int cima = cpu.pop();
-			int subcima = cpu.pop();
-			cpu.push(cima);
-			cpu.push(subcima);
-			return true;
-		} else return false;
+		boolean resultado = false;
+		
+		try {	
+			if (cpu.getSizeStack() >= 2) {
+				int cima = cpu.pop();
+				int subcima = cpu.pop();
+				cpu.push(cima);
+				cpu.push(subcima);
+				resultado = true;
+			}
+		} catch(EmptyStackException e) {
+			System.err.println(e.getMessage());
+		}
+		
+		return resultado;
 	}
 	
 	/**

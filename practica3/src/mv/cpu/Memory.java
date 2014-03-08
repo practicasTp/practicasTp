@@ -104,8 +104,8 @@ public class Memory<T> {
 		if (pos < this.registros.length) {
 			if(this.registros[pos]!=null)
 			        dato = (T)this.registros[pos];
-			else throw new IncorrectMemoryPositionException("Error: no hay ningún dato asignado a esa posición de memoria.");
-		} else throw new IncorrectMemoryPositionException("Error: la posición de memoria que has solicitado está fuera de rango.");
+			else throw new IncorrectMemoryPositionException("Error: no hay ningún dato asignado a esa posición de memoria.\n");
+		} else throw new IncorrectMemoryPositionException("Error: la posición de memoria que has solicitado está fuera de rango.\n");
 		
 		return dato;
 	}

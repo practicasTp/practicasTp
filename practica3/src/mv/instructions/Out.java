@@ -1,6 +1,7 @@
 package mv.instructions;
 
 import mv.cpu.Cpu;
+import mv.exceptions.EmptyStackException;
 
 public class Out extends SystemMv {
 
@@ -11,11 +12,19 @@ public class Out extends SystemMv {
 	 * @return boolean
 	 */
 	public boolean executeAux (Cpu cpu) {
-		if (cpu.getSizeStack() >= 1) {
-			int cima = cpu.pop();
-			cpu.writeChar((char)cima);
-			return true;
-		} return false;
+		boolean resultado = false;
+		
+		try {
+			if (cpu.getSizeStack() >= 1) {
+				int cima = cpu.pop();
+				cpu.writeChar((char)cima);
+				resultado = true;
+			}
+		} catch(EmptyStackException e) {
+			System.err.println(e.getMessage());
+		}
+		
+		return resultado;
 	}
 	
 	/**

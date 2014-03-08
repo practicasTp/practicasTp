@@ -39,9 +39,9 @@ public class InstructionParser {
 				}
 			}
 			if(instruccion_parseada == null)
-				throw new IncorrectParsingInstruction("Error: la instrucción introducida no es correcta.");
+				throw new IncorrectParsingInstruction("Error: la instrucción introducida no es correcta.\n");
 		}else{
-			throw new IncorrectParsingInstruction("Error: el operando debe ser un número.");
+			throw new IncorrectParsingInstruction("Error: el operando debe ser un número.\n");
 		}
 		
 		return instruccion_parseada;

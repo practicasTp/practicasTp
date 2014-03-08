@@ -1,6 +1,7 @@
 package mv.instructions;
 
 import mv.cpu.Cpu;
+import mv.exceptions.EmptyStackException;
 import mv.exceptions.InsufficientOperandsException;
 
 abstract public class Compare implements Instruction {
@@ -23,18 +24,22 @@ abstract public class Compare implements Instruction {
 	public boolean execute (Cpu cpu) throws InsufficientOperandsException {
 		boolean execute = false;
 		
-		if (cpu.getSizeStack() >= 2) {
-			//obtener cima y subcima.
-			int cima = cpu.pop();
-			int subcima = cpu.pop();
-			if (compare (cima, subcima)) cpu.push(1);
-			else cpu.push(0);
-			cpu.increaseProgramCounter();
-			execute = true;
+		try {
+			if (cpu.getSizeStack() >= 2) {
+				//obtener cima y subcima.
+				int cima = cpu.pop();
+				int subcima = cpu.pop();
+				if (compare (cima, subcima)) cpu.push(1);
+				else cpu.push(0);
+				cpu.increaseProgramCounter();
+				execute = true;
+			}
+			else 
+				throw new InsufficientOperandsException("Error: no hay operandos suficientes para realizar la operación.\n");
+		} catch(EmptyStackException e) {
+			System.err.println(e.getMessage());
 		}
-		else 
-			throw new InsufficientOperandsException("Error: no hay operandos suficientes para realizar la operación.");
-		
+			
 		return execute;
 	}
 	

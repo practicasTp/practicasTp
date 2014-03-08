@@ -17,7 +17,7 @@ public class Div extends Arithmetics {
 			this.result = n1 / n2;
 			execute = true;
 		} else {
-			throw new DivisionByZeroException("Error: No se puede realizar una división con denominador 0.");
+			throw new DivisionByZeroException("Error: No se puede realizar una división con denominador 0.\n");
 		}
 		
 		return execute;

@@ -159,7 +159,7 @@ public class Cpu {
 		Instruction inst = this.getCurrentInstruction();
 		if (inst != null) {
 			if(mode == ExecutionMode.INTERACTIVE){
-				System.out.println("Comienza la ejecución de "+inst.toString());
+				System.out.println("Comienza la ejecución de "+inst.toString()+"\n");
 			}
 			//retorno cómo ha ido la ejecución
 			try {
@@ -180,9 +180,12 @@ public class Cpu {
 	/**
 	 * Método que devuelve el tamaño de la pila.
 	 * @return tamaño de la pila.
+	 * @throws EmptyStackException 
 	 */
-	public int getSizeStack () {
-		return this.pila.getCima() + 1;
+	public int getSizeStack () throws EmptyStackException {
+		if((this.pila.getCima() + 1) >= 1)
+			return this.pila.getCima() + 1;
+		else throw new EmptyStackException("Error: la pila está vacía.\n");
 	}
 	
 	/**
@@ -214,7 +217,7 @@ public class Cpu {
 	public void jumpProgramCounter(int pos) throws IncorrectProgramCounterException {
 		int prueba = this.program.getSizeProgram();
 		if(pos >= prueba){
-			throw new IncorrectProgramCounterException("Error: Contador de programa fuera de rango.");
+			throw new IncorrectProgramCounterException("Error: Contador de programa fuera de rango.\n");
 		}
 		this.pc = pos;
 	}

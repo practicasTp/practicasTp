@@ -13,7 +13,7 @@ public class OperandStack<T> {
 	}
 	
 	/**
-	 * Metodo que inicializa la pila a null con el tamaÃ±o deseado
+	 * Metodo que inicializa la pila a null con el tamaño deseado
 	 * @param tamanio
 	 * @return pila inicializada
 	 */
@@ -139,7 +139,7 @@ public class OperandStack<T> {
 		if(!this.isEmpty()){
 			dato = (T)this.stack[pos];
 		}else
-			throw new EmptyStackException("Error: la pila está vacía por lo que no se pueden extraer elementos.");
+			throw new EmptyStackException("Error: la pila está vacía por lo que no se pueden extraer elementos.\n");
 		
 		return dato;
 	}

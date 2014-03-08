@@ -1,6 +1,7 @@
 package mv.instructions;
 
 import mv.cpu.Cpu;
+import mv.exceptions.EmptyStackException;
 import mv.exceptions.IncorrectProgramCounterException;
 import mv.exceptions.InsufficientOperandsException;
 
@@ -28,26 +29,30 @@ abstract public class ConditionalJump extends Jumps{
 	public boolean executeAux (Cpu cpu) throws InsufficientOperandsException {
 		boolean execute = false;
 		
-		if(cpu.getSizeStack() >= 1) {	
-			int cima = cpu.pop();
-			if (this.execute(cima)) {
-				if (!this.relative)
-					try {
-						cpu.jumpProgramCounter(this.operando);
-					}
-					catch(IncorrectProgramCounterException e) {
-						System.err.println(e.getMessage());
-					}
-				else 
-					cpu.increaseProgramCounter(this.operando);
-				execute = true;
-			} else {
-				cpu.increaseProgramCounter ();
-				execute = true;
-			}
-		} else 
-			throw new InsufficientOperandsException("Error: no hay operandos suficientes para realizar la operación.");
-		
+		try {
+			if(cpu.getSizeStack() >= 1) {	
+				int cima = cpu.pop();
+				if (this.execute(cima)) {
+					if (!this.relative)
+						try {
+							cpu.jumpProgramCounter(this.operando);
+						}
+						catch(IncorrectProgramCounterException e) {
+							System.err.println(e.getMessage());
+						}
+					else 
+						cpu.increaseProgramCounter(this.operando);
+					execute = true;
+				} else {
+					cpu.increaseProgramCounter ();
+					execute = true;
+				}
+			} else 
+				throw new InsufficientOperandsException("Error: no hay operandos suficientes para realizar la operación.\n");
+		} catch(EmptyStackException e) {
+			System.err.println(e.getMessage());
+		}
+			
 		return execute;
 	}
 	

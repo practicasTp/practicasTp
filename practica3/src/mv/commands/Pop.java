@@ -23,7 +23,7 @@ public class Pop extends CommandInterpreter {
 			resultado = true;
 		//si no, aviso
 		}else{
-			throw new mv.exceptions.EmptyStackException("Error: la pila está vacía por lo que no se pueden sacar elementos.");
+			throw new mv.exceptions.EmptyStackException("Error: la pila está vacía por lo que no se pueden sacar elementos.\n");
 		}
 		
 		return resultado;
