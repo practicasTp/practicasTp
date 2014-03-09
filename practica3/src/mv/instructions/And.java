@@ -4,6 +4,10 @@ import mv.cpu.Cpu;
 
 public class And extends Boolean{
 	
+	public And(){
+		super(TipoInstruction.AND);
+	}
+	
 	/**
 	 * Método que ejecuta una operación de tipo and entre 2 números
 	 * @return resultado

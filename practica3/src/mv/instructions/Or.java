@@ -4,7 +4,9 @@ import mv.cpu.Cpu;
 
 public class Or extends Boolean {
 	
-	
+	public Or(){
+		super(TipoInstruction.OR);
+	}
 	/**
 	 * Ejecuta una operación del tipo or o ||
 	 * @param cpu

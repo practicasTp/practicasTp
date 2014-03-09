@@ -7,6 +7,10 @@ import mv.exceptions.InsufficientOperandsException;
 abstract public class Boolean implements Instruction {
 	private TipoInstruction tipo;
 	
+	public Boolean(TipoInstruction tipo){
+		this.tipo = tipo;
+	}
+	
 	/**
 	 * Método que ejecuta la instrucción
 	 * @param cpu
