@@ -11,6 +11,7 @@ public class StdIn implements InputMethod {
 	public int readChar() {
 		int in = -1;
 		try {
+			System.out.print("\nIntroduzca caracter de entrada:");
 			in = System.in.read();
 		}
 		catch(IOException e) {

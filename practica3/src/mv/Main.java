@@ -169,9 +169,7 @@ public class Main {
 	 */
 	public static void main(String[] args) throws InsufficientOperandsException {
 		ProgramMv program = null;
-		String inputRoute = null;
 		ExecutionMode mode = ExecutionMode.BACH;
-		String outputRoute = null;
 		CommandLineParser parser  = null;  
         CommandLine       cmdLine = null;
         InputMethod input = null;
