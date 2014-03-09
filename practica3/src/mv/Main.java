@@ -177,11 +177,35 @@ public class Main {
 		
 		//defino los argumentos del programa
 		Options options = new Options();  
-		options.addOption("a", true,  "Fichero con el codigo en ASM del programa a ejecutar.");
-		options.addOption("h",  false, "Imprime el mensaje de ayuda");
-		options.addOption("i", true,  "Entrada del programa de la maquina.");
-		options.addOption("m", true,  "Modo de funcionamiento (batch | interactive). Por defecto, batch.");
-		options.addOption("o", true,  "Fichero donde se guarda la salida del programa de la maquina.");
+		options.addOption(OptionBuilder.withLongOpt("asm")
+                .withDescription("Fichero con el codigo en ASM del programa a ejecutar.")
+                .hasArg(true)
+                .withArgName("asmfile")
+                .isRequired(false)
+                .create('a'));
+		options.addOption(OptionBuilder.withLongOpt("help")
+                .withDescription("Imprime el mensaje de ayuda")
+                .hasArg(false)
+                .isRequired(false)
+                .create('h'));
+		options.addOption(OptionBuilder.withLongOpt("in")
+                .withDescription("Entrada del programa de la maquina-p.")
+                .hasArg(true)
+                .withArgName("infile")
+                .isRequired(false)
+                .create('i'));
+		options.addOption(OptionBuilder.withLongOpt("mode")
+                .withDescription("Modo de funcionamiento (batch | interactive). Por defecto, batch")
+                .hasArg(true)
+                .withArgName("mode")
+                .isRequired(false)
+                .create('m'));
+		options.addOption(OptionBuilder.withLongOpt("out")
+                .withDescription("Fichero donde se guarda la salida del programa de la maquina.")
+                .hasArg(true)
+                .withArgName("outfile")
+                .isRequired(false)
+                .create('o'));
 	
 		//obtengo el programa en función de los argumentos
 		program = getProgram(args, options);
