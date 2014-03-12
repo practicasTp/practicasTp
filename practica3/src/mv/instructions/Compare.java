@@ -1,5 +1,6 @@
 package mv.instructions;
 
+import mv.ExecutionMode;
 import mv.cpu.Cpu;
 import mv.exceptions.EmptyStackException;
 import mv.exceptions.InsufficientOperandsException;
@@ -38,6 +39,9 @@ abstract public class Compare implements Instruction {
 				throw new InsufficientOperandsException("Error: no hay operandos suficientes para realizar la operación.\n");
 		} catch(EmptyStackException e) {
 			System.err.println(e.getMessage());
+			if(cpu.mode == ExecutionMode.BACH){
+				System.exit(1);
+			}
 		}
 			
 		return execute;

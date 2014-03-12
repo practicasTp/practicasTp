@@ -20,7 +20,7 @@ public class Mult extends Arithmetics {
 	 * @return new Mult o null
 	 */
 	public Instruction parse (String[] s) {
-		if ((s.length == 1) && s[0].equalsIgnoreCase("MULT")) 
+		if ((s.length == 1) && (s[0].equalsIgnoreCase("MULT") || s[0].equalsIgnoreCase("MUL"))) 
 			return new Mult();
 		else return null;
 	}

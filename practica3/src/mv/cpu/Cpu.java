@@ -169,6 +169,9 @@ public class Cpu {
 			}
 			catch (InsufficientOperandsException e) {
 				System.err.println(e.getMessage());
+				if(this.mode == ExecutionMode.BACH){
+					System.exit(1);
+				}
 			}
 		} else{
 			this.exit();

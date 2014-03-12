@@ -1,5 +1,6 @@
 package mv.instructions;
 
+import mv.ExecutionMode;
 import mv.cpu.Cpu;
 import mv.exceptions.EmptyStackException;
 import mv.exceptions.NegativeNumberIntoMemoryException;
@@ -33,6 +34,9 @@ abstract public class SystemMv implements Instruction {
 			} 
 		} catch (NegativeNumberIntoMemoryException e) {
 			System.err.println(e.getMessage());
+			if(cpu.mode == ExecutionMode.BACH){
+				System.exit(1);
+			}
 		} catch (EmptyStackException e) {
 			System.err.println(e.getMessage());
 		}

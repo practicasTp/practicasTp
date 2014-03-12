@@ -1,4 +1,5 @@
 package mv.instructions;
+import mv.ExecutionMode;
 import mv.cpu.Cpu;
 import mv.exceptions.DivisionByZeroException;
 import mv.exceptions.EmptyStackException;
@@ -42,6 +43,9 @@ abstract public class Arithmetics implements Instruction {
 				}
 				catch (DivisionByZeroException e) {
 					System.err.println(e.getMessage());
+					if(cpu.mode == ExecutionMode.BACH){
+						System.exit(1);
+					}
 				}
 			}//si no lo tiene retorno falso
 			else {

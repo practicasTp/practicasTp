@@ -1,5 +1,6 @@
 package mv.instructions;
 
+import mv.ExecutionMode;
 import mv.cpu.Cpu;
 import mv.exceptions.IncorrectMemoryPositionException;
 import mv.exceptions.NegativeNumberIntoMemoryException;
@@ -30,6 +31,7 @@ public class Load extends SystemMv {
 			}
 		}else{
 			throw new NegativeNumberIntoMemoryException("Error: no existen posiciones negativas en la memoria.\n");
+			
 		}
 		
 		return resultado;

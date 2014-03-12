@@ -2,6 +2,7 @@ package mv;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import mv.commands.CommandInterpreter;
@@ -64,7 +65,10 @@ public class Main {
         		program = readProgramFromCmd();  
             } 
             
-		} catch (Exception e) {
+		}catch(UnrecognizedOptionException e){ 
+			System.err.println("Parámetro no reconocido. usa -h para ver los parámetros aceptados.");	
+			System.exit(1);
+		}catch (Exception e) {
 			System.err.println("Error al obtener el programa");	
 			System.exit(1);
 		}
@@ -82,6 +86,7 @@ public class Main {
 		String[] instruccionCortada;
 		boolean stop	  = false;
 		int contLinea	  = 1;
+		String[] lineaSinPuntoComa;
 		
 		try{
 			Scanner sc= new Scanner(new FileReader(asmRoute)); 
@@ -90,27 +95,37 @@ public class Main {
 					//leo la intrucción del fichero
 					String instructionLine = sc.nextLine();
 					
-					//divido la cadena obtenida en el fichero
-					instruccionCortada = instructionLine.split(" +");
-					
-					if(!instruccionCortada[0].equalsIgnoreCase("END")){
-						//parseo la instruccion
+					if(instructionLine.charAt(0)!= ';' && instructionLine!=""){
 						
-						try{
-							Instruction instruccion = InstructionParser.parser(instruccionCortada);
-							program.push(instruccion);
-						}catch(IncorrectParsingInstruction e){
-							System.err.println(e.getMessage());
-							System.err.println("La instrucción fallida se encuentra en la linea "+contLinea+": '"+instructionLine+"'");
-							System.exit(1);
+						lineaSinPuntoComa = instructionLine.split(";");
+						
+						//divido la cadena obtenida en el fichero
+						instruccionCortada = lineaSinPuntoComa[0].split(" +");
+						
+						if(!instruccionCortada[0].equalsIgnoreCase("END")){
+							//parseo la instruccion
+							
+							try{
+								Instruction instruccion = InstructionParser.parser(instruccionCortada);
+								program.push(instruccion);
+							}catch(IncorrectParsingInstruction e){
+								System.err.println(e.getMessage());
+								System.err.println("La instrucción fallida se encuentra en la linea "+contLinea+": '"+instructionLine+"'");
+								System.exit(1);
+							}
+						}else{
+							stop = true;
 						}
-					}else{
-						stop = true;
+						
+						
 					}
-					
 					contLinea++;
 				} catch(InputMismatchException e){ 
 					sc.next(); 
+				} catch(NoSuchElementException e){
+					stop = true;
+				} catch(StringIndexOutOfBoundsException e){
+					contLinea++;
 				}
 			}	
 		}catch (FileNotFoundException e) { 
