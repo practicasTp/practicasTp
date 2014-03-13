@@ -1,4 +1,4 @@
-package mv.instructions;
+	package mv.instructions;
 
 public class RelativeBt extends ConditionalJump {
 	
@@ -13,7 +13,7 @@ public class RelativeBt extends ConditionalJump {
 	 * @return boolean
 	 */
 	public boolean execute (int cima) {
-		if (cima == 1) {
+		if (cima != 0) {
 			this.relative = true;
 			return true;
 		}
