@@ -1,5 +1,6 @@
 package mv.instructions;
 
+import mv.ExecutionMode;
 import mv.cpu.Cpu;
 import mv.exceptions.EmptyStackException;
 import mv.exceptions.IncorrectProgramCounterException;
@@ -39,6 +40,10 @@ abstract public class ConditionalJump extends Jumps{
 						}
 						catch(IncorrectProgramCounterException e) {
 							System.err.println(e.getMessage());
+							if(cpu.mode == ExecutionMode.BACH){
+								System.err.println("Sayonara Baby.");
+								System.exit(1);
+							}
 						}
 					else 
 						cpu.increaseProgramCounter(this.operando);
