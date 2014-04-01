@@ -1,8 +1,6 @@
 package mv.cpu;
 
 import mv.ExecutionMode;
-import mv.Main;
-import mv.commands.CommandInterpreter;
 import mv.exceptions.EmptyStackException;
 import mv.exceptions.IncorrectMemoryPositionException;
 import mv.exceptions.IncorrectProgramCounterException;
@@ -178,10 +176,7 @@ public class Cpu {
 		
 		//obtengo una instruccion
 		Instruction inst = this.getCurrentInstruction();
-		if (inst != null) {
-			if(mode == ExecutionMode.INTERACTIVE){
-				System.out.println("Comienza la ejecución de "+inst.toString()+"\n");
-			}
+		if (inst != null) {			
 			//retorno cómo ha ido la ejecución
 			try {
 				if (inst.execute(this)){

@@ -1,6 +1,5 @@
 package mv.commands;
 
-import mv.ExecutionMode;
 import mv.cpu.Cpu;
 import mv.exceptions.InsufficientOperandsException;
 import mv.exceptions.EmptyStackException;

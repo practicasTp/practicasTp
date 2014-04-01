@@ -1,6 +1,5 @@
 package mv.instructions;
 
-import mv.ExecutionMode;
 import mv.cpu.Cpu;
 import mv.exceptions.IncorrectMemoryPositionException;
 import mv.exceptions.NegativeNumberIntoMemoryException;

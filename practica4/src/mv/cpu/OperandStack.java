@@ -17,7 +17,7 @@ public class OperandStack<T> {
 	 * @param tamanio
 	 * @return pila inicializada
 	 */
-	private T[] inicializaPila(int tamanio){
+	@SuppressWarnings("all") private T[] inicializaPila(int tamanio){
 		
 		//creo un auxiliar con el tamaÃ±o que me indican
 		Object [] r = new Object[tamanio];
@@ -90,7 +90,7 @@ public class OperandStack<T> {
 	 * @param tamanio
 	 * @return auxiliar
 	 */
-	private T[] redimensionaPila(int tamanio){
+	@SuppressWarnings("all") private T[] redimensionaPila(int tamanio){
 		//creo un auxiliar con el tamaÃ±o que me pasan
 		Object [] aux = new Object[tamanio];
 		
@@ -134,7 +134,7 @@ public class OperandStack<T> {
 	 * @return dato
 	 * @throws EmptyStackException 
 	 */
-	public T getDato (int pos) throws EmptyStackException {
+	@SuppressWarnings("all") public T getDato (int pos) throws EmptyStackException {
 		T dato = null;
 		if(!this.isEmpty()){
 			dato = (T)this.stack[pos];

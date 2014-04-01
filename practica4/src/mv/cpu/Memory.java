@@ -16,7 +16,7 @@ public class Memory<T> {
 	 * @param tamanio
 	 * @return memoria inicializada
 	 */
-	private T[] inicializarMemory(int tam){
+	@SuppressWarnings("all") private T[] inicializarMemory(int tam){
 		
 		//creo un auxiliar con el tamaÃ±o que me indican
 		Object[] r = new Object[tam];
@@ -66,7 +66,7 @@ public class Memory<T> {
 	 * @param aux
 	 * @return memoria redimensionada
 	 */
-	private T[] redimensionar(Object[] aux){
+	@SuppressWarnings("all") private T[] redimensionar(Object[] aux){
 		
 		//recorro todos los registros que tengo y los copio al auxiliar, el cual estÃ¡ previamente inicializado
 		for(int i=0;i< this.registros.length;i++){
@@ -99,7 +99,7 @@ public class Memory<T> {
 	 * @return dato
 	 * @throws IncorrectMemoryPositionException 
 	 */
-	public T getDato (int pos) throws IncorrectMemoryPositionException{
+	@SuppressWarnings("all") public T getDato (int pos) throws IncorrectMemoryPositionException{
 		T dato = null;
 		if (pos < this.registros.length) {
 			if(this.registros[pos]!=null)

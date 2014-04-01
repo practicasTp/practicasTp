@@ -129,7 +129,7 @@ public class ProgramMv {
 	 * Función que se encarga de pedir el programa por consola
 	 * @return line
 	 */
-	public static ProgramMv readProgram(String asmRoute)throws FileNotFoundException, InputMismatchException{ 
+	public static ProgramMv readProgram(String asmRoute){ 
 		ProgramMv program = new ProgramMv();
 		String[] instruccionCortada;
 		boolean stop	  = false;
@@ -189,7 +189,7 @@ public class ProgramMv {
 	 * @return line
 	 * @throws IncorrectParsingInstruction 
 	 */
-	public static ProgramMv readProgram() throws IncorrectParsingInstruction{
+	public static ProgramMv readProgram(){
 		ProgramMv program = new ProgramMv();
 		boolean stop = false;
 		String[] instruccionCortada;

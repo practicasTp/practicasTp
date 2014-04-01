@@ -2,12 +2,10 @@ package mv;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.InputMismatchException;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import mv.commands.CommandInterpreter;
 import mv.commands.CommandParser;
-import mv.commands.Run;
 import mv.cpu.Cpu;
 import mv.exceptions.EmptyStackException;
 import mv.exceptions.IncorrectParsingCommandException;
@@ -16,20 +14,17 @@ import mv.exceptions.InsufficientInstructionsException;
 import mv.exceptions.InsufficientOperandsException;
 import mv.exceptions.NegativeNumberIntoMemoryException;
 import mv.instructions.Instruction;
-import mv.instructions.InstructionParser;
 import mv.program.ProgramMv;
 import mv.reading.FromInputStreamIn;
 import mv.reading.InputMethod;
 import mv.reading.NullIn;
 import mv.reading.StdIn;
 import mv.writing.FromOutputStreamOut;
-import mv.writing.NullOut;
 import mv.writing.OutputMethod;
 import mv.writing.StdOut;
 
 import org.apache.commons.cli.*;  
 
-import userInterface.principalFrame;
 
 public class Main {
 
@@ -43,7 +38,7 @@ public class Main {
 	private static OutputMethod output;
 	private static String programFileName;
 	
-	public static void parseOptions(String[] args) throws ParseException{
+	@SuppressWarnings("all") public static void parseOptions(String[] args) throws ParseException{
 		CommandLineParser parser  = null;  
         CommandLine       cmdLine = null;
         
@@ -156,9 +151,14 @@ public class Main {
 	 * @throws InsufficientOperandsException 
 	 */
 	public static void main(String[] args)throws InsufficientOperandsException{
+		
 		startMv(args);
 	}
 	
+	/**
+	 * Función que ejecuta la máquina virtual en el modo deseado
+	 * @param args
+	 */
 	public static void startMv(String[] args){
 		try{
 			parseOptions(args);
@@ -212,6 +212,9 @@ public class Main {
 				
 				if(command != null){
 					try {
+						Instruction inst = cpu.getCurrentInstruction();		
+						System.out.println("Comienza la ejecución de "+inst.toString()+"\n");
+						
 						command.executeCommand();
 					} catch (EmptyStackException e) {
 						System.err.println(e.getMessage());
