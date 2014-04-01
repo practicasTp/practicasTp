@@ -47,8 +47,6 @@ abstract public class CommandInterpreter {
 	 * Método que printa el estado de la máquina
 	 */
 	public static void printStateMachine () {
-		if(CommandInterpreter.cpu.mode == ExecutionMode.INTERACTIVE){
-			System.out.println(CommandInterpreter.cpu.toString());
-		}
+		System.out.println(CommandInterpreter.cpu.toString());
 	}
 }

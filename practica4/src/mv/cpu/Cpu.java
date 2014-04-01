@@ -1,6 +1,8 @@
 package mv.cpu;
 
 import mv.ExecutionMode;
+import mv.Main;
+import mv.commands.CommandInterpreter;
 import mv.exceptions.EmptyStackException;
 import mv.exceptions.IncorrectMemoryPositionException;
 import mv.exceptions.IncorrectProgramCounterException;
@@ -21,7 +23,7 @@ public class Cpu {
 	private OutputMethod output;
 	public ExecutionMode mode;
 	
-	public Cpu(ExecutionMode mode, InputMethod input, OutputMethod output, ProgramMv program){
+	public Cpu(InputMethod input, OutputMethod output, ProgramMv program){
 		this.memoria 	= new Memory<Integer> ();
 		this.pila 		= new OperandStack<Integer> ();
 		this.fin 		= false;
@@ -30,7 +32,26 @@ public class Cpu {
 		this.input 		= input;
 		this.output 	= output;
 		this.program 	= program;
-		this.mode 		= mode;
+	}
+	
+	/**
+	 * Método que ejecuta todas las instrucciones del programa cargado en la cpu
+	 */
+	public void run(){
+		boolean resultado = false;
+		this.resetCpu();
+		
+		do{
+			//si la instrucción se ejecuta correctamente
+			if (this.step()){
+				resultado = true;
+			}else{
+				//si no, paro ejecución
+				resultado = false;
+			}
+		//repito hasta que la cpu me diga que no hay más instrucciones a ejecutar	
+		}while(resultado!=false);
+		
 	}
 	
 	/**

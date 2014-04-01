@@ -29,166 +29,24 @@ import mv.writing.StdOut;
 
 import org.apache.commons.cli.*;  
 
+import userInterface.principalFrame;
+
 public class Main {
 
-	public static ProgramMv getProgram(String[] args, Options options){
-		ProgramMv program 		  = null;
-		String asmRoute 		  = null;
+	private static final int _BATCH_MODE 	= 0;
+	private static final int _INTER_MODE 	= 1;
+	private static final int _WINDOW_MODE 	= 2;
+	
+	private static int executionMode;
+	private static Cpu cpu;
+	private static InputMethod input;
+	private static OutputMethod output;
+	private static String programFileName;
+	
+	public static void parseOptions(String[] args) throws ParseException{
 		CommandLineParser parser  = null;  
         CommandLine       cmdLine = null;
-	
         
-		try {
-			
-			parser  = new BasicParser();  
-            cmdLine = parser.parse(options, args); 
-			
-			 // Si está la opcion de ayuda, la imprimimos y salimos.  
-            if (cmdLine.hasOption("h")){    // No hace falta preguntar por el parámetro "help". Ambos son sinónimos  
-            	String helpParam = cmdLine.getOptionValue("a");
-            	
-            	/*
-            	 * 
-            	 * SI ME VIENE UN PARAMETRO EN EL MENOS H PETO Y ME SALGO
-            	 * 
-            	 */
-            	
-                new HelpFormatter().printHelp(Main.class.getCanonicalName(), options );  
-                System.exit(1);
-            } 
-            
-            // Si el usuario ha especificado el fichero asm, obtenemos la ruta e intentamos cargar el programa desde el fichero          
-            if (cmdLine.hasOption("a")){  
-            	asmRoute = cmdLine.getOptionValue("a"); 
-            	program = readProgramFromFile(asmRoute);
-            } else {//si no lo ha especificado, leemos el programa desde línea de comando          		
-        		program = readProgramFromCmd();  
-            } 
-            
-		}catch(UnrecognizedOptionException e){ 
-			System.err.println("Parámetro no reconocido. usa -h para ver los parámetros aceptados.");	
-			System.exit(1);
-		}catch (Exception e) {
-			System.err.println("Error al obtener el programa");	
-			System.exit(1);
-		}
-		
-		return program;
-	}
-	
-	
-	/**
-	 * Función que se encarga de pedir el programa por consola
-	 * @return line
-	 */
-	private static ProgramMv readProgramFromFile(String asmRoute)throws FileNotFoundException, InputMismatchException{ 
-		ProgramMv program = new ProgramMv();
-		String[] instruccionCortada;
-		boolean stop	  = false;
-		int contLinea	  = 1;
-		String[] lineaSinPuntoComa;
-		
-		try{
-			Scanner sc= new Scanner(new FileReader(asmRoute)); 
-			while(sc.hasNext() || !stop ){ 
-				try{ 
-					//leo la intrucción del fichero
-					String instructionLine = sc.nextLine();
-					
-					if(instructionLine.charAt(0)!= ';' && instructionLine!=""){
-						
-						lineaSinPuntoComa = instructionLine.split(";");
-						
-						//divido la cadena obtenida en el fichero
-						instruccionCortada = lineaSinPuntoComa[0].split(" +");
-						
-						if(!instruccionCortada[0].equalsIgnoreCase("END")){
-							//parseo la instruccion
-							
-							try{
-								Instruction instruccion = InstructionParser.parser(instruccionCortada);
-								program.push(instruccion);
-							}catch(IncorrectParsingInstruction e){
-								System.err.println(e.getMessage());
-								System.err.println("La instrucción fallida se encuentra en la linea "+contLinea+": '"+instructionLine+"'");
-								System.exit(1);
-							}
-						}else{
-							stop = true;
-						}
-						
-					}
-					contLinea++;
-				} catch(InputMismatchException e){ 
-					sc.next(); 
-				} catch(NoSuchElementException e){
-					stop = true;
-				} catch(StringIndexOutOfBoundsException e){
-					contLinea++;
-				}
-			}	
-		}catch (FileNotFoundException e) { 
-			System.err.println("Uso incorrecto: Fichero ASM no especificado, ruta: '"+asmRoute+"'");
-			System.exit(1);
-		}
-		
-		return program;
-	}
-	
-	
-	/**
-	 * Función que se encarga de pedir el programa por consola
-	 * @return line
-	 * @throws IncorrectParsingInstruction 
-	 */
-	private static ProgramMv readProgramFromCmd() throws IncorrectParsingInstruction{
-		ProgramMv program = new ProgramMv();
-		boolean stop = false;
-		String[] instruccionCortada;
-		Scanner sc = new Scanner(System.in);
-		
-		System.out.println("> Introduce el programa fuente:");
-		//Primera fase:
-		
-		//Se lee el programa
-		do{
-			//pido la instrucción por el prompt.
-			String instructionLine = sc.nextLine();
-			
-			//divido la cadena obtenida en el prompt
-			instruccionCortada = instructionLine.split(" +");
-			
-			if(!instruccionCortada[0].equalsIgnoreCase("END")){
-				//parseo la instruccion
-				Instruction instruccion = null;
-				try {
-					instruccion = InstructionParser.parser(instruccionCortada);
-					program.push(instruccion);
-				} catch (IncorrectParsingInstruction e) {
-					System.err.println(e.getMessage());
-				}
-			}else{
-				stop = true;
-			}
-			
-		}while(stop==false);
-		
-		return program;
-	}
-	
-	/**
-	 * Función que inicia la ejecución
-	 * @param args
-	 * @throws InsufficientOperandsException 
-	 */
-	public static void main(String[] args) throws InsufficientOperandsException {
-		ProgramMv program = null;
-		ExecutionMode mode = ExecutionMode.BACH;
-		CommandLineParser parser  = null;  
-        CommandLine       cmdLine = null;
-        InputMethod input = null;
-        OutputMethod output = null;
-		
 		//defino los argumentos del programa
 		Options options = new Options();  
 		options.addOption(OptionBuilder.withLongOpt("asm")
@@ -221,29 +79,39 @@ public class Main {
                 .isRequired(false)
                 .create('o'));
 	
-		//obtengo el programa en función de los argumentos
-		program = getProgram(args, options);
-		
 		try {
-			
 			parser  = new BasicParser();  
-            cmdLine = parser.parse(options, args);  
+            cmdLine = parser.parse(options, args); 
+			
+			 // Si está la opcion de ayuda, la imprimimos y salimos.  
+            if (cmdLine.hasOption("h")){    // No hace falta preguntar por el parámetro "help". Ambos son sinónimos  
+            	String helpParam = cmdLine.getOptionValue("a");
+            	
+                new HelpFormatter().printHelp(Main.class.getCanonicalName(), options );  
+                System.exit(1);
+            } 
             
             // Si el usuario ha especificado el modo lo leemos y procesamos          
             if (cmdLine.hasOption("m")){  
             	String modeReceived = cmdLine.getOptionValue("m");
-            	if(modeReceived.equalsIgnoreCase("BACH")){
-            		mode = ExecutionMode.BACH;
+            	if(modeReceived.equalsIgnoreCase("BATCH")){
+            		executionMode = _BATCH_MODE;
             	}else if(modeReceived.equalsIgnoreCase("INTERACTIVE")){
-            		mode = ExecutionMode.INTERACTIVE;
+            		executionMode = _INTER_MODE;
+            	}else if(modeReceived.equalsIgnoreCase("WINDOW")){
+            		executionMode = _WINDOW_MODE;
             	}else{
-            		/*
-            		 * 
-            		 * LANZO EXCEPCION DE MODO DE EJECUCIÓN NO DEFINIDO
-            		 * 
-            		 */
+            		throw new Exception("Modo de ejecución no indentificado, use -h para ver los modos de ejecución");
             	}
             }
+            
+            // Si el usuario ha especificado el fichero asm, obtenemos la ruta e intentamos cargar el programa desde el fichero          
+            if (cmdLine.hasOption("a")){  
+            	programFileName = cmdLine.getOptionValue("a"); 
+            	
+            } else {//si no lo ha especificado, leemos el programa desde línea de comando          		
+            	programFileName = null;  
+            } 
             
             // Si el usuario ha especificado el in lo leemos y procesamos          
             if (cmdLine.hasOption("i")){  
@@ -255,7 +123,7 @@ public class Main {
             		input = new FromInputStreamIn(inReceived);
             	}catch (FileNotFoundException e) { 
             		//si no existe el fichero, capturo la excepción  y activo el modo interactivo
-        			mode	= ExecutionMode.INTERACTIVE;
+            		executionMode	= _INTER_MODE;
         			System.err.println("No se ha encontrado el fichero de entrada, se activa el modo interactivo");
         			input = new NullIn();
         		}
@@ -273,64 +141,116 @@ public class Main {
             	output = new StdOut();
             }
             
-		} catch (Exception e) {
-			System.err.println("Error al procesar las opciones, teclee -h para ver las opciones disponibles.");	
+		}catch(UnrecognizedOptionException e){ 
+			System.err.println("Parámetro no reconocido. usa -h para ver los parámetros aceptados.");	
+			System.exit(1);
+		}catch(Exception e){
+			System.err.println(e.getMessage());
 			System.exit(1);
 		}
+	}
+	
+	/**
+	 * Función que inicia la ejecución
+	 * @param args
+	 * @throws InsufficientOperandsException 
+	 */
+	public static void main(String[] args)throws InsufficientOperandsException{
+		startMv(args);
+	}
+	
+	public static void startMv(String[] args){
+		try{
+			parseOptions(args);
+			switch(executionMode){
+				case _INTER_MODE:
+					interactiveMode();
+				break;
+				case _BATCH_MODE:
+					batchMode();
+				break;
+				case _WINDOW_MODE:
+					windowMode();
+				break;
+				default:
+					System.exit(1);
+				break;
+			}
+		}catch(Exception e){
+			System.err.println(e.getMessage());
+			System.exit(1);
+		}
+			
+	}
+	
+	private static void interactiveMode() throws InputMismatchException, FileNotFoundException, IncorrectParsingInstruction {
+		boolean end = false;
+		Scanner sc = new Scanner(System.in);
+		
+		// leer el programa
+		ProgramMv program = programFileName == null ? ProgramMv.readProgram() : ProgramMv.readProgram(programFileName);
+		
+		//Creamos la CPU y cargamos el programa.
+		cpu = new Cpu (input, output, program); //Se pasan las E/S y el programa.
 		
 		//Muestra el programa introducido.
 		System.out.println(program.toString());
 		
-		//Segunda fase:
-		Scanner sc = new Scanner(System.in);
-		boolean end = false;
-		
-		
-		//Creamos la CPU y cargamos el programa.
-		Cpu cpu = new Cpu (mode, input, output, program); //Se pasan las E/S y el programa.
-		
 		//Pasamos al intérprete de comandos la cpu.
 		CommandInterpreter.configureCommandInterpreter(cpu);
 		
-		do{
-			CommandInterpreter command = null; 
-			
-			//si el metodo de ejecución es interactivo entonces pedimos al usuario el comando (step, run, step 3...)
-			if(mode == ExecutionMode.INTERACTIVE){
+		do {
+			try {
+				CommandInterpreter command = null; 
+				
 				System.out.print("> ");
 				//Muestra el prompt y lee el comando.
 				String commandLine = sc.nextLine();
 				
 				//Parseamos los comandos.
-				try {
-					command = CommandParser.parseCommand(commandLine);
-				} catch (InsufficientInstructionsException e) {
-					System.err.println(e.getMessage());
-				} catch (IncorrectParsingCommandException e) {
-					System.err.println(e.getMessage());
+				command = CommandParser.parseCommand(commandLine);
+				
+				if(command != null){
+					try {
+						command.executeCommand();
+					} catch (EmptyStackException e) {
+						System.err.println(e.getMessage());
+					} catch (NegativeNumberIntoMemoryException e) {
+						System.err.println(e.getMessage());
+					}catch (InsufficientOperandsException e) {
+						System.err.println(e.getMessage());
+					}
+					if(command.isFinished()){
+						end = true;
+					}
 				}
-			}else if(mode == ExecutionMode.BACH){
-				//si el método de ejecución es bach, entonces ejecutamos un run que ejecute toda la aplicación del programa
-				command = new Run();
-			}	
-			
-			
-			if(command != null){
-				try {
-					command.executeCommand();
-				} catch (EmptyStackException e) {
-					System.err.println(e.getMessage());
-				} catch (NegativeNumberIntoMemoryException e) {
-					System.err.println(e.getMessage());
-				}
-				if(command.isFinished()){
-					end = true;
-				}
+				
+			}catch (InsufficientInstructionsException e) {
+				System.err.println(e.getMessage());
+			} catch (IncorrectParsingCommandException e) {
+				System.err.println(e.getMessage());	
 			}
-			
-		}while(!end);
-		
+		// escribir el estado de la maquina
+		} while (!end);
 		
 	}
+	
+	private static void batchMode() throws InputMismatchException, FileNotFoundException, IncorrectParsingInstruction {
+		// leer el programa
+		ProgramMv program = programFileName == null ? ProgramMv.readProgram() : ProgramMv.readProgram(programFileName);
+		
+		//Creamos la CPU y cargamos el programa.
+		cpu = new Cpu (input, output, program); //Se pasan las E/S y el programa.
+		
+		try {
+			cpu.run();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
 
+	}
+	
+	private static void windowMode() {
+		
+	}
 }

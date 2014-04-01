@@ -1,5 +1,13 @@
 package mv.program;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+
+import mv.exceptions.IncorrectParsingInstruction;
 import mv.instructions.Instruction;
+import mv.instructions.InstructionParser;
 
 public class ProgramMv {
 	static private final int MAX_PROGRAM = 2;
@@ -115,5 +123,104 @@ public class ProgramMv {
 		}
 		
 		return "El programa introducido es: \n"+contenidoProgram;
+	}
+	
+	/**
+	 * Función que se encarga de pedir el programa por consola
+	 * @return line
+	 */
+	public static ProgramMv readProgram(String asmRoute)throws FileNotFoundException, InputMismatchException{ 
+		ProgramMv program = new ProgramMv();
+		String[] instruccionCortada;
+		boolean stop	  = false;
+		int contLinea	  = 1;
+		String[] lineaSinPuntoComa;
+		
+		try{
+			Scanner sc= new Scanner(new FileReader(asmRoute)); 
+			while(sc.hasNext() || !stop ){ 
+				try{ 
+					//leo la intrucción del fichero
+					String instructionLine = sc.nextLine();
+					
+					if(instructionLine.charAt(0)!= ';' && instructionLine!=""){
+						
+						lineaSinPuntoComa = instructionLine.split(";");
+						
+						//divido la cadena obtenida en el fichero
+						instruccionCortada = lineaSinPuntoComa[0].split(" +");
+						
+						if(!instruccionCortada[0].equalsIgnoreCase("END")){
+							//parseo la instruccion
+							
+							try{
+								Instruction instruccion = InstructionParser.parser(instruccionCortada);
+								program.push(instruccion);
+							}catch(IncorrectParsingInstruction e){
+								System.err.println(e.getMessage());
+								System.err.println("La instrucción fallida se encuentra en la linea "+contLinea+": '"+instructionLine+"'");
+								System.exit(1);
+							}
+						}else{
+							stop = true;
+						}
+						
+					}
+					contLinea++;
+				} catch(InputMismatchException e){ 
+					sc.next(); 
+				} catch(NoSuchElementException e){
+					stop = true;
+				} catch(StringIndexOutOfBoundsException e){
+					contLinea++;
+				}
+			}	
+		}catch (FileNotFoundException e) { 
+			System.err.println("Uso incorrecto: Fichero ASM no especificado, ruta: '"+asmRoute+"'");
+			System.exit(1);
+		}
+		
+		return program;
+	}
+	
+	
+	/**
+	 * Función que se encarga de pedir el programa por consola
+	 * @return line
+	 * @throws IncorrectParsingInstruction 
+	 */
+	public static ProgramMv readProgram() throws IncorrectParsingInstruction{
+		ProgramMv program = new ProgramMv();
+		boolean stop = false;
+		String[] instruccionCortada;
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("> Introduce el programa fuente:");
+		//Primera fase:
+		
+		//Se lee el programa
+		do{
+			//pido la instrucción por el prompt.
+			String instructionLine = sc.nextLine();
+			
+			//divido la cadena obtenida en el prompt
+			instruccionCortada = instructionLine.split(" +");
+			
+			if(!instruccionCortada[0].equalsIgnoreCase("END")){
+				//parseo la instruccion
+				Instruction instruccion = null;
+				try {
+					instruccion = InstructionParser.parser(instruccionCortada);
+					program.push(instruccion);
+				} catch (IncorrectParsingInstruction e) {
+					System.err.println(e.getMessage());
+				}
+			}else{
+				stop = true;
+			}
+			
+		}while(stop==false);
+		
+		return program;
 	}
 }
