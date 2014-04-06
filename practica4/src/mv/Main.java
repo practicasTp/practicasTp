@@ -98,14 +98,20 @@ public class Main {
             	}else{
             		throw new Exception("Modo de ejecución no indentificado, use -h para ver los modos de ejecución");
             	}
+            }else{
+            	executionMode = _INTER_MODE;
             }
             
             // Si el usuario ha especificado el fichero asm, obtenemos la ruta e intentamos cargar el programa desde el fichero          
             if (cmdLine.hasOption("a")){  
             	programFileName = cmdLine.getOptionValue("a"); 
             	
-            } else {//si no lo ha especificado, leemos el programa desde línea de comando          		
-            	programFileName = null;  
+            } else {//si no lo ha especificado, leemos el programa desde línea de comando   
+            	if(executionMode == _BATCH_MODE){
+            		throw new Exception("Para usar el modo Batch debes pasar el programa a ejecutar en el parámetro -a, usa -help para ver las opciones");
+            	}else{
+            		programFileName = null;  
+            	}
             } 
             
             // Si el usuario ha especificado el in lo leemos y procesamos          
@@ -151,7 +157,6 @@ public class Main {
 	 * @throws InsufficientOperandsException 
 	 */
 	public static void main(String[] args)throws InsufficientOperandsException{
-		
 		startMv(args);
 	}
 	
