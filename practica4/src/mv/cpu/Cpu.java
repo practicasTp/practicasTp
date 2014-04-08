@@ -75,18 +75,14 @@ public class Cpu {
 	/**
 	 * Metodo que elimina de la pila el valor de la cima
 	 * @return true/false
+	 * @throws EmptyStackException 
 	 */
-	public int pop () {
+	public int pop () throws EmptyStackException {
 		//si no se apila hay error
 		int value = 0;
 		
-		try {
-			value = this.pila.getDato(this.pila.getCima());
-			this.pila.unstackData();
-		}
-		catch(EmptyStackException e) {
-			System.err.println(e.getMessage());
-		}
+		value = this.pila.getDato(this.pila.getCima());
+		this.pila.unstackData();
 		
 		
 		return value;
@@ -179,9 +175,8 @@ public class Cpu {
 		if (inst != null) {			
 			//retorno cómo ha ido la ejecución
 			try {
-				if (inst.execute(this)){
-					execute = true;
-				}
+				inst.execute(this);
+				execute = true;
 			}
 			catch (InsufficientOperandsException e) {
 				System.err.println(e.getMessage());

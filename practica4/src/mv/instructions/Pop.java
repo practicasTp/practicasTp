@@ -11,19 +11,12 @@ public class Pop extends SystemMv {
 	 * @param cpu
 	 * @return boolean
 	 */
-	public boolean executeAux (Cpu cpu) {
-		boolean resultado = false;
-		
+	public void executeAux (Cpu cpu) {
 		try {
-			if (cpu.getSizeStack() >= 1) {
-				cpu.pop();
-				resultado = true;
-			}
+			cpu.pop();
 		} catch(EmptyStackException e) {
 			System.err.println(e.getMessage());
 		}
-		
-		return resultado;
 	}
 	
 	/**

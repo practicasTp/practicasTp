@@ -11,25 +11,17 @@ public class Neg extends SystemMv {
 	 * @param cpu
 	 * @return boolean
 	 */
-	public boolean executeAux (Cpu cpu) {
-		boolean resultado = false;
-		
+	public void executeAux (Cpu cpu) {
 		try {
-			if (cpu.getSizeStack() >= 1) {
-				int cima = cpu.pop();
-				if (cima == 0) cpu.push(0);
-				else {
-					cima = cima * -1;
-					cpu.push(cima);
-				}
-				
-				resultado = true;
+			int cima = cpu.pop();
+			if (cima == 0) cpu.push(0);
+			else {
+				cima = cima * -1;
+				cpu.push(cima);
 			}
 		} catch(EmptyStackException e) {
 			System.err.println(e.getMessage());
 		}
-		
-		return resultado;
 	}
 	
 	/**

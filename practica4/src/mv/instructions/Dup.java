@@ -11,21 +11,14 @@ public class Dup extends SystemMv{
 	 * @param cpu
 	 * @return boolean
 	 */
-	public boolean executeAux (Cpu cpu) {
-		boolean resultado = false;
-		
+	public void executeAux (Cpu cpu) {
 		try {	
-			if (cpu.getSizeStack() >= 1) {
-				int cima = cpu.pop();
-				cpu.push(cima);
-				cpu.push(cima);
-				resultado = true;
-			}
+			int cima = cpu.pop();
+			cpu.push(cima);
+			cpu.push(cima);
 		} catch(EmptyStackException e) {
 			System.err.println(e.getMessage());
 		}
-		
-		return resultado;
 	}
 	
 	

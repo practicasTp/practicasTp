@@ -11,7 +11,7 @@ public interface Instruction {
 	 * @return boolean
 	 * @throws InsufficientOperandsException 
 	 */
-	abstract public boolean execute (Cpu cpu) throws InsufficientOperandsException;
+	abstract public void execute (Cpu cpu) throws InsufficientOperandsException;
 	
 	/**
 	 * Recibe un string para identificar la instrucción a ejecutar

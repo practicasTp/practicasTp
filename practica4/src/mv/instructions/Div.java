@@ -11,16 +11,12 @@ public class Div extends Arithmetics {
 	 * @return boolean
 	 * @throws DivisionByZeroException 
 	 */
-	public boolean execute (int n1, int n2) throws DivisionByZeroException {
-		boolean execute = false;
+	public void execute (int n1, int n2) throws DivisionByZeroException {
 		if (n2 != 0) {
 			this.result = n1 / n2;
-			execute = true;
 		} else {
 			throw new DivisionByZeroException("Error: No se puede realizar una división con denominador 0.\n");
 		}
-		
-		return execute;
 	}
 	
 	/**

@@ -2,6 +2,7 @@ package mv.instructions;
 
 import mv.cpu.Cpu;
 import mv.exceptions.EmptyStackException;
+import mv.exceptions.InsufficientOperandsException;
 
 public class Flip extends SystemMv {
 
@@ -10,23 +11,20 @@ public class Flip extends SystemMv {
 	 * Metodo que intercambia el valor de la subcima de la pila por el de la cima de la pila
 	 * @param cpu
 	 * @return boolean
+	 * @throws InsufficientOperandsException 
 	 */
-	public boolean executeAux (Cpu cpu) {
-		boolean resultado = false;
-		
+	public void executeAux (Cpu cpu) throws InsufficientOperandsException {
 		try {	
 			if (cpu.getSizeStack() >= 2) {
 				int cima = cpu.pop();
 				int subcima = cpu.pop();
 				cpu.push(cima);
 				cpu.push(subcima);
-				resultado = true;
-			}
+			} else
+				throw new InsufficientOperandsException("Error, no hay suficientes operandos para realizar esta operación.\n");
 		} catch(EmptyStackException e) {
 			System.err.println(e.getMessage());
 		}
-		
-		return resultado;
 	}
 	
 	/**

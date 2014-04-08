@@ -1,6 +1,8 @@
 package mv.instructions;
 
 import mv.cpu.Cpu;
+import mv.exceptions.EmptyStackException;
+import mv.exceptions.IncorrectMemoryPositionException;
 
 public class LoadInd extends SystemMv {
 
@@ -10,14 +12,15 @@ public class LoadInd extends SystemMv {
 	 * @param cpu
 	 * @return boolean
 	 */
-	public boolean executeAux (Cpu cpu) {
+	public void executeAux (Cpu cpu) {
 		try {
 			int positionToLoad = cpu.pop();
 			int MemoryValue = cpu.getMemoryValue(positionToLoad);
 			cpu.push(MemoryValue);
-			return true; 
-		} catch (Exception e) {
-			return false;
+		} catch (EmptyStackException e) {
+			System.err.println(e.getMessage());
+		} catch (IncorrectMemoryPositionException e) {
+			System.err.println(e.getMessage());
 		}
 	}
 	

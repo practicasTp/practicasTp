@@ -8,9 +8,8 @@ public class Add extends Arithmetics{
 	 * @param n1
 	 * @param n2
 	 */
-	public boolean execute (int n1, int n2) {
+	public void execute (int n1, int n2) {
 		this.result = n1 + n2;
-		return true;
 	}
 	
 	/**

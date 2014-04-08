@@ -13,9 +13,8 @@ public class Push extends SystemMv {
 	 * @param cpu
 	 * @return boolean
 	 */
-	public boolean executeAux (Cpu cpu) {
+	public void executeAux (Cpu cpu) {
 		cpu.push(this.operando);
-		return true;
 	}
 	
 	/**

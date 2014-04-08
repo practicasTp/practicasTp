@@ -9,9 +9,8 @@ public class Sub extends Arithmetics {
 	 * @param n2
 	 * @return boolean
 	 */
-	public boolean execute (int n1, int n2) {
+	public void execute (int n1, int n2) {
 		this.result = n1 - n2;
-		return true;
 	}
 	
 	/**

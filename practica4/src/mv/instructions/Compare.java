@@ -22,9 +22,7 @@ abstract public class Compare implements Instruction {
 	 * @return boolean.
 	 * @throws InsufficientOperandsException 
 	 */
-	public boolean execute (Cpu cpu) throws InsufficientOperandsException {
-		boolean execute = false;
-		
+	public void execute (Cpu cpu) throws InsufficientOperandsException {
 		try {
 			if (cpu.getSizeStack() >= 2) {
 				//obtener cima y subcima.
@@ -33,7 +31,6 @@ abstract public class Compare implements Instruction {
 				if (compare (cima, subcima)) cpu.push(1);
 				else cpu.push(0);
 				cpu.increaseProgramCounter();
-				execute = true;
 			}
 			else 
 				throw new InsufficientOperandsException("Error: no hay operandos suficientes para realizar la operación.\n");
@@ -43,8 +40,6 @@ abstract public class Compare implements Instruction {
 				System.exit(1);
 			}
 		}
-			
-		return execute;
 	}
 	
 	/**

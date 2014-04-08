@@ -15,15 +15,14 @@ abstract public class Arithmetics implements Instruction {
 	 * @return boolean
 	 * @throws DivisionByZeroException 
 	 */
-	abstract protected boolean execute (int n1, int n2) throws DivisionByZeroException;
+	abstract protected void execute (int n1, int n2) throws DivisionByZeroException;
 	
 	/**
 	 * Método que ejecuta una instrucción de la cpu
 	 * @return resultado
 	 * @param cpu
 	 */
-	public boolean execute (Cpu cpu) throws InsufficientOperandsException{
-		boolean execute = false;
+	public void execute (Cpu cpu) throws InsufficientOperandsException{
 		//si la pila tiene 2 o más operandos
 		try {	
 			if (cpu.getSizeStack () >= 2){
@@ -32,14 +31,11 @@ abstract public class Arithmetics implements Instruction {
 				int n1 = cpu.pop();
 				//ejecuto la operación
 				try {
-					if (this.execute (n1, n2)) {
-						//meto el resultado en la cpu
-						cpu.push (this.result);
-						//incremento el contador de programa
-						cpu.increaseProgramCounter ();
-						//retorno true
-						execute = true;
-					}//si no ha ido bien la ejecución
+					this.execute (n1, n2);
+					//meto el resultado en la cpu
+					cpu.push (this.result);
+					//incremento el contador de programa
+					cpu.increaseProgramCounter ();
 				}
 				catch (DivisionByZeroException e) {
 					System.err.println(e.getMessage());
@@ -54,8 +50,6 @@ abstract public class Arithmetics implements Instruction {
 		} catch(EmptyStackException e) {
 			System.err.println(e.getMessage());
 		}
-		
-		return execute;
 	}
 	
 	/**

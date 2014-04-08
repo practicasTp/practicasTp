@@ -27,9 +27,7 @@ abstract public class ConditionalJump extends Jumps{
 	 * @return boolean
 	 * @throws InsufficientOperandsException 
 	 */
-	public boolean executeAux (Cpu cpu) throws InsufficientOperandsException {
-		boolean execute = false;
-		
+	public void executeAux (Cpu cpu) throws InsufficientOperandsException {
 		try {
 			if(cpu.getSizeStack() >= 1) {	
 				int cima = cpu.pop();
@@ -47,18 +45,14 @@ abstract public class ConditionalJump extends Jumps{
 						}
 					else 
 						cpu.increaseProgramCounter(this.operando);
-					execute = true;
 				} else {
 					cpu.increaseProgramCounter ();
-					execute = true;
 				}
 			} else 
 				throw new InsufficientOperandsException("Error: no hay operandos suficientes para realizar la operación.\n");
 		} catch(EmptyStackException e) {
 			System.err.println(e.getMessage());
 		}
-			
-		return execute;
 	}
 	
 	/**

@@ -15,14 +15,13 @@ public class InconditionalJump extends Jumps{
 	 * @param cpu
 	 * @return boolean
 	 */
-	public boolean executeAux (Cpu cpu) {
+	public void executeAux (Cpu cpu) {
 		try {
 			cpu.jumpProgramCounter(this.operando);
 		}
 		catch(IncorrectProgramCounterException e) {
 			System.err.println(e.getMessage());
 		}
-		return true;
 	}
 	
 	/**

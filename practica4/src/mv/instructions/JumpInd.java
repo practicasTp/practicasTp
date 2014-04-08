@@ -1,6 +1,7 @@
 package mv.instructions;
 
 import mv.cpu.Cpu;
+import mv.exceptions.EmptyStackException;
 
 public class JumpInd extends Jumps{
 	
@@ -9,15 +10,17 @@ public class JumpInd extends Jumps{
 	 * @param cpu
 	 * @return boolean
 	 */
-	public boolean executeAux (Cpu cpu) {
-		int newProgramPosition = cpu.pop();
-		try{
-			cpu.jumpProgramCounter(newProgramPosition);
-			return true;
-		} catch (Exception e) {
+	public void executeAux (Cpu cpu) {
+		try {
+			int newProgramPosition = cpu.pop();
+			try {
+				cpu.jumpProgramCounter(newProgramPosition);
+			} catch (Exception e) {
+				System.err.println(e.getMessage());
+				cpu.push(newProgramPosition);
+			}
+		} catch (EmptyStackException e) {
 			System.err.println(e.getMessage());
-			cpu.push(newProgramPosition);
-			return false;
 		}
 	}
 	

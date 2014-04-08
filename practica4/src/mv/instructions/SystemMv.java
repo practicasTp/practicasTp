@@ -3,6 +3,7 @@ package mv.instructions;
 import mv.ExecutionMode;
 import mv.cpu.Cpu;
 import mv.exceptions.EmptyStackException;
+import mv.exceptions.InsufficientOperandsException;
 import mv.exceptions.NegativeNumberIntoMemoryException;
 
 abstract public class SystemMv implements Instruction {
@@ -15,9 +16,10 @@ abstract public class SystemMv implements Instruction {
 	 * @return boolean
 	 * @throws NegativeNumberIntoMemoryException 
 	 * @throws EmptyStackException 
+	 * @throws InsufficientOperandsException 
 	 * @throws Exception 
 	 */
-	abstract protected boolean executeAux(Cpu cpu) throws NegativeNumberIntoMemoryException, EmptyStackException ;
+	abstract protected void executeAux(Cpu cpu) throws NegativeNumberIntoMemoryException, EmptyStackException, InsufficientOperandsException ;
 	
 	/**
 	 * Se encarga de ejecutar las instrucciones propias del sistema, incrementando el 
@@ -25,13 +27,10 @@ abstract public class SystemMv implements Instruction {
 	 * @param cpu
 	 * @return boolean
 	 */
-	public boolean execute(Cpu cpu){
-		boolean resultado = false;
+	public void execute(Cpu cpu){
 		try {
-			if(this.executeAux(cpu)) {
-				cpu.increaseProgramCounter();
-				resultado = true;
-			} 
+			this.executeAux(cpu);
+			cpu.increaseProgramCounter();
 		} catch (NegativeNumberIntoMemoryException e) {
 			System.err.println(e.getMessage());
 			if(cpu.mode == ExecutionMode.BACH){
@@ -39,9 +38,9 @@ abstract public class SystemMv implements Instruction {
 			}
 		} catch (EmptyStackException e) {
 			System.err.println(e.getMessage());
+		} catch (InsufficientOperandsException e) {
+			System.err.println(e.getMessage());
 		}
-		
-		return resultado;
 	}
 	
 	/**

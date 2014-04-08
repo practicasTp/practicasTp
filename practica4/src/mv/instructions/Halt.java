@@ -10,10 +10,8 @@ public class Halt extends SystemMv {
 	 * @param cpu
 	 * @return boolean
 	 */
-	public boolean executeAux (Cpu cpu) {
+	public void executeAux (Cpu cpu) {
 		cpu.exit();
-		
-		return true;
 	}
 	
 	/**

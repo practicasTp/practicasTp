@@ -13,9 +13,8 @@ public class RelativeJump extends Jumps {
 	 * @param cpu
 	 * @return boolean
 	 */
-	public boolean executeAux (Cpu cpu) {
+	public void executeAux (Cpu cpu) {
 		cpu.increaseProgramCounter(this.operando);
-		return true;
 	}
 	
 	/**

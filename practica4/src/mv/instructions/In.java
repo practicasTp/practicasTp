@@ -9,10 +9,9 @@ public class In extends SystemMv {
 	 * @param cpu
 	 * @return boolean
 	 */
-	public boolean executeAux (Cpu cpu) {
+	public void executeAux (Cpu cpu) {
 		int caracter = cpu.readChar();
 		cpu.push(caracter);
-		return true;
 	}
 	
 	/**

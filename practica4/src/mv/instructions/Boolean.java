@@ -25,8 +25,7 @@ abstract public class Boolean implements Instruction {
 	 * @return boolean
 	 * @throws InsufficientOperandsException 
 	 */
-	public boolean execute(Cpu cpu) throws InsufficientOperandsException {
-		boolean execute = false;
+	public void execute(Cpu cpu) throws InsufficientOperandsException {
 		//obtengo la instrucción
 		TipoInstruction instruccionBooleana = this.tipo;
 		
@@ -38,7 +37,6 @@ abstract public class Boolean implements Instruction {
 				else cpu.push(0);
 				//incremento el contador del programa
 				cpu.increaseProgramCounter();
-				execute = true;
 			}
 			//si no, retorno false
 			else 
@@ -49,8 +47,6 @@ abstract public class Boolean implements Instruction {
 				System.exit(1);
 			}
 		}
-			
-		return execute;
 	}
 	
 	/**

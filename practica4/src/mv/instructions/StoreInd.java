@@ -1,6 +1,7 @@
 package mv.instructions;
 
 import mv.cpu.Cpu;
+import mv.exceptions.EmptyStackException;
 
 public class StoreInd extends SystemMv {
 
@@ -10,14 +11,13 @@ public class StoreInd extends SystemMv {
 	 * @param cpu
 	 * @return boolean
 	 */
-	public boolean executeAux (Cpu cpu) {
+	public void executeAux (Cpu cpu) {
 		try {
 			int positionToStore = cpu.pop();
 			int valueToStore	= cpu.pop();
 			cpu.store(positionToStore, valueToStore);
-			return true;
-		} catch (Exception e) {
-			return false;
+		} catch (EmptyStackException e) {
+			System.err.println(e.getMessage());
 		}
 			
 		

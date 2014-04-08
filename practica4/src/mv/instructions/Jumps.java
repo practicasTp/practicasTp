@@ -11,7 +11,7 @@ abstract public class Jumps implements Instruction {
 	 * @return boolean
 	 * @throws InsufficientOperandsException 
 	 */
-	abstract protected boolean executeAux (Cpu cpu) throws InsufficientOperandsException;
+	abstract protected void executeAux (Cpu cpu) throws InsufficientOperandsException;
 	
 	/**
 	 * Comprueba que la pila tiene más de 0 componentes.
@@ -19,11 +19,8 @@ abstract public class Jumps implements Instruction {
 	 * @return boolean
 	 * @throws InsufficientOperandsException 
 	 */
-	public boolean execute (Cpu cpu) throws InsufficientOperandsException {
-		if(executeAux(cpu)) 
-			return true;
-		else 
-			return false;
+	public void execute (Cpu cpu) throws InsufficientOperandsException {
+		executeAux(cpu);
 	}
 	
 	/**

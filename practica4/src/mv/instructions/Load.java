@@ -17,23 +17,18 @@ public class Load extends SystemMv {
 	 * @return boolean
 	 * @throws NegativeNumberIntoMemoryException 
 	 */
-	public boolean executeAux (Cpu cpu) throws NegativeNumberIntoMemoryException {
-		boolean resultado = false;
+	public void executeAux (Cpu cpu) throws NegativeNumberIntoMemoryException {
 		if(this.operando>=0){
 			try {
 				int value = cpu.getMemoryValue(this.operando);
 				cpu.push(value);
-				resultado = true;
 			}
 			catch (IncorrectMemoryPositionException e) {
 				System.err.println(e.getMessage());
 			}
 		}else{
-			throw new NegativeNumberIntoMemoryException("Error: no existen posiciones negativas en la memoria.\n");
-			
+			throw new NegativeNumberIntoMemoryException("Error: no existen posiciones negativas en la memoria.\n");	
 		}
-		
-		return resultado;
 	}
 	
 	/**

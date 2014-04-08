@@ -11,20 +11,15 @@ public class Out extends SystemMv {
 	 * @param cpu
 	 * @return boolean
 	 */
-	public boolean executeAux (Cpu cpu) {
-		boolean resultado = false;
-		
+	public void executeAux (Cpu cpu) {
 		try {
 			if (cpu.getSizeStack() >= 1) {
 				int cima = cpu.pop();
 				cpu.writeChar((char)cima);
-				resultado = true;
 			}
 		} catch(EmptyStackException e) {
 			System.err.println(e.getMessage());
 		}
-		
-		return resultado;
 	}
 	
 	/**

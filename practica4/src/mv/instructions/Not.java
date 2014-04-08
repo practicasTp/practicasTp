@@ -1,6 +1,7 @@
 package mv.instructions;
 
 import mv.cpu.Cpu;
+import mv.exceptions.EmptyStackException;
 
 public class Not extends Boolean {
 	
@@ -14,11 +15,16 @@ public class Not extends Boolean {
 	 * @return boolean
 	 */
 	public boolean executeAux (Cpu cpu) {
-		int n1 = cpu.pop();
-		if (n1 == 1){
+		try {
+			int n1 = cpu.pop();
+			if (n1 == 1){
+				return false;
+			}else{
+				return true;
+			}
+		} catch (EmptyStackException e) {
+			System.err.println(e.getMessage());
 			return false;
-		}else{
-			return true;
 		}
 	}
 	
