@@ -33,18 +33,36 @@ public class Cpu {
 		this.program 	= program;
 	}
 	
+	/**
+	 * Cambia el input
+	 * @param s
+	 * @throws MvError
+	 */
 	public void setInStream(InputMethod s) throws MvError { 
 		if (s == null) throw new MvError("Cannot set inStream to null");
 		else input = s;
 	}
 	
+	/**
+	 * Cambia el output
+	 * @param s
+	 * @throws MvError
+	 */
 	public void setOutStream(OutputMethod s) throws MvError {
 		if (s == null) throw new MvError("Cannot set inStream to null");
 		else output = s;
 	}
 	
+	/**
+	 * Devuelve el input
+	 * @return input
+	 */
 	public InputMethod getInStream() { return input; }
-		
+	
+	/**
+	 * Devuelve el output
+	 * @return output
+	 */
 	public OutputMethod getOutStream() { return output; }
 	
 	/**
