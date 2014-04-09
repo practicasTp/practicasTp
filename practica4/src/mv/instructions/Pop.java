@@ -10,13 +10,10 @@ public class Pop extends SystemMv {
 	 * Extrae la cima de la pila
 	 * @param cpu
 	 * @return boolean
+	 * @throws EmptyStackException 
 	 */
-	public void executeAux (Cpu cpu) {
-		try {
-			cpu.pop();
-		} catch(EmptyStackException e) {
-			System.err.println(e.getMessage());
-		}
+	public void executeAux (Cpu cpu) throws EmptyStackException {
+		cpu.pop();
 	}
 	
 	/**

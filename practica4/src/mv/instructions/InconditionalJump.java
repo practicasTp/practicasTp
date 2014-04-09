@@ -14,14 +14,10 @@ public class InconditionalJump extends Jumps{
 	 * atributo operando.
 	 * @param cpu
 	 * @return boolean
+	 * @throws IncorrectProgramCounterException 
 	 */
-	public void executeAux (Cpu cpu) {
-		try {
-			cpu.jumpProgramCounter(this.operando);
-		}
-		catch(IncorrectProgramCounterException e) {
-			System.err.println(e.getMessage());
-		}
+	public void executeAux (Cpu cpu) throws IncorrectProgramCounterException {
+		cpu.jumpProgramCounter(this.operando);
 	}
 	
 	/**

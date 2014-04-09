@@ -17,16 +17,12 @@ public class Store extends SystemMv{
 	 * @throws NegativeNumberIntoMemoryException 
 	 * @throws EmptyStackException 
 	 */
-	public void executeAux (Cpu cpu) throws NegativeNumberIntoMemoryException {
-		try {
-			if(this.operando >= 0){
-				int cima = cpu.pop();
-				cpu.store(this.operando, cima);
-			}else{
-				throw new NegativeNumberIntoMemoryException("Error: no existen posiciones negativas en la memoria.\n");
-			}
-		} catch(EmptyStackException e) {
-			System.err.println(e.getMessage());
+	public void executeAux (Cpu cpu) throws NegativeNumberIntoMemoryException, EmptyStackException {
+		if(this.operando >= 0){
+			int cima = cpu.pop();
+			cpu.store(this.operando, cima);
+		}else{
+			throw new NegativeNumberIntoMemoryException("Error: no existen posiciones negativas en la memoria.\n");
 		}
 	}
 	

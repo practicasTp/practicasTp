@@ -13,19 +13,15 @@ public class And extends Boolean{
 	 * Método que ejecuta una operación de tipo and entre 2 números
 	 * @return resultado
 	 * @param cpu
+	 * @throws EmptyStackException 
 	 */
-	public boolean executeAux(Cpu cpu) {
-		try {	
-			int n1 = cpu.pop();
-			int n2 = cpu.pop();
-			if (n1 == 1 && n2 == 1) 
-				return true;
-			else 
-				return false;
-		} catch (EmptyStackException e) {
-			System.err.println(e.getMessage());
+	public boolean executeAux(Cpu cpu) throws EmptyStackException {	
+		int n1 = cpu.pop();
+		int n2 = cpu.pop();
+		if (n1 == 1 && n2 == 1) 
+			return true;
+		else 
 			return false;
-		}
 	}
 	
 	/**

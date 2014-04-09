@@ -10,15 +10,12 @@ public class Dup extends SystemMv{
 	 * Metodo que duplica el valor de la cima
 	 * @param cpu
 	 * @return boolean
+	 * @throws EmptyStackException 
 	 */
-	public void executeAux (Cpu cpu) {
-		try {	
-			int cima = cpu.pop();
-			cpu.push(cima);
-			cpu.push(cima);
-		} catch(EmptyStackException e) {
-			System.err.println(e.getMessage());
-		}
+	public void executeAux (Cpu cpu) throws EmptyStackException {
+		int cima = cpu.pop();
+		cpu.push(cima);
+		cpu.push(cima);
 	}
 	
 	

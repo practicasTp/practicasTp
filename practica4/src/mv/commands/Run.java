@@ -1,6 +1,9 @@
 package mv.commands;
 
+import mv.exceptions.DivisionByZeroException;
 import mv.exceptions.EmptyStackException;
+import mv.exceptions.IncorrectMemoryPositionException;
+import mv.exceptions.IncorrectProgramCounterException;
 import mv.exceptions.InsufficientOperandsException;
 import mv.exceptions.NegativeNumberIntoMemoryException;
 
@@ -12,25 +15,19 @@ public class Run extends Step {
 	/**
 	 * Metodo que se encarga de ejecutar todas las instrucciones
 	 * @return resultado
+	 * @throws IncorrectMemoryPositionException 
+	 * @throws IncorrectProgramCounterException 
+	 * @throws DivisionByZeroException 
+	 * @throws NegativeNumberIntoMemoryException 
+	 * @throws EmptyStackException 
 	 * @throws InsufficientOperandsException 
 	 */
-	public boolean executeCommand(){
+	public boolean executeCommand() throws EmptyStackException, NegativeNumberIntoMemoryException, InsufficientOperandsException, DivisionByZeroException, IncorrectProgramCounterException, IncorrectMemoryPositionException{
 		//cuando hago un run, reseteo la máquina
 		CommandInterpreter.cpu.resetCpu();
 		boolean resultado = false;
 		
-		try {
-			CommandInterpreter.cpu.run();
-		} catch (EmptyStackException e) {
-			System.err.println(e.getMessage());
-			this.isFinished = true;
-		} catch (NegativeNumberIntoMemoryException e) {
-			System.err.println(e.getMessage());
-			this.isFinished = true;
-		}catch (InsufficientOperandsException e) {
-			System.err.println(e.getMessage());
-			this.isFinished = true;
-		}
+		CommandInterpreter.cpu.run();
 			
 		//si la cpu me dice que ha terminado, paro la máquina (del bucle se puede salir por fallo de instrucción)
 		if(CommandInterpreter.cpu.finished()  || CommandInterpreter.cpu.abortComputation()){

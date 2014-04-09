@@ -13,18 +13,14 @@ public class Not extends Boolean {
 	 * Ejecuta una operación del tipo not o !
 	 * @param cpu
 	 * @return boolean
+	 * @throws EmptyStackException 
 	 */
-	public boolean executeAux (Cpu cpu) {
-		try {
-			int n1 = cpu.pop();
-			if (n1 == 1){
-				return false;
-			}else{
-				return true;
-			}
-		} catch (EmptyStackException e) {
-			System.err.println(e.getMessage());
+	public boolean executeAux (Cpu cpu) throws EmptyStackException {
+		int n1 = cpu.pop();
+		if (n1 == 1){
 			return false;
+		}else{
+			return true;
 		}
 	}
 	

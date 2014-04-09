@@ -11,17 +11,13 @@ public class LoadInd extends SystemMv {
 	 * Cargo de memoria una posición que está almacenada en la pila y apilo el valor extraido
 	 * @param cpu
 	 * @return boolean
+	 * @throws IncorrectMemoryPositionException 
+	 * @throws EmptyStackException 
 	 */
-	public void executeAux (Cpu cpu) {
-		try {
-			int positionToLoad = cpu.pop();
-			int MemoryValue = cpu.getMemoryValue(positionToLoad);
-			cpu.push(MemoryValue);
-		} catch (EmptyStackException e) {
-			System.err.println(e.getMessage());
-		} catch (IncorrectMemoryPositionException e) {
-			System.err.println(e.getMessage());
-		}
+	public void executeAux (Cpu cpu) throws IncorrectMemoryPositionException, EmptyStackException {
+		int positionToLoad = cpu.pop();
+		int MemoryValue = cpu.getMemoryValue(positionToLoad);
+		cpu.push(MemoryValue);
 	}
 	
 	/**

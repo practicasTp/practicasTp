@@ -1,6 +1,11 @@
 package mv.commands;
 
+import mv.exceptions.DivisionByZeroException;
+import mv.exceptions.EmptyStackException;
+import mv.exceptions.IncorrectMemoryPositionException;
+import mv.exceptions.IncorrectProgramCounterException;
 import mv.exceptions.InsufficientOperandsException;
+import mv.exceptions.NegativeNumberIntoMemoryException;
 import mv.instructions.Instruction;
 
 public class Steps extends Step {
@@ -13,9 +18,14 @@ public class Steps extends Step {
 	/**
 	 * Metodo que se encarga de ejecutar N instrucciones
 	 * @return resultado
+	 * @throws IncorrectMemoryPositionException 
+	 * @throws NegativeNumberIntoMemoryException 
+	 * @throws IncorrectProgramCounterException 
+	 * @throws DivisionByZeroException 
+	 * @throws EmptyStackException 
 	 * @throws InsufficientOperandsException 
 	 */
-	public boolean executeCommand() {
+	public boolean executeCommand() throws InsufficientOperandsException, EmptyStackException, DivisionByZeroException, IncorrectProgramCounterException, NegativeNumberIntoMemoryException, IncorrectMemoryPositionException {
 		//inicializo el contador de instrucciones restantes al numero de instruciones que quiero ejecutar
 		int contadorInstruccionesRestantes = this.steps;
 		boolean resultado = false;

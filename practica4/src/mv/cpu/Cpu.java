@@ -1,6 +1,6 @@
 package mv.cpu;
 
-import mv.ExecutionMode;
+import mv.exceptions.DivisionByZeroException;
 import mv.exceptions.EmptyStackException;
 import mv.exceptions.IncorrectMemoryPositionException;
 import mv.exceptions.IncorrectProgramCounterException;
@@ -20,7 +20,6 @@ public class Cpu {
 	private boolean correctPc;
 	private InputMethod input;
 	private OutputMethod output;
-	public ExecutionMode mode;
 	
 	public Cpu(InputMethod input, OutputMethod output, ProgramMv program){
 		this.memoria 	= new Memory<Integer> ();
@@ -35,8 +34,11 @@ public class Cpu {
 	
 	/**
 	 * Método que ejecuta todas las instrucciones del programa cargado en la cpu
+	 * @throws IncorrectMemoryPositionException 
+	 * @throws IncorrectProgramCounterException 
+	 * @throws DivisionByZeroException 
 	 */
-	public void run() throws EmptyStackException, NegativeNumberIntoMemoryException, InsufficientOperandsException{
+	public void run() throws EmptyStackException, NegativeNumberIntoMemoryException, InsufficientOperandsException, DivisionByZeroException, IncorrectProgramCounterException, IncorrectMemoryPositionException{
 		boolean resultado = false;
 		this.resetCpu();
 		
@@ -167,22 +169,23 @@ public class Cpu {
 	/**
 	 * Ejecuta la siguiente instrucción, es decir, la situada en el contador de programa.
 	 * @return boolean
+	 * @throws IncorrectMemoryPositionException 
+	 * @throws NegativeNumberIntoMemoryException 
+	 * @throws IncorrectProgramCounterException 
+	 * @throws DivisionByZeroException 
+	 * @throws EmptyStackException 
+	 * @throws InsufficientOperandsException 
 	 * @throws Exception 
 	 */
-	public boolean step () {
+	public boolean step () throws InsufficientOperandsException, EmptyStackException, DivisionByZeroException, IncorrectProgramCounterException, NegativeNumberIntoMemoryException, IncorrectMemoryPositionException {
 		boolean execute = false;
 		
 		//obtengo una instruccion
 		Instruction inst = this.getCurrentInstruction();
 		if (inst != null) {			
 			//retorno cómo ha ido la ejecución
-			try {
-				inst.execute(this);
-				execute = true;
-			}
-			catch (InsufficientOperandsException e) {
-				System.err.println(e.getMessage());
-			}
+			inst.execute(this);
+			execute = true;
 		} else{
 			this.exit();
 		}

@@ -10,17 +10,12 @@ public class StoreInd extends SystemMv {
 	 * Guardo en la posicióin de memoria que me da la cima de la pila, el dato que está en la subcima de la pila
 	 * @param cpu
 	 * @return boolean
+	 * @throws EmptyStackException 
 	 */
-	public void executeAux (Cpu cpu) {
-		try {
-			int positionToStore = cpu.pop();
-			int valueToStore	= cpu.pop();
-			cpu.store(positionToStore, valueToStore);
-		} catch (EmptyStackException e) {
-			System.err.println(e.getMessage());
-		}
-			
-		
+	public void executeAux (Cpu cpu) throws EmptyStackException {
+		int positionToStore = cpu.pop();
+		int valueToStore	= cpu.pop();
+		cpu.store(positionToStore, valueToStore);
 	}
 	
 	/**

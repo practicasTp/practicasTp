@@ -10,17 +10,14 @@ public class Neg extends SystemMv {
 	 * Hace el opuesto de la cima de la pila y lo cambia
 	 * @param cpu
 	 * @return boolean
+	 * @throws EmptyStackException 
 	 */
-	public void executeAux (Cpu cpu) {
-		try {
-			int cima = cpu.pop();
-			if (cima == 0) cpu.push(0);
-			else {
-				cima = cima * -1;
-				cpu.push(cima);
-			}
-		} catch(EmptyStackException e) {
-			System.err.println(e.getMessage());
+	public void executeAux (Cpu cpu) throws EmptyStackException {
+		int cima = cpu.pop();
+		if (cima == 0) cpu.push(0);
+		else {
+			cima = cima * -1;
+			cpu.push(cima);
 		}
 	}
 	

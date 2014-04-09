@@ -1,6 +1,9 @@
 package mv.commands;
 
 import mv.cpu.Cpu;
+import mv.exceptions.DivisionByZeroException;
+import mv.exceptions.IncorrectMemoryPositionException;
+import mv.exceptions.IncorrectProgramCounterException;
 import mv.exceptions.InsufficientOperandsException;
 import mv.exceptions.EmptyStackException;
 import mv.exceptions.NegativeNumberIntoMemoryException;
@@ -28,8 +31,11 @@ abstract public class CommandInterpreter {
 	 * @throws InsufficientOperandsException 
 	 * @throws EmptyStackException 
 	 * @throws NegativeNumberIntoMemoryException 
+	 * @throws IncorrectMemoryPositionException 
+	 * @throws IncorrectProgramCounterException 
+	 * @throws DivisionByZeroException 
 	 */
-	public abstract boolean executeCommand() throws InsufficientOperandsException, EmptyStackException, NegativeNumberIntoMemoryException;
+	public abstract boolean executeCommand() throws InsufficientOperandsException, EmptyStackException, NegativeNumberIntoMemoryException, DivisionByZeroException, IncorrectProgramCounterException, IncorrectMemoryPositionException;
 	
 	/**
 	 * Indica si el programa ha terminado y por lo tanto no se pueden ejecutar más comandos.

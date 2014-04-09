@@ -13,6 +13,8 @@ public class ProgramMv {
 	static private final int MAX_PROGRAM = 2;
 	private Instruction[] userProgram;
 	private int numberInstructions;
+	static public int contLinea;
+	static public String instructionLine;
 	
 	public ProgramMv(){	
 		//inicializo los atributos
@@ -128,12 +130,13 @@ public class ProgramMv {
 	/**
 	 * Función que se encarga de pedir el programa por consola
 	 * @return line
+	 * @throws IncorrectParsingInstruction 
 	 */
-	public static ProgramMv readProgram(String asmRoute){ 
+	public static ProgramMv readProgram(String asmRoute) throws IncorrectParsingInstruction{ 
 		ProgramMv program = new ProgramMv();
 		String[] instruccionCortada;
 		boolean stop	  = false;
-		int contLinea	  = 1;
+		ProgramMv.contLinea	  = 1;
 		String[] lineaSinPuntoComa;
 		
 		try{
@@ -141,38 +144,36 @@ public class ProgramMv {
 			while(sc.hasNext() || !stop ){ 
 				try{ 
 					//leo la intrucción del fichero
-					String instructionLine = sc.nextLine();
+					ProgramMv.instructionLine = sc.nextLine();
 					
-					if(instructionLine.charAt(0)!= ';' && instructionLine!=""){
+					if(ProgramMv.instructionLine.charAt(0)!= ';' && ProgramMv.instructionLine!=""){
 						
-						lineaSinPuntoComa = instructionLine.split(";");
+						lineaSinPuntoComa = ProgramMv.instructionLine.split(";");
 						
 						//divido la cadena obtenida en el fichero
 						instruccionCortada = lineaSinPuntoComa[0].split(" +");
 						
 						if(!instruccionCortada[0].equalsIgnoreCase("END")){
 							//parseo la instruccion
-							
-							try{
-								Instruction instruccion = InstructionParser.parser(instruccionCortada);
-								program.push(instruccion);
-							}catch(IncorrectParsingInstruction e){
+							Instruction instruccion = InstructionParser.parser(instruccionCortada);
+							program.push(instruccion);
+							/*}catch(IncorrectParsingInstruction e){
 								System.err.println(e.getMessage());
 								System.err.println("La instrucción fallida se encuentra en la linea "+contLinea+": '"+instructionLine+"'");
 								System.exit(1);
-							}
+							}*/
 						}else{
 							stop = true;
 						}
 						
 					}
-					contLinea++;
+					ProgramMv.contLinea++;
 				} catch(InputMismatchException e){ 
 					sc.next(); 
 				} catch(NoSuchElementException e){
 					stop = true;
 				} catch(StringIndexOutOfBoundsException e){
-					contLinea++;
+					ProgramMv.contLinea++;
 				}
 			}	
 		}catch (FileNotFoundException e) { 

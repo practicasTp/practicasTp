@@ -12,17 +12,13 @@ public class Or extends Boolean {
 	 * Ejecuta una operación del tipo or o ||
 	 * @param cpu
 	 * @return boolean
+	 * @throws EmptyStackException 
 	 */
-	public boolean executeAux (Cpu cpu) {
-		try {	
-			int n1 = cpu.pop();
-			int n2 = cpu.pop();
-			if (n1 == 1 || n2 == 1) return true;
-			else return false;
-		} catch (EmptyStackException e) {
-			System.err.println(e.getMessage());
-			return false;
-		}
+	public boolean executeAux (Cpu cpu) throws EmptyStackException {
+		int n1 = cpu.pop();
+		int n2 = cpu.pop();
+		if (n1 == 1 || n2 == 1) return true;
+		else return false;
 	}
 	
 	/**

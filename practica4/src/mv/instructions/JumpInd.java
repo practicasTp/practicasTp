@@ -2,6 +2,7 @@ package mv.instructions;
 
 import mv.cpu.Cpu;
 import mv.exceptions.EmptyStackException;
+import mv.exceptions.IncorrectProgramCounterException;
 
 public class JumpInd extends Jumps{
 	
@@ -9,19 +10,11 @@ public class JumpInd extends Jumps{
 	 * Modifica el contador de programa de la cpu cambiando el valor por el indicado en la cima de la pila
 	 * @param cpu
 	 * @return boolean
+	 * @throws EmptyStackException 
+	 * @throws IncorrectProgramCounterException 
 	 */
-	public void executeAux (Cpu cpu) {
-		try {
-			int newProgramPosition = cpu.pop();
-			try {
-				cpu.jumpProgramCounter(newProgramPosition);
-			} catch (Exception e) {
-				System.err.println(e.getMessage());
-				cpu.push(newProgramPosition);
-			}
-		} catch (EmptyStackException e) {
-			System.err.println(e.getMessage());
-		}
+	public void executeAux (Cpu cpu) throws IncorrectProgramCounterException, EmptyStackException {
+		cpu.jumpProgramCounter(cpu.pop());
 	}
 	
 	/**

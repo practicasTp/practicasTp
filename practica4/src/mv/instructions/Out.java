@@ -10,16 +10,11 @@ public class Out extends SystemMv {
 	 * Metodo que devuelve el valor de la cima como caracter
 	 * @param cpu
 	 * @return boolean
+	 * @throws EmptyStackException 
 	 */
-	public void executeAux (Cpu cpu) {
-		try {
-			if (cpu.getSizeStack() >= 1) {
-				int cima = cpu.pop();
-				cpu.writeChar((char)cima);
-			}
-		} catch(EmptyStackException e) {
-			System.err.println(e.getMessage());
-		}
+	public void executeAux (Cpu cpu) throws EmptyStackException {
+		int cima = cpu.pop();
+		cpu.writeChar((char)cima);
 	}
 	
 	/**

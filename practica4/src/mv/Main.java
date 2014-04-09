@@ -7,9 +7,12 @@ import java.util.Scanner;
 import mv.commands.CommandInterpreter;
 import mv.commands.CommandParser;
 import mv.cpu.Cpu;
+import mv.exceptions.DivisionByZeroException;
 import mv.exceptions.EmptyStackException;
+import mv.exceptions.IncorrectMemoryPositionException;
 import mv.exceptions.IncorrectParsingCommandException;
 import mv.exceptions.IncorrectParsingInstruction;
+import mv.exceptions.IncorrectProgramCounterException;
 import mv.exceptions.InsufficientInstructionsException;
 import mv.exceptions.InsufficientOperandsException;
 import mv.exceptions.NegativeNumberIntoMemoryException;
@@ -219,13 +222,18 @@ public class Main {
 					try {
 						Instruction inst = cpu.getCurrentInstruction();		
 						System.out.println("Comienza la ejecución de "+inst.toString()+"\n");
-						
 						command.executeCommand();
 					} catch (EmptyStackException e) {
 						System.err.println(e.getMessage());
 					} catch (NegativeNumberIntoMemoryException e) {
 						System.err.println(e.getMessage());
 					}catch (InsufficientOperandsException e) {
+						System.err.println(e.getMessage());
+					} catch (DivisionByZeroException e) {
+						System.err.println(e.getMessage());
+					} catch (IncorrectProgramCounterException e) {
+						System.err.println(e.getMessage());
+					} catch (IncorrectMemoryPositionException e) {
 						System.err.println(e.getMessage());
 					}
 					if(command.isFinished()){
@@ -243,9 +251,16 @@ public class Main {
 		
 	}
 	
-	private static void batchMode() throws InputMismatchException, FileNotFoundException, IncorrectParsingInstruction {
+	private static void batchMode() throws InputMismatchException, FileNotFoundException {
 		// leer el programa
-		ProgramMv program = programFileName == null ? ProgramMv.readProgram() : ProgramMv.readProgram(programFileName);
+		ProgramMv program = null;
+		try {
+			program = programFileName == null ? ProgramMv.readProgram() : ProgramMv.readProgram(programFileName);
+		} catch (IncorrectParsingInstruction e) {
+			System.err.println(e.getMessage());
+			System.err.println("La instrucción fallida se encuentra en la linea "+ProgramMv.contLinea+": '"+ProgramMv.instructionLine+"'");
+			System.exit(1);
+		}
 		
 		//Creamos la CPU y cargamos el programa.
 		cpu = new Cpu (input, output, program); //Se pasan las E/S y el programa.
@@ -254,10 +269,22 @@ public class Main {
 			cpu.run();
 		} catch (EmptyStackException e) {
 			System.err.println(e.getMessage());
+			System.exit(1);
 		} catch (NegativeNumberIntoMemoryException e) {
 			System.err.println(e.getMessage());
+			System.exit(1);
 		}catch (InsufficientOperandsException e) {
 			System.err.println(e.getMessage());
+			System.exit(1);
+		} catch (DivisionByZeroException e) {
+			System.err.println(e.getMessage());
+			System.exit(1);
+		} catch (IncorrectProgramCounterException e) {
+			System.err.println(e.getMessage());
+			System.exit(1);
+		} catch (IncorrectMemoryPositionException e) {
+			System.err.println(e.getMessage());
+			System.exit(1);
 		}
 
 	}

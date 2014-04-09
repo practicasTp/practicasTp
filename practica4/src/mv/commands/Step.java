@@ -1,6 +1,11 @@
 package mv.commands;
 
+import mv.exceptions.DivisionByZeroException;
+import mv.exceptions.EmptyStackException;
+import mv.exceptions.IncorrectMemoryPositionException;
+import mv.exceptions.IncorrectProgramCounterException;
 import mv.exceptions.InsufficientOperandsException;
+import mv.exceptions.NegativeNumberIntoMemoryException;
 import mv.instructions.Instruction;
 
 public class Step extends CommandInterpreter {
@@ -12,9 +17,14 @@ public class Step extends CommandInterpreter {
 	/**
 	 * Método que ejecuta una sola instrucción
 	 * @return resultado
+	 * @throws IncorrectMemoryPositionException 
+	 * @throws NegativeNumberIntoMemoryException 
+	 * @throws IncorrectProgramCounterException 
+	 * @throws DivisionByZeroException 
+	 * @throws EmptyStackException 
 	 * @throws InsufficientOperandsException 
 	 */
-	public boolean executeCommand() {
+	public boolean executeCommand() throws InsufficientOperandsException, EmptyStackException, DivisionByZeroException, IncorrectProgramCounterException, NegativeNumberIntoMemoryException, IncorrectMemoryPositionException {
 		boolean resultado = false;
 		
 		//si la ejecución ha ido correctamente, muestro el estado de la máquina

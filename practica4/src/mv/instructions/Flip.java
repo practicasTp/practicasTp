@@ -12,19 +12,16 @@ public class Flip extends SystemMv {
 	 * @param cpu
 	 * @return boolean
 	 * @throws InsufficientOperandsException 
+	 * @throws EmptyStackException 
 	 */
-	public void executeAux (Cpu cpu) throws InsufficientOperandsException {
-		try {	
-			if (cpu.getSizeStack() >= 2) {
-				int cima = cpu.pop();
-				int subcima = cpu.pop();
-				cpu.push(cima);
-				cpu.push(subcima);
-			} else
-				throw new InsufficientOperandsException("Error, no hay suficientes operandos para realizar esta operación.\n");
-		} catch(EmptyStackException e) {
-			System.err.println(e.getMessage());
-		}
+	public void executeAux (Cpu cpu) throws InsufficientOperandsException, EmptyStackException {	
+		if (cpu.getSizeStack() >= 2) {
+			int cima = cpu.pop();
+			int subcima = cpu.pop();
+			cpu.push(cima);
+			cpu.push(subcima);
+		} else
+			throw new InsufficientOperandsException("Error, no hay suficientes operandos para realizar esta operación.\n");
 	}
 	
 	/**

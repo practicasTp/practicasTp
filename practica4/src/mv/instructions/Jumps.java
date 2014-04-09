@@ -1,5 +1,7 @@
 package mv.instructions;
 import mv.cpu.Cpu;
+import mv.exceptions.EmptyStackException;
+import mv.exceptions.IncorrectProgramCounterException;
 import mv.exceptions.InsufficientOperandsException;
 
 abstract public class Jumps implements Instruction {
@@ -10,16 +12,20 @@ abstract public class Jumps implements Instruction {
 	 * @param cpu
 	 * @return boolean
 	 * @throws InsufficientOperandsException 
+	 * @throws EmptyStackException 
+	 * @throws IncorrectProgramCounterException 
 	 */
-	abstract protected void executeAux (Cpu cpu) throws InsufficientOperandsException;
+	abstract protected void executeAux (Cpu cpu) throws InsufficientOperandsException, EmptyStackException, IncorrectProgramCounterException;
 	
 	/**
 	 * Comprueba que la pila tiene más de 0 componentes.
 	 * @param cpu
 	 * @return boolean
 	 * @throws InsufficientOperandsException 
+	 * @throws EmptyStackException 
+	 * @throws IncorrectProgramCounterException 
 	 */
-	public void execute (Cpu cpu) throws InsufficientOperandsException {
+	public void execute (Cpu cpu) throws InsufficientOperandsException, EmptyStackException, IncorrectProgramCounterException {
 		executeAux(cpu);
 	}
 	
