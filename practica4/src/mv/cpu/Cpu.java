@@ -5,6 +5,7 @@ import mv.exceptions.EmptyStackException;
 import mv.exceptions.IncorrectMemoryPositionException;
 import mv.exceptions.IncorrectProgramCounterException;
 import mv.exceptions.InsufficientOperandsException;
+import mv.exceptions.MvError;
 import mv.exceptions.NegativeNumberIntoMemoryException;
 import mv.instructions.Instruction;
 import mv.program.ProgramMv;
@@ -31,6 +32,20 @@ public class Cpu {
 		this.output 	= output;
 		this.program 	= program;
 	}
+	
+	public void setInStream(InputMethod s) throws MvError { 
+		if (s == null) throw new MvError("Cannot set inStream to null");
+		else input = s;
+	}
+	
+	public void setOutStream(OutputMethod s) throws MvError {
+		if (s == null) throw new MvError("Cannot set inStream to null");
+		else output = s;
+	}
+	
+	public InputMethod getInStream() { return input; }
+		
+	public OutputMethod getOutStream() { return output; }
 	
 	/**
 	 * Método que ejecuta todas las instrucciones del programa cargado en la cpu
