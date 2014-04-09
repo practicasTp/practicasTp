@@ -252,7 +252,11 @@ public class Main {
 		
 		try {
 			cpu.run();
-		} catch (Exception e) {
+		} catch (EmptyStackException e) {
+			System.err.println(e.getMessage());
+		} catch (NegativeNumberIntoMemoryException e) {
+			System.err.println(e.getMessage());
+		}catch (InsufficientOperandsException e) {
 			System.err.println(e.getMessage());
 		}
 

@@ -5,6 +5,7 @@ import mv.exceptions.EmptyStackException;
 import mv.exceptions.IncorrectMemoryPositionException;
 import mv.exceptions.IncorrectProgramCounterException;
 import mv.exceptions.InsufficientOperandsException;
+import mv.exceptions.NegativeNumberIntoMemoryException;
 import mv.instructions.Instruction;
 import mv.program.ProgramMv;
 import mv.reading.InputMethod;
@@ -35,7 +36,7 @@ public class Cpu {
 	/**
 	 * Método que ejecuta todas las instrucciones del programa cargado en la cpu
 	 */
-	public void run(){
+	public void run() throws EmptyStackException, NegativeNumberIntoMemoryException, InsufficientOperandsException{
 		boolean resultado = false;
 		this.resetCpu();
 		
@@ -46,6 +47,7 @@ public class Cpu {
 			}else{
 				//si no, paro ejecución
 				resultado = false;
+				System.exit(1);
 			}
 		//repito hasta que la cpu me diga que no hay más instrucciones a ejecutar	
 		}while(resultado!=false);
@@ -180,9 +182,6 @@ public class Cpu {
 			}
 			catch (InsufficientOperandsException e) {
 				System.err.println(e.getMessage());
-				if(this.mode == ExecutionMode.BACH){
-					System.exit(1);
-				}
 			}
 		} else{
 			this.exit();

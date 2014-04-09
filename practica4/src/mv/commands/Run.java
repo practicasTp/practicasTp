@@ -1,6 +1,8 @@
 package mv.commands;
 
+import mv.exceptions.EmptyStackException;
 import mv.exceptions.InsufficientOperandsException;
+import mv.exceptions.NegativeNumberIntoMemoryException;
 
 public class Run extends Step {
 	public Run(){
@@ -17,18 +19,18 @@ public class Run extends Step {
 		CommandInterpreter.cpu.resetCpu();
 		boolean resultado = false;
 		
-		do{
-			//si la instrucción se ejecuta correctamente
-			if (CommandInterpreter.cpu.step()){
-				resultado = true;
-				//muestro el estado de la máquina
-				CommandInterpreter.printStateMachine();
-			}else{
-				//si no, paro ejecución
-				resultado = false;
-			}
-		//repito hasta que la cpu me diga que no hay más instrucciones a ejecutar	
-		}while(resultado!=false);
+		try {
+			CommandInterpreter.cpu.run();
+		} catch (EmptyStackException e) {
+			System.err.println(e.getMessage());
+			this.isFinished = true;
+		} catch (NegativeNumberIntoMemoryException e) {
+			System.err.println(e.getMessage());
+			this.isFinished = true;
+		}catch (InsufficientOperandsException e) {
+			System.err.println(e.getMessage());
+			this.isFinished = true;
+		}
 			
 		//si la cpu me dice que ha terminado, paro la máquina (del bucle se puede salir por fallo de instrucción)
 		if(CommandInterpreter.cpu.finished()  || CommandInterpreter.cpu.abortComputation()){
