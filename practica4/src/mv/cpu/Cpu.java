@@ -34,6 +34,14 @@ public class Cpu {
 	}
 	
 	/**
+	 * Devuelve el programa cargado
+	 * @return program
+	 */
+	public ProgramMv getProgram(){
+		return this.program;
+	}
+	
+	/**
 	 * Cambia el input
 	 * @param s
 	 * @throws MvError
@@ -187,6 +195,14 @@ public class Cpu {
 			this.correctPc = false;
 			return null;
 		}
+	}
+	
+	/**
+	 * Retorna el contador de programa
+	 * @return
+	 */
+	public int getPC(){
+		return this.pc;
 	}
 	
 	/**

@@ -127,6 +127,13 @@ public class ProgramMv {
 		return "El programa introducido es: \n"+contenidoProgram;
 	}
 	
+	public String lineToString(int line){
+		if(this.isEmpty()) return "<vacio>";
+		else{
+			return	line+": "+this.userProgram[line].toString() + "\n";
+		}
+	}
+	
 	/**
 	 * Función que se encarga de pedir el programa por consola
 	 * @return line

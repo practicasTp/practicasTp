@@ -1,4 +1,6 @@
 package mv;
+import gui.swing.MainWindow;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.InputMismatchException;
@@ -290,6 +292,23 @@ public class Main {
 	}
 	
 	private static void windowMode() {
+		// leer el programa
+		ProgramMv program = null;
+		try {
+			program = ProgramMv.readProgram(programFileName);
+		} catch (IncorrectParsingInstruction e) {
+			System.err.println(e.getMessage());
+			System.err
+					.println("La instrucción fallida se encuentra en la linea "
+							+ ProgramMv.contLinea + ": '"
+							+ ProgramMv.instructionLine + "'");
+			System.exit(1);
+		}
+
+		// Creamos la CPU y cargamos el programa.
+		cpu = new Cpu (input, output, program); //Se pasan las E/S y el programa.
 		
+		// Construir el objeto que corresponde a la vista
+		MainWindow view = new MainWindow(cpu);
 	}
 }
