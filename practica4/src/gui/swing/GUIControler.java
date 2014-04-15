@@ -3,9 +3,12 @@ package gui.swing;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.WindowEvent;
+
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import mv.cpu.Cpu;
 import mv.cpu.Memory;
@@ -101,6 +104,10 @@ public class GUIControler {
 		this.gui.updateView();
 	}
 
+	boolean finished(){
+		return this.cpu.finished();
+	}
+	
 	void pop() { 
 		try {
 			this.cpu.pop();
@@ -124,7 +131,9 @@ public class GUIControler {
 	}
 
 	void quit() { 
-		//... } // tiene que cerrar los InStream y OutStream
+		 String ObjButtons[] = {"Aceptar","Cancelar"};
+		 int PromptResult = JOptionPane.showOptionDialog(null,"¿Estás seguro de que deseas salir?","Cerrar máquina virtual",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
+		 if(PromptResult==JOptionPane.YES_OPTION) System.exit(0);
 	}
 
 	void memorySet(String pos, String dato) { 

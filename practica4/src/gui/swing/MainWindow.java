@@ -2,11 +2,14 @@ package gui.swing;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import mv.cpu.Cpu;
-import mv.writing.OutputMethod;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame {
@@ -17,6 +20,7 @@ public class MainWindow extends JFrame {
 	private MemoryPanel memory;
 	private InputPanel input;
 	private OutputPanel output;
+	private GUIControler guiCtrl;
 
 	public MainWindow(Cpu cpu) {
 		//Titulo del la ventana
@@ -26,7 +30,7 @@ public class MainWindow extends JFrame {
 		updateView();
 	}
 	private void initGUI() {
-		GUIControler guiCtrl = new GUIControler(cpu, this);
+		guiCtrl = new GUIControler(cpu, this);
 		this.toolBar 	= new ToolBarPanel(guiCtrl);
 		this.program	= new ProgramPanel(guiCtrl);
 		this.stack 		= new StackPanel(guiCtrl);
@@ -70,13 +74,20 @@ public class MainWindow extends JFrame {
 		centerPanelSouth.add(output);
 		
 		this.setSize(1000,1000);
-        this.setLocationRelativeTo(null);		
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
 		this.setVisible(true);
+		
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent we){ 
+				guiCtrl.quit();
+			}
+		});
 	}
 	void updateView() {
 		program.updateView();
 		stack.updateView();
 		memory.updateView();
+		toolBar.updateview();
 	}
 }

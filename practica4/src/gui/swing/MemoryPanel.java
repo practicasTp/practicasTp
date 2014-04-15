@@ -80,6 +80,11 @@ class MemoryPanel extends JPanel {
 
 	void updateView() {
 		_modelo.refresh();
+		if(this.guiCtrl.finished()){
+			txtValor.setEnabled(false);
+			txtPos.setEnabled(false);
+			btnWrite.setEnabled(false);
+		}
 	}
 	
 	private class TableModel extends AbstractTableModel {

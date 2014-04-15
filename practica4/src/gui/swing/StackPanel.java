@@ -19,6 +19,7 @@ class StackPanel extends JPanel {
 	private JLabel lblValor; 
 	private JTextField txtValor;
 	private JButton btnPush;
+	private JButton btnPop;
 
 	StackPanel(GUIControler guiCtrl) {
 		this.guiCtrl = guiCtrl;
@@ -53,8 +54,7 @@ class StackPanel extends JPanel {
 			}
 		});
 		
-		JButton btnPop = new JButton("Pop");
-		
+		btnPop = new JButton("Pop");
 		btnPop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				guiCtrl.pop();
@@ -77,6 +77,12 @@ class StackPanel extends JPanel {
 		//voy insertando cada elemento de la pila dentro del modelo
 		for (int i=0; i<= operandStack.getCima(); i++){
 			_modeloLista.addElement(operandStack.operandToString(i));
+		}
+		
+		if(this.guiCtrl.finished()){
+			txtValor.setEnabled(false);
+			btnPush.setEnabled(false);
+			btnPop.setEnabled(false);
 		}
 		
 	}

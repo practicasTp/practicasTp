@@ -7,14 +7,16 @@ import javax.swing.*;
 
 class ToolBarPanel extends JPanel {
 	private GUIControler guiCtrl;
-
+	private JButton stepButton;
+	private JButton runButton;
+	
 	ToolBarPanel(GUIControler guiCtrl) {
 		this.guiCtrl = guiCtrl;
 		initGUI();
 	}
 
 	private void initGUI() {
-		JButton stepButton = new JButton();
+		stepButton = new JButton();
 		stepButton.setIcon(createImageIcon("step.png"));
 		stepButton.setToolTipText("Step");
 		this.add(stepButton);
@@ -23,7 +25,7 @@ class ToolBarPanel extends JPanel {
 				guiCtrl.step();
 			}
 		});
-		JButton runButton = new JButton();
+		runButton = new JButton();
 		runButton.setIcon(createImageIcon("run.png"));
 		runButton.setToolTipText("Run");
 		this.add(runButton);
@@ -49,4 +51,12 @@ class ToolBarPanel extends JPanel {
 			return new ImageIcon(imgURL);
 		return null;
 	}
+	
+	public void updateview(){
+		if(this.guiCtrl.finished()){
+			stepButton.setEnabled(false);
+			runButton.setEnabled(false);
+		}
+	}
+	
 }
