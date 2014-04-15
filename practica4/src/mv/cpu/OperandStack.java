@@ -126,7 +126,7 @@ public class OperandStack<T> {
 	public int operandToString(int line){
 		if(this.isEmpty()) return (Integer) null;
 		else{
-			return	(Integer)this.stack[line];
+			return (Integer)this.stack[line];
 		}
 	}
 	

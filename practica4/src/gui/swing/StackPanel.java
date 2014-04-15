@@ -35,7 +35,6 @@ class StackPanel extends JPanel {
 		_lstPila.setFont(new Font("Courier", Font.BOLD, 16));
 		DefaultListCellRenderer renderer =  (DefaultListCellRenderer)_lstPila.getCellRenderer();  
 		renderer.setHorizontalAlignment(JLabel.CENTER);  
-		
 		//alineo al centro el contenido de la lista
 		_scroll = new JScrollPane(_lstPila);
 		_scroll.setPreferredSize(new Dimension(560, 260));
@@ -67,11 +66,7 @@ class StackPanel extends JPanel {
 		panel.add(txtValor);
 		panel.add(btnPush);
 		panel.add(btnPop);
-		add(panel, BorderLayout.SOUTH);
-
-		//usar gridlayaut para los paneles del centro
-		
-		
+		add(panel, BorderLayout.SOUTH);	
 	}
 
 	void updateView() {

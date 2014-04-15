@@ -77,5 +77,6 @@ public class MainWindow extends JFrame {
 	void updateView() {
 		program.updateView();
 		stack.updateView();
+		memory.updateView();
 	}
 }

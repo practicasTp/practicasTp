@@ -34,6 +34,13 @@ public class Cpu {
 	}
 	
 	/**
+	 * Devuelve la memoria
+	 * @return OperandStack
+	 */
+	public Memory<Integer> getMemory(){
+		return this.memoria;
+	}
+	/**
 	 * Devuelve la pila
 	 * @return OperandStack
 	 */
@@ -98,7 +105,6 @@ public class Cpu {
 			}else{
 				//si no, paro ejecución
 				resultado = false;
-				System.exit(1);
 			}
 		//repito hasta que la cpu me diga que no hay más instrucciones a ejecutar	
 		}while(resultado!=false);

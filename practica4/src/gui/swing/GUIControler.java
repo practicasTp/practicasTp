@@ -82,7 +82,23 @@ public class GUIControler {
 	}
 
 	void run() { 
-		//... }
+		try {
+			this.cpu.run();
+		} catch (InsufficientOperandsException e) {
+			reportError("No hay suficientes operandos en la pila para ejecutar la instrucción.","Error en la máquina virtual");
+		} catch (EmptyStackException e) {
+			reportError("No hay suficientes operandos en la pila para ejecutar la instrucción.","Error en la máquina virtual");
+		} catch (DivisionByZeroException e) {
+			reportError("No se puede realizar una división con denominador 0.","Error en la máquina virtual");
+		} catch (IncorrectProgramCounterException e) {
+			reportError("No ha sido posible saltar a la instrucción deseada.","Error en la máquina virtual");
+		} catch (NegativeNumberIntoMemoryException e) {
+			reportError("No se puede introducir valores en posiciones negativas de memoria.","Error en la máquina virtual");
+		} catch (IncorrectMemoryPositionException e) {
+			reportError("No se puede acceder a esa posición de memoria.","Error en la máquina virtual");
+		}
+		
+		this.gui.updateView();
 	}
 
 	void pop() { 
@@ -111,8 +127,18 @@ public class GUIControler {
 		//... } // tiene que cerrar los InStream y OutStream
 	}
 
-	void memorySet(String n1, String n2) { 
-		//... }
+	void memorySet(String pos, String dato) { 
+		if(this.validarOperando(pos)){
+			if(this.validarOperando(dato)){
+				this.cpu.store(Integer.parseInt(pos), Integer.parseInt(dato));
+			}else{
+				reportError("Solo están admitidos los números en memoria", "Error en la máquina virtual");
+			}
+		}else{
+			reportError("Solo están admitidos los números en la posición de memoria", "Error en la máquina virtual");
+		}
+
+		this.gui.updateView();
 	}
 
 	int getPC() {
@@ -147,7 +173,6 @@ public class GUIControler {
 	}
 
 	Memory<Integer> getMemory() { 
-		//... }
-		return null;
+		return this.cpu.getMemory();
 	}
 }

@@ -14,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import mv.cpu.Memory;
 
@@ -21,8 +22,8 @@ class MemoryPanel extends JPanel {
 	private GUIControler guiCtrl;
 	// Componentes visuales
 	private JScrollPane _scroll;
-	private TableModel _modelo;
-	private JTable _tbMemoria;
+	protected TableModel _modelo;
+	protected JTable _tbMemoria;
 	private JTextField txtPos;
 	private JTextField txtValor;
 	private JButton btnWrite;
@@ -44,6 +45,11 @@ class MemoryPanel extends JPanel {
 		// Crear la tabla con un modelo personalizado
 		_modelo = new TableModel();
 		_tbMemoria = new JTable(_modelo);
+		_tbMemoria.setFillsViewportHeight(true);
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+		_tbMemoria.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
+		_tbMemoria.getColumnModel().getColumn(1).setCellRenderer( centerRenderer );
 		_scroll = new JScrollPane(_tbMemoria);
 		_scroll.setPreferredSize(new Dimension(100,100));
 		add(_scroll, BorderLayout.CENTER);
@@ -58,7 +64,9 @@ class MemoryPanel extends JPanel {
 		
 		btnWrite.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				guiCtrl.memorySet("","");
+				guiCtrl.memorySet(txtPos.getText(),txtValor.getText());
+				txtPos.setText("");
+				txtValor.setText("");
 			}
 		});
 		
@@ -75,37 +83,37 @@ class MemoryPanel extends JPanel {
 	}
 	
 	private class TableModel extends AbstractTableModel {
-		String[] colNames = { "Address", "Value" };
+		String[] colNames = { "Posición", "Valor" };
 		int[][] memTable; // tiene dos columnas
-
 		TableModel() {
 			refresh();
 		}
 
 		public void refresh() {
 			Memory<Integer> memory = guiCtrl.getMemory();
-			// - reconstruir memTable a partir de memory
-			// - avisar cambios a JTable
-			// ...
+			memTable = memory.getMemory();
+			this.fireTableDataChanged();
+			
 		}
-		// ...
+		
+		public String getColumnName(int column){
+			return colNames[column];
+		}
 
 		@Override
 		public int getColumnCount() {
-			// TODO Auto-generated method stub
-			return 0;
+			return 2;
 		}
 
 		@Override
 		public int getRowCount() {
-			// TODO Auto-generated method stub
-			return 0;
+			Memory<Integer> memory = guiCtrl.getMemory();
+			return memory.getMaxLength();
 		}
 
 		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
-			// TODO Auto-generated method stub
-			return null;
+			return memTable[rowIndex][columnIndex];
 		}
 	}
 }

@@ -131,4 +131,30 @@ public class Memory<T> {
 		
 		return "Memoria: "+contenidoMemoria+"\n";
 	}
+	
+	
+	
+	public int[][] getMemory(){
+		int[][] memTable = new int[this.getMaxLength()][2];
+		int cont = 0;
+		if(!this.isEmpty()){
+			for(int i=0; i<=(this.registros.length - 1);i++){
+				if (this.registros[i] != null){
+					memTable[cont][0] = i;
+					memTable[cont][1] = (Integer)this.registros[i];
+					cont++;
+				}
+			}
+		}
+		
+		return memTable;
+	}
+	
+	public int getMaxLength(){
+		int maxRealLength = 0;
+		for(int i = 0; i <= (this.registros.length - 1); i++){
+			if (this.registros[i] != null) maxRealLength++;
+		}
+		return maxRealLength;
+	}
 }
