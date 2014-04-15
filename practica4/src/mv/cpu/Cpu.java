@@ -34,6 +34,14 @@ public class Cpu {
 	}
 	
 	/**
+	 * Devuelve la pila
+	 * @return OperandStack
+	 */
+	public OperandStack<Integer> getOperandStack(){
+		return this.pila;
+	}
+	
+	/**
 	 * Devuelve el programa cargado
 	 * @return program
 	 */

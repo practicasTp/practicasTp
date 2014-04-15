@@ -1,6 +1,8 @@
 package gui.swing;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.*;
@@ -21,21 +23,21 @@ class ProgramPanel extends JPanel {
 		this.setLayout(new BorderLayout());
 		this.setBorder(new TitledBorder("Programa"));
 		programTextArea = new JTextArea(20, 15);
-		programTextArea.setAlignmentX(CENTER_ALIGNMENT);
+		programTextArea.setAlignmentX(Component.CENTER_ALIGNMENT);
 		programTextArea.setFont( new Font("Courier", Font.PLAIN, 16));
-		programTextArea.setEditable(false);		
+		programTextArea.setEditable(false);
 		this.add(new JScrollPane(programTextArea));
-		this.setAlignmentX(CENTER_ALIGNMENT);
+		this.setPreferredSize(new Dimension(140, 0));
 	}
 
 	void updateView() {
 		ProgramMv program = guiCtrl.getProgram();
 		String allProgram = "";
 		for(int i=0;i<program.getSizeProgram();i++){
-			if(i == guiCtrl.getPC() && guiCtrl.getPC()!=0){
-				allProgram += "*"+program.lineToString(i);
+			if(i == guiCtrl.getPC()){
+				allProgram += "*    "+program.lineToString(i);
 			}else{
-				allProgram += program.lineToString(i);
+				allProgram += "      "+program.lineToString(i);
 			}
 		}
 		

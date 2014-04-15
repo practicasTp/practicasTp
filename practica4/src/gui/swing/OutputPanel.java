@@ -1,12 +1,19 @@
 package gui.swing;
 
+import java.awt.BorderLayout;
+import java.awt.Font;
+
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.border.TitledBorder;
 
 import mv.writing.OutputMethod;
 
-public class OutputPanel {
+public class OutputPanel extends JPanel{
 	private GUIControler guiCtrl;
-	private JTextArea outputTextArea;
+	private static JTextArea outputTextArea;
+	private static OutputMethod outCurr;
 	
 	OutputPanel(GUIControler guiCtrl){
 		this.guiCtrl = guiCtrl;
@@ -14,16 +21,24 @@ public class OutputPanel {
 	}
 	
 	private void initGui(){
-	//...
-	OutputMethod outCurr = guiCtrl.getOutStream();
-	OutputMethod outNew = new OutStreamGUI(outCurr, outputTextArea);
-	guiCtrl.setOutStream(outNew);
+		this.setLayout(new BorderLayout());
+		this.setBorder(new TitledBorder("Output"));
+		outputTextArea = new JTextArea(5,5);
+		outputTextArea.setAlignmentX(CENTER_ALIGNMENT);
+		outputTextArea.setFont( new Font("Courier", Font.PLAIN, 16));
+		outputTextArea.setEditable(false);		
+		this.add(new JScrollPane(outputTextArea));
+		this.setAlignmentX(CENTER_ALIGNMENT);
+		
+		OutputMethod outCurr = guiCtrl.getOutStream();
+		OutputMethod outNew = new OutStreamGUI();
+		guiCtrl.setOutStream(outNew);
 	}
 	
 	class OutStreamGUI implements OutputMethod {
 		// definir los atributos necesarios
 		//...
-		 public OutStreamGUI(OutputMethod old, JTextArea outputTextArea) {
+		 public OutStreamGUI() {
 		// inicializar los atributos
 		 }
 		 public void open() {

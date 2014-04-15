@@ -121,6 +121,16 @@ public class OperandStack<T> {
 	}
 	
 	/**
+	 * Metodo que devuelve el valor de una posicion de la pila
+	 */
+	public int operandToString(int line){
+		if(this.isEmpty()) return (Integer) null;
+		else{
+			return	(Integer)this.stack[line];
+		}
+	}
+	
+	/**
 	 * Metodo que devuelve la posicion de la cima de la pila
 	 * @return cima
 	 */

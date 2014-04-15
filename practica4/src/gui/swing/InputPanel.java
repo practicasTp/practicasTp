@@ -1,13 +1,19 @@
 package gui.swing;
 
+import java.awt.BorderLayout;
+import java.awt.Font;
+
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.border.TitledBorder;
 
 import mv.reading.InputMethod;
 
 class InputPanel extends JPanel{
 	private GUIControler guiCtrl;
-	private JTextArea inputTextArea;
+	private static JTextArea inputTextArea;
+	protected static InputMethod inCurr;
 	
 	InputPanel(GUIControler guiCtrl){
 		this.guiCtrl = guiCtrl;
@@ -15,9 +21,17 @@ class InputPanel extends JPanel{
 	}
 	
 	private void initGUI(){
-		//...
-		InputMethod inCurr = guiCtrl.getInStream();
-		InputMethod inNew = new InStreamGUI(inCurr, inputTextArea);
+		this.setLayout(new BorderLayout());
+		this.setBorder(new TitledBorder("Input"));
+		inputTextArea = new JTextArea(5, 5);
+		inputTextArea.setAlignmentX(CENTER_ALIGNMENT);
+		inputTextArea.setFont( new Font("Courier", Font.PLAIN, 16));
+		inputTextArea.setEditable(false);		
+		this.add(new JScrollPane(inputTextArea));
+		this.setAlignmentX(CENTER_ALIGNMENT);
+		
+		this.inCurr = guiCtrl.getInStream();
+		InputMethod inNew = new InStreamGUI();
 		guiCtrl.setInStream(inNew);
 	}
 	
@@ -26,8 +40,8 @@ class InputPanel extends JPanel{
 		 InputMethod old;
 		 StringBuilder content;
 		 int pos;
-		 public InStreamGUI(InputMethod old, JTextArea inputTextArea) {
-		  this.old = old;
+		 public InStreamGUI() {
+		  this.old = inCurr;
 		  this.inputTextArea = inputTextArea;
 		  pos = 0;
 		// 1. leer toda la entrada del old, y construir el StringBuilder content
