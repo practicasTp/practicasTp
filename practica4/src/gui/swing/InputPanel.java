@@ -30,12 +30,12 @@ class InputPanel extends JPanel{
 		this.add(new JScrollPane(inputTextArea));
 		this.setAlignmentX(CENTER_ALIGNMENT);
 		
-		this.inCurr = guiCtrl.getInStream();
+		InputPanel.inCurr = guiCtrl.getInStream();
 		InputMethod inNew = new InStreamGUI();
 		guiCtrl.setInStream(inNew);
 	}
 	
-	class InStreamGUI implements InputMethod {
+	static class InStreamGUI implements InputMethod {
 		 JTextArea inputTextArea;
 		 InputMethod old;
 		 StringBuilder content;
@@ -45,12 +45,15 @@ class InputPanel extends JPanel{
 		  this.inputTextArea = inputTextArea;
 		  pos = 0;
 		// 1. leer toda la entrada del old, y construir el StringBuilder content
-		// 2. mosrar el contenido de content en el inputTextArea
+		// 2. mostrar el contenido de content en el inputTextArea
 		 }
+		 
 		 public void open() {} // suponemos que old ya está abierto
+		 
 		 public void close() { //old.close(); 
 			  // cerrar old también
 		 }
+		 
 		 public int readChar() {
 			 return 1;
 		// 1. si pos == content.length() entonce ya no hay más caracteres

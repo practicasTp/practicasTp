@@ -9,4 +9,6 @@ public class NullIn implements InputMethod {
 	public int readChar() {
 		return -1;
 	}
+	
+	public void close() {}
 }

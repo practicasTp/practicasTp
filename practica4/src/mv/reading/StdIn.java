@@ -19,4 +19,6 @@ public class StdIn implements InputMethod {
 		}
 		return in;
 	}
+	
+	public void close() {}
 }

@@ -7,4 +7,6 @@ public interface InputMethod {
 	 * @return int
 	 */
 	abstract public int readChar();
+	
+	abstract public void close();
 }

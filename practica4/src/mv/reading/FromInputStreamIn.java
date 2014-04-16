@@ -40,4 +40,12 @@ public class FromInputStreamIn implements InputMethod {
 		
 		return entrada;
 	}
+	
+	public void close() {
+		try {
+			this.in.close();
+		} catch (IOException e) {
+			System.err.println(e.getMessage());
+		}
+	}
 }

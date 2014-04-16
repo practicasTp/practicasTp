@@ -9,6 +9,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 
 import mv.cpu.Cpu;
 import mv.cpu.Memory;
@@ -35,32 +38,44 @@ public class GUIControler {
 
 	private void reportError(String msg, String title) { 
 		JDialog dialogo = new JDialog(gui);
-		Image img = new ImageIcon(MainWindow.class.getResource("error.png")).getImage();
-		dialogo.setIconImage(img);		
-		
-		JLabel redLabel = new JLabel(msg); 
-		redLabel.setLocation(0, 0); 
-		redLabel.setSize(80, 40); 
-		redLabel.setHorizontalAlignment(JLabel.CENTER);
-		redLabel.setFont(new Font("Courier", Font.BOLD, 16));
-
-		
-		//Definimos el tipo de estructura general de nuestra ventana
-		dialogo.setLayout(new FlowLayout(FlowLayout.LEADING, 40, 50));
-		//Dividimos la ventana en secciones
-		dialogo.add(redLabel); 
-		
-		JLabel label = new JLabel();  
-        label.setIcon(new ImageIcon(MainWindow.class.getResource("error.png")));
-        label.setHorizontalAlignment(JLabel.LEFT);
-        label.setLocation(0, 0); 
-        dialogo.add(label);
-		
 		dialogo.setTitle(title);
 		dialogo.setModal(true);
-        dialogo.setSize(700, 200);
-        dialogo.setLocationRelativeTo(gui);
+        dialogo.setSize(700, 250);
+        
+        
+		Image img = new ImageIcon(MainWindow.class.getResource("error.png")).getImage();
+		dialogo.setIconImage(img);
+		
+		JPanel warning = new JPanel();
+		warning.setSize(680, 230);
+		warning.setLocation(10, 10);
+		warning.setLayout(null);
+		
+		JLabel iconLabel = new JLabel();  
+        iconLabel.setIcon(new ImageIcon(MainWindow.class.getResource("error.png")));
+        iconLabel.setHorizontalAlignment(JLabel.CENTER);
+        iconLabel.setLocation(300, 20); 
+        iconLabel.setSize(70, 70);
+        warning.add(iconLabel);
+        
+        JTextArea textArea = new JTextArea();
+        textArea.setEditable(false);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        textArea.setText(msg);
+        textArea.setSize(640, 80);
+        textArea.setLocation(20, 120);
+        textArea.setFont(new Font("Courier", Font.BOLD, 16));
+        textArea.setBackground(null);
+        warning.add(textArea);
+        
+		dialogo.add(warning);
+
+		
+		dialogo.setLocationRelativeTo(gui);
         dialogo.setVisible(true);
+        //Definimos el tipo de estructura general de nuestra ventana
+      	dialogo.setLayout(new FlowLayout(FlowLayout.LEADING, 40, 50));
         
 	}
 
@@ -112,7 +127,7 @@ public class GUIControler {
 		try {
 			this.cpu.pop();
 		} catch (EmptyStackException e) {
-			reportError("No hay suficientes operandos en la pila para ejecutar el pop.","Error en la máquina virtual");
+			reportError(e.getMessage(),"Error en la máquina virtual");
 		}
 		this.gui.updateView();
 	}
@@ -163,14 +178,11 @@ public class GUIControler {
 	}
 
 	InputMethod getInStream() {
-		return null; 
-		//... 
-		
+		return this.cpu.getInStream();
 	}
 
 	OutputMethod getOutStream() { 
-		//... }
-		return null;
+		return this.cpu.getOutStream();
 	}
 
 	ProgramMv getProgram() { 
