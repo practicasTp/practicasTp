@@ -9,7 +9,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 
 import mv.reading.InputMethod;
-/* FUck */
+
 public class InputPanel2 extends JPanel {
 	/**
 	 * 
