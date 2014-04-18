@@ -50,6 +50,7 @@ public class OutputPanel extends JPanel{
 		
 		public OutStreamGUI() {
 		// inicializar los atributos
+			this.content = new StringBuilder();
 			this.content.append(outputTextArea.getText());
 		}
 		public void open() {

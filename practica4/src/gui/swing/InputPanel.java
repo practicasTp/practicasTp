@@ -49,11 +49,12 @@ public class InputPanel extends JPanel {
 		int pos;
 		
 		public InStreamGUI() {
+			this.content = new StringBuilder();
 			pos = 0;
 			// 1. leer toda la entrada del old, y construir el StringBuilder content
 			int character = inCurr.readChar();
 			while (character != -1) {
-				content.append((char)character);
+				this.content.append((char)character);
 				character = inCurr.readChar();
 			}
 			// 2. mostrar el contenido de content en el inputTextArea
