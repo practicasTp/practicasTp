@@ -89,7 +89,7 @@ public class MainWindow extends JFrame {
 		stack.updateView();
 		memory.updateView();
 		toolBar.updateview();
-		/*input.updateView();
-		output.updateView();*/
+		input.updateView();
+		output.updateView();
 	}
 }

@@ -174,19 +174,19 @@ public class GUIControler {
 	}
 
 	void setInStream(InputMethod in) { 
-		/*try {
+		try {
 			this.cpu.setInStream(in);
 		} catch (MvError e) {
 			reportError(e.getMessage(), "Error en la máquina virtual");
-		}*/
+		}
 	}
 
 	void setOutStream(OutputMethod out) { 
-		/*try {
+		try {
 			this.cpu.setOutStream(out);
 		} catch (MvError e) {
 			reportError(e.getMessage(), "Error en la máquina virtual");
-		}*/
+		}
 	}
 
 	InputMethod getInStream() {
