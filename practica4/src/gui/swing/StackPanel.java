@@ -84,6 +84,5 @@ class StackPanel extends JPanel {
 			btnPush.setEnabled(false);
 			btnPop.setEnabled(false);
 		}
-		
 	}
 }

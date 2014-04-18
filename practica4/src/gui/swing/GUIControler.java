@@ -168,7 +168,7 @@ public class GUIControler {
 
 		this.gui.updateView();
 	}
-
+	
 	int getPC() {
 		return cpu.getPC();
 	}

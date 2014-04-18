@@ -40,17 +40,13 @@ public class InputPanel extends JPanel {
 		guiCtrl.setInStream( inNew );
 	}
 	
-	public void updateView() {
-		this.inNew.readChar();
-	}
-	
 	static class InStreamGUI implements InputMethod {
 		StringBuilder content;
 		int pos;
 		
 		public InStreamGUI() {
 			this.content = new StringBuilder();
-			pos = 0;
+			this.pos = 0;
 			// 1. leer toda la entrada del old, y construir el StringBuilder content
 			int character = inCurr.readChar();
 			while (character != -1) {
@@ -73,7 +69,7 @@ public class InputPanel extends JPanel {
 				c = this.content.codePointAt(this.pos);
 				// 3. si c no es salto de linea (c!=10 y c!=13) lo cambiamos con * en content!
 				if (c != 10 && c != 13) 
-					this.content.replace(this.pos, this.pos + 1, "*");
+					this.content.replace(this.pos, this.pos+1, "*");
 			}
 			// 4. actualizar el inputTextArea;
 			inputTextArea.setText(content.toString());
