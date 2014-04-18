@@ -18,6 +18,7 @@ public class OutputPanel extends JPanel{
 	private GUIControler guiCtrl;
 	private static JTextArea outputTextArea;
 	private static OutputMethod outCurr;
+	private OutputMethod outNew;
 	
 	OutputPanel(GUIControler guiCtrl){
 		this.guiCtrl = guiCtrl;
@@ -35,8 +36,12 @@ public class OutputPanel extends JPanel{
 		this.setAlignmentX(CENTER_ALIGNMENT);
 		
 		outCurr = guiCtrl.getOutStream();
-		OutputMethod outNew = new OutStreamGUI();
+		this.outNew = new OutStreamGUI();
 		guiCtrl.setOutStream(outNew);
+	}
+	
+	public void updateView () {
+		
 	}
 	
 	class OutStreamGUI implements OutputMethod {
@@ -53,21 +58,12 @@ public class OutputPanel extends JPanel{
 		public void close() {
 			outCurr.close();
 		}
-		public void writeChar(int c) {
-		// 1. pasar c al OutStream original
-			outCurr.writeChar((char)c);
-		// 2. concatenar c al contenido del outputTextArea
-			this.content.append((char)c);
-			outputTextArea.setText(content.toString());
-		}
-		@Override
 		public void writeChar(char c) {
-			// TODO Auto-generated method stub
-			// 1. pasar c al OutStream original
-				outCurr.writeChar(c);
-			// 2. concatenar c al contenido del outputTextArea
-				this.content.append(c);
-				outputTextArea.setText(content.toString());
+		// 1. pasar c al OutStream original
+			outCurr.writeChar(c);
+		// 2. concatenar c al contenido del outputTextArea
+			this.content.append(c);
+			outputTextArea.setText(content.toString());
 		}
 	}
 }

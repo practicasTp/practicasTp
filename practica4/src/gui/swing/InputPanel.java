@@ -18,6 +18,7 @@ public class InputPanel extends JPanel {
 	private GUIControler guiCtrl; 
 	private static JTextArea inputTextArea;
 	private static InputMethod inCurr;
+	private InputMethod inNew;
 	
 	InputPanel (GUIControler guiCtrl) {
 		this.guiCtrl = guiCtrl;
@@ -35,8 +36,12 @@ public class InputPanel extends JPanel {
 		this.setAlignmentX(CENTER_ALIGNMENT);
 		
 		inCurr = guiCtrl.getInStream();
-		InputMethod inNew = new InStreamGUI();
+		this.inNew = new InStreamGUI();
 		guiCtrl.setInStream( inNew );
+	}
+	
+	public void updateView() {
+		this.inNew.readChar();
 	}
 	
 	static class InStreamGUI implements InputMethod {

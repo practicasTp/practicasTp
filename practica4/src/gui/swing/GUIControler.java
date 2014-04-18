@@ -21,6 +21,7 @@ import mv.exceptions.EmptyStackException;
 import mv.exceptions.IncorrectMemoryPositionException;
 import mv.exceptions.IncorrectProgramCounterException;
 import mv.exceptions.InsufficientOperandsException;
+import mv.exceptions.MvError;
 import mv.exceptions.NegativeNumberIntoMemoryException;
 import mv.program.ProgramMv;
 import mv.reading.InputMethod;
@@ -83,11 +84,11 @@ public class GUIControler {
 		try {
 			this.cpu.step();
 		} catch (InsufficientOperandsException e) {
-			reportError("No hay suficientes operandos en la pila para ejecutar la instrucción.","Error en la máquina virtual");
+			reportError(e.getMessage(),"Error en la máquina virtual");
 		} catch (EmptyStackException e) {
-			reportError("No hay suficientes operandos en la pila para ejecutar la instrucción.","Error en la máquina virtual");
+			reportError(e.getMessage(),"Error en la máquina virtual");
 		} catch (DivisionByZeroException e) {
-			reportError("No se puede realizar una división con denominador 0.","Error en la máquina virtual");
+			reportError(e.getMessage(),"Error en la máquina virtual");
 		} catch (IncorrectProgramCounterException e) {
 			reportError("No ha sido posible saltar a la instrucción deseada.","Error en la máquina virtual");
 		} catch (NegativeNumberIntoMemoryException e) {
@@ -148,7 +149,10 @@ public class GUIControler {
 	void quit() { 
 		 String ObjButtons[] = {"Aceptar","Cancelar"};
 		 int PromptResult = JOptionPane.showOptionDialog(null,"¿Estás seguro de que deseas salir?","Cerrar máquina virtual",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
-		 if(PromptResult==JOptionPane.YES_OPTION) System.exit(0);
+		 if(PromptResult==JOptionPane.YES_OPTION) {
+			 
+			 System.exit(0);
+		 }
 	}
 
 	void memorySet(String pos, String dato) { 
@@ -170,11 +174,19 @@ public class GUIControler {
 	}
 
 	void setInStream(InputMethod in) { 
-		//... }
+		/*try {
+			this.cpu.setInStream(in);
+		} catch (MvError e) {
+			reportError(e.getMessage(), "Error en la máquina virtual");
+		}*/
 	}
 
 	void setOutStream(OutputMethod out) { 
-		//... }
+		/*try {
+			this.cpu.setOutStream(out);
+		} catch (MvError e) {
+			reportError(e.getMessage(), "Error en la máquina virtual");
+		}*/
 	}
 
 	InputMethod getInStream() {
