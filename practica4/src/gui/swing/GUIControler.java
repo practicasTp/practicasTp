@@ -90,11 +90,11 @@ public class GUIControler {
 		} catch (DivisionByZeroException e) {
 			reportError(e.getMessage(),"Error en la máquina virtual");
 		} catch (IncorrectProgramCounterException e) {
-			reportError("No ha sido posible saltar a la instrucción deseada.","Error en la máquina virtual");
+			reportError(e.getMessage(),"Error en la máquina virtual");
 		} catch (NegativeNumberIntoMemoryException e) {
-			reportError("No se puede introducir valores en posiciones negativas de memoria.","Error en la máquina virtual");
+			reportError(e.getMessage(),"Error en la máquina virtual");
 		} catch (IncorrectMemoryPositionException e) {
-			reportError("No se puede acceder a esa posición de memoria.","Error en la máquina virtual");
+			reportError(e.getMessage(),"Error en la máquina virtual");
 		}
 		
 		this.gui.updateView();
@@ -104,17 +104,17 @@ public class GUIControler {
 		try {
 			this.cpu.run();
 		} catch (InsufficientOperandsException e) {
-			reportError("No hay suficientes operandos en la pila para ejecutar la instrucción.","Error en la máquina virtual");
+			reportError(e.getMessage(),"Error en la máquina virtual");
 		} catch (EmptyStackException e) {
-			reportError("No hay suficientes operandos en la pila para ejecutar la instrucción.","Error en la máquina virtual");
+			reportError(e.getMessage(),"Error en la máquina virtual");
 		} catch (DivisionByZeroException e) {
-			reportError("No se puede realizar una división con denominador 0.","Error en la máquina virtual");
+			reportError(e.getMessage(),"Error en la máquina virtual");
 		} catch (IncorrectProgramCounterException e) {
-			reportError("No ha sido posible saltar a la instrucción deseada.","Error en la máquina virtual");
+			reportError(e.getMessage(),"Error en la máquina virtual");
 		} catch (NegativeNumberIntoMemoryException e) {
-			reportError("No se puede introducir valores en posiciones negativas de memoria.","Error en la máquina virtual");
+			reportError(e.getMessage(),"Error en la máquina virtual");
 		} catch (IncorrectMemoryPositionException e) {
-			reportError("No se puede acceder a esa posición de memoria.","Error en la máquina virtual");
+			reportError(e.getMessage(),"Error en la máquina virtual");
 		}
 		
 		this.gui.updateView();
