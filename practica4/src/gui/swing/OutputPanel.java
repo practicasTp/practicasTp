@@ -11,6 +11,10 @@ import javax.swing.border.TitledBorder;
 import mv.writing.OutputMethod;
 
 public class OutputPanel extends JPanel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private GUIControler guiCtrl;
 	private static JTextArea outputTextArea;
 	private static OutputMethod outCurr;
@@ -30,31 +34,40 @@ public class OutputPanel extends JPanel{
 		this.add(new JScrollPane(outputTextArea));
 		this.setAlignmentX(CENTER_ALIGNMENT);
 		
-		OutputMethod outCurr = guiCtrl.getOutStream();
+		outCurr = guiCtrl.getOutStream();
 		OutputMethod outNew = new OutStreamGUI();
 		guiCtrl.setOutStream(outNew);
 	}
 	
 	class OutStreamGUI implements OutputMethod {
 		// definir los atributos necesarios
-		//...
-		 public OutStreamGUI() {
+		StringBuilder content;
+		
+		public OutStreamGUI() {
 		// inicializar los atributos
-		 }
-		 public void open() {
+			this.content.append(outputTextArea.getText());
+		}
+		public void open() {
 		// no hacer nada, suponemos que old ya está abierto
 		}
-		 public void close() {
-	//	old.close();
+		public void close() {
+			outCurr.close();
 		}
 		public void writeChar(int c) {
-		 // 1. pasar c al OutStream original
+		// 1. pasar c al OutStream original
+			outCurr.writeChar((char)c);
 		// 2. concatenar c al contenido del outputTextArea
+			this.content.append((char)c);
+			outputTextArea.setText(content.toString());
 		}
 		@Override
 		public void writeChar(char c) {
 			// TODO Auto-generated method stub
-			
+			// 1. pasar c al OutStream original
+				outCurr.writeChar(c);
+			// 2. concatenar c al contenido del outputTextArea
+				this.content.append(c);
+				outputTextArea.setText(content.toString());
 		}
 	}
 }

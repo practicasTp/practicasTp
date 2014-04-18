@@ -7,4 +7,6 @@ public interface OutputMethod {
 	 * @param char c.
 	 */
 	abstract public void writeChar(char c);
+	
+	abstract public void close();
 }

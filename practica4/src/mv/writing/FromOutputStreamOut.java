@@ -30,4 +30,12 @@ public class FromOutputStreamOut implements OutputMethod{
 			System.out.println(e.getMessage());
 		}
 	}
+	
+	public void close() {
+		try {
+			this.out.close();
+		} catch (IOException e) {
+			System.err.println(e.getMessage());
+		}
+	}
 }
