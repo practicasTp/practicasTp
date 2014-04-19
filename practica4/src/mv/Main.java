@@ -338,7 +338,6 @@ public class Main {
 		//le metemos un poco de look&feel predeterminado
 		try {
 		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-		    	System.out.println(info.getName());
 		    	//le metemos nimbus que es el predeterminado
 		        if ("Nimbus".equals(info.getName())) {
 		            UIManager.setLookAndFeel(info.getClassName());
