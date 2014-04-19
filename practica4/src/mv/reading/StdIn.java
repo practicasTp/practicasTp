@@ -11,12 +11,15 @@ public class StdIn implements InputMethod {
 	public int readChar() {
 		int in = -1;
 		try {
-			System.out.print("\nIntroduzca caracter de entrada:");
-			in = System.in.read();
+			System.out.print("Introduzca caracter de entrada:");
+			do{
+				in = System.in.read();
+			}while(in==10 || in==13);
 		}
 		catch(IOException e) {
 			System.out.println(e.getMessage());
 		}
+		
 		return in;
 	}
 	

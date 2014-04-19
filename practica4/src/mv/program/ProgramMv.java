@@ -153,6 +153,8 @@ public class ProgramMv {
 					//leo la intrucción del fichero
 					ProgramMv.instructionLine = sc.nextLine();
 					
+					ProgramMv.instructionLine = ProgramMv.instructionLine.trim();
+					
 					if(ProgramMv.instructionLine.charAt(0)!= ';' && ProgramMv.instructionLine!=""){
 						
 						lineaSinPuntoComa = ProgramMv.instructionLine.split(";");

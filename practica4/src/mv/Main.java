@@ -3,6 +3,7 @@ import gui.swing.MainWindow;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -25,10 +26,18 @@ import mv.reading.InputMethod;
 import mv.reading.NullIn;
 import mv.reading.StdIn;
 import mv.writing.FromOutputStreamOut;
+import mv.writing.NullOut;
 import mv.writing.OutputMethod;
 import mv.writing.StdOut;
 
-import org.apache.commons.cli.*;  
+import org.apache.commons.cli.BasicParser;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.OptionBuilder;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.UnrecognizedOptionException;
 
 
 public class Main {
@@ -134,8 +143,12 @@ public class Main {
         			input = new NullIn();
         		}
             }else{
-            	//si no lo ha especificado, forzamos el modo interactivo
-            	input 	= new StdIn();
+            	if(executionMode != _BATCH_MODE){
+            		//si no lo ha especificado, forzamos el modo interactivo
+            		input = new NullIn();
+            	}else{
+            		input = new StdIn();
+            	}
             }
             
             // Si el usuario ha especificado el out lo leemos y procesamos          
@@ -143,8 +156,13 @@ public class Main {
             	String outReceived = cmdLine.getOptionValue("o");
             	output = new FromOutputStreamOut(outReceived);
             }else{
-            	//si no lo ha especificado, forzamos el modo interactivo
-            	output = new StdOut();
+            	if(executionMode != _BATCH_MODE){
+            		//si no lo ha especificado, forzamos el modo interactivo
+                	output = new NullOut();
+            	}else{
+            		output = new StdOut();
+            	}
+            	
             }
             
 		}catch(UnrecognizedOptionException e){ 
@@ -195,7 +213,6 @@ public class Main {
 	
 	private static void interactiveMode() throws InputMismatchException, FileNotFoundException, IncorrectParsingInstruction {
 		boolean end = false;
-		Scanner sc = new Scanner(System.in);
 		
 		// leer el programa
 		ProgramMv program = programFileName == null ? ProgramMv.readProgram() : ProgramMv.readProgram(programFileName);
@@ -210,12 +227,18 @@ public class Main {
 		CommandInterpreter.configureCommandInterpreter(cpu);
 		
 		do {
-			try {
+			try {				
+				Scanner sc = new Scanner(System.in);
 				CommandInterpreter command = null; 
 				
 				System.out.print("> ");
 				//Muestra el prompt y lee el comando.
-				String commandLine = sc.nextLine();
+				String commandLine;
+				
+				do{
+					sc.reset();
+					commandLine = sc.nextLine();
+				}while(commandLine.length() == 0);
 				
 				//Parseamos los comandos.
 				command = CommandParser.parseCommand(commandLine);
@@ -225,7 +248,7 @@ public class Main {
 						Instruction inst = cpu.getCurrentInstruction();		
 						System.out.println("Comienza la ejecución de "+inst.toString()+"\n");
 						command.executeCommand();
-					} catch (EmptyStackException e) {
+					} catch (EmptyStackException e){
 						System.err.println(e.getMessage());
 					} catch (NegativeNumberIntoMemoryException e) {
 						System.err.println(e.getMessage());

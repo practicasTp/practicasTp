@@ -1,9 +1,11 @@
+ 
 in
 dup
 push -1
 eq
 bt 11
 dup 
+                                 
 push 97
 eq
 bt 0

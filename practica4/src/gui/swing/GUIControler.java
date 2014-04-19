@@ -31,6 +31,7 @@ public class GUIControler {
 	private Cpu cpu;
 	private MainWindow gui;
 	JDialog dialogo = null;
+	private String errorTitle = "Error en la máquina virtual";
 	
 	GUIControler(Cpu cpu, MainWindow gui) {
 		this.cpu = cpu;
@@ -84,17 +85,17 @@ public class GUIControler {
 		try {
 			this.cpu.step();
 		} catch (InsufficientOperandsException e) {
-			reportError(e.getMessage(),"Error en la máquina virtual");
+			reportError(e.getMessage(),this.errorTitle);
 		} catch (EmptyStackException e) {
-			reportError(e.getMessage(),"Error en la máquina virtual");
+			reportError(e.getMessage(),this.errorTitle);
 		} catch (DivisionByZeroException e) {
-			reportError(e.getMessage(),"Error en la máquina virtual");
+			reportError(e.getMessage(),this.errorTitle);
 		} catch (IncorrectProgramCounterException e) {
-			reportError(e.getMessage(),"Error en la máquina virtual");
+			reportError(e.getMessage(),this.errorTitle);
 		} catch (NegativeNumberIntoMemoryException e) {
-			reportError(e.getMessage(),"Error en la máquina virtual");
+			reportError(e.getMessage(),this.errorTitle);
 		} catch (IncorrectMemoryPositionException e) {
-			reportError(e.getMessage(),"Error en la máquina virtual");
+			reportError(e.getMessage(),this.errorTitle);
 		}
 		
 		this.gui.updateView();
@@ -104,17 +105,17 @@ public class GUIControler {
 		try {
 			this.cpu.run();
 		} catch (InsufficientOperandsException e) {
-			reportError(e.getMessage(),"Error en la máquina virtual");
+			reportError(e.getMessage(),this.errorTitle);
 		} catch (EmptyStackException e) {
-			reportError(e.getMessage(),"Error en la máquina virtual");
+			reportError(e.getMessage(),this.errorTitle);
 		} catch (DivisionByZeroException e) {
-			reportError(e.getMessage(),"Error en la máquina virtual");
+			reportError(e.getMessage(),this.errorTitle);
 		} catch (IncorrectProgramCounterException e) {
-			reportError(e.getMessage(),"Error en la máquina virtual");
+			reportError(e.getMessage(),this.errorTitle);
 		} catch (NegativeNumberIntoMemoryException e) {
-			reportError(e.getMessage(),"Error en la máquina virtual");
+			reportError(e.getMessage(),this.errorTitle);
 		} catch (IncorrectMemoryPositionException e) {
-			reportError(e.getMessage(),"Error en la máquina virtual");
+			reportError(e.getMessage(),this.errorTitle);
 		}
 		
 		this.gui.updateView();
@@ -128,7 +129,7 @@ public class GUIControler {
 		try {
 			this.cpu.pop();
 		} catch (EmptyStackException e) {
-			reportError(e.getMessage(),"Error en la máquina virtual");
+			reportError(e.getMessage(),this.errorTitle);
 		}
 		this.gui.updateView();
 	}
@@ -141,7 +142,7 @@ public class GUIControler {
 		if(this.validarOperando(s)){
 			this.cpu.push(Integer.parseInt(s));
 		}else{
-			reportError("Solo están admitidos los números a la hora de insertar elementos", "Error en la máquina virtual");
+			reportError("Solo están admitidos los números a la hora de insertar elementos", this.errorTitle);
 		}
 		this.gui.updateView();
 	}
@@ -150,7 +151,10 @@ public class GUIControler {
 		 String ObjButtons[] = {"Aceptar","Cancelar"};
 		 int PromptResult = JOptionPane.showOptionDialog(null,"¿Estás seguro de que deseas salir?","Cerrar máquina virtual",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
 		 if(PromptResult==JOptionPane.YES_OPTION) {
-			 
+			 InputMethod in = this.cpu.getInStream();
+			 in.close();
+			 OutputMethod out = this.cpu.getOutStream();
+			 out.close();
 			 System.exit(0);
 		 }
 	}
@@ -160,10 +164,10 @@ public class GUIControler {
 			if(this.validarOperando(dato)){
 				this.cpu.store(Integer.parseInt(pos), Integer.parseInt(dato));
 			}else{
-				reportError("Solo están admitidos los números en memoria", "Error en la máquina virtual");
+				reportError("Solo están admitidos los números en memoria", this.errorTitle);
 			}
 		}else{
-			reportError("Solo están admitidos los números en la posición de memoria", "Error en la máquina virtual");
+			reportError("Solo están admitidos los números en la posición de memoria", this.errorTitle);
 		}
 
 		this.gui.updateView();
@@ -177,7 +181,7 @@ public class GUIControler {
 		try {
 			this.cpu.setInStream(in);
 		} catch (MvError e) {
-			reportError(e.getMessage(), "Error en la máquina virtual");
+			reportError(e.getMessage(), this.errorTitle);
 		}
 	}
 
@@ -185,7 +189,7 @@ public class GUIControler {
 		try {
 			this.cpu.setOutStream(out);
 		} catch (MvError e) {
-			reportError(e.getMessage(), "Error en la máquina virtual");
+			reportError(e.getMessage(), this.errorTitle);
 		}
 	}
 
