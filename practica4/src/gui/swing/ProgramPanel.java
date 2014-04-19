@@ -22,12 +22,12 @@ class ProgramPanel extends JPanel {
 	private void initGUI() {
 		this.setLayout(new BorderLayout());
 		this.setBorder(new TitledBorder("Programa"));
-		programTextArea = new JTextArea(20, 15);
+		programTextArea = new JTextArea();
 		programTextArea.setAlignmentX(Component.CENTER_ALIGNMENT);
 		programTextArea.setFont( new Font("Courier", Font.PLAIN, 16));
 		programTextArea.setEditable(false);
 		this.add(new JScrollPane(programTextArea));
-		this.setPreferredSize(new Dimension(140, 0));
+		this.setPreferredSize(new Dimension(160, 0));
 	}
 
 	void updateView() {

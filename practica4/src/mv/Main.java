@@ -3,9 +3,11 @@ import gui.swing.MainWindow;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 
 import mv.commands.CommandInterpreter;
 import mv.commands.CommandParser;
@@ -38,6 +40,8 @@ import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.UnrecognizedOptionException;
+
+import com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel;
 
 
 public class Main {
@@ -330,6 +334,27 @@ public class Main {
 
 		// Creamos la CPU y cargamos el programa.
 		cpu = new Cpu (input, output, program); //Se pasan las E/S y el programa.
+		
+		//le metemos un poco de look&feel predeterminado
+		try {
+		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+		    	System.out.println(info.getName());
+		    	//le metemos nimbus que es el predeterminado
+		        if ("Nimbus".equals(info.getName())) {
+		            UIManager.setLookAndFeel(info.getClassName());
+		            break;
+		        }
+		    }
+		    
+		} catch (Exception e) {
+			// si nimbus no existe, le metemos el predeterminado del sistema operativo
+		    try {
+		        UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+		    } catch (Exception ex) {
+		    	//si no existe, no hay más que hacer
+		    	System.exit(0);
+		    }
+		}
 		
 		// Construir el objeto que corresponde a la vista
 		MainWindow view = new MainWindow(cpu);
