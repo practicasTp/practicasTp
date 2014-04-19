@@ -60,13 +60,11 @@ public class GUIControler {
         iconLabel.setSize(70, 70);
         warning.add(iconLabel);
         
-        JTextArea textArea = new JTextArea();
-        textArea.setEditable(false);
-        textArea.setLineWrap(true);
-        textArea.setWrapStyleWord(true);
+        JLabel textArea = new JLabel();
         textArea.setText(msg);
         textArea.setSize(640, 80);
-        textArea.setLocation(20, 120);
+        textArea.setLocation(25, 80);
+        textArea.setHorizontalAlignment(JLabel.CENTER);
         textArea.setFont(new Font("Courier", Font.BOLD, 16));
         textArea.setBackground(null);
         warning.add(textArea);
@@ -149,7 +147,7 @@ public class GUIControler {
 
 	void quit() { 
 		 String ObjButtons[] = {"Aceptar","Cancelar"};
-		 int PromptResult = JOptionPane.showOptionDialog(null,"¿Estás seguro de que deseas salir?","Cerrar máquina virtual",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
+		 int PromptResult = JOptionPane.showOptionDialog(null,"¿Estás seguro de que deseas salir?","Cerrar máquina virtual",JOptionPane.DEFAULT_OPTION,JOptionPane.QUESTION_MESSAGE,null,ObjButtons,ObjButtons[1]);
 		 if(PromptResult==JOptionPane.YES_OPTION) {
 			 InputMethod in = this.cpu.getInStream();
 			 in.close();
