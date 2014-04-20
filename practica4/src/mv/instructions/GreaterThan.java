@@ -9,7 +9,7 @@ public class GreaterThan extends Compare {
 	 * @return boolean
 	 */
 	public boolean compare (int cima, int subcima) {
-		if (subcima < cima) return true;
+		if (subcima > cima) return true;
 		else return false;
 	}
 	
