@@ -13,8 +13,8 @@ public class StoreInd extends SystemMv {
 	 * @throws EmptyStackException 
 	 */
 	public void executeAux (Cpu cpu) throws EmptyStackException {
-		int positionToStore = cpu.pop();
 		int valueToStore	= cpu.pop();
+		int positionToStore = cpu.pop();
 		cpu.store(positionToStore, valueToStore);
 	}
 	
