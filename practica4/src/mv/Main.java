@@ -125,8 +125,8 @@ public class Main {
             	programFileName = cmdLine.getOptionValue("a"); 
             	
             } else {//si no lo ha especificado, leemos el programa desde línea de comando   
-            	if(executionMode == _BATCH_MODE){
-            		throw new Exception("Para usar el modo Batch debes pasar el programa a ejecutar en el parámetro -a, usa -help para ver las opciones");
+            	if(executionMode != _INTER_MODE){
+            		throw new Exception("Para usar este modo debes pasar el programa a ejecutar en el parámetro -a, usa -help para ver las opciones");
             	}else{
             		programFileName = null;  
             	}
@@ -146,7 +146,7 @@ public class Main {
         			System.err.println("No se ha encontrado el fichero de entrada, se activa el modo interactivo");
         			input = new NullIn();
         		}
-            }else{
+            }else{		
             	if(executionMode != _BATCH_MODE){
             		//si no lo ha especificado, forzamos el modo interactivo
             		input = new NullIn();

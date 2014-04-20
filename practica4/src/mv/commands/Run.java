@@ -24,7 +24,6 @@ public class Run extends Step {
 	 */
 	public boolean executeCommand() throws EmptyStackException, NegativeNumberIntoMemoryException, InsufficientOperandsException, DivisionByZeroException, IncorrectProgramCounterException, IncorrectMemoryPositionException{
 		//cuando hago un run, reseteo la máquina
-		CommandInterpreter.cpu.resetCpu();
 		boolean resultado = false;
 		
 		do{

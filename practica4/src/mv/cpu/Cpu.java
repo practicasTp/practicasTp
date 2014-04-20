@@ -96,7 +96,6 @@ public class Cpu {
 	 */
 	public void run() throws EmptyStackException, NegativeNumberIntoMemoryException, InsufficientOperandsException, DivisionByZeroException, IncorrectProgramCounterException, IncorrectMemoryPositionException{
 		boolean resultado = false;
-		this.resetCpu();
 		
 		do{
 			//si la instrucción se ejecuta correctamente
