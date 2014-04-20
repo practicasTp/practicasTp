@@ -215,6 +215,13 @@ public class Main {
 			
 	}
 	
+	/**
+	 * Método que se ejecuta en caso de que se haya indicado el modo interactivo e 
+	 * inicializa dicho método.
+	 * @throws InputMismatchException
+	 * @throws FileNotFoundException
+	 * @throws IncorrectParsingInstruction
+	 */
 	private static void interactiveMode() throws InputMismatchException, FileNotFoundException, IncorrectParsingInstruction {
 		boolean end = false;
 		
@@ -280,6 +287,12 @@ public class Main {
 		
 	}
 	
+	/**
+	 * Método que se ejecuta en caso de que se haya seleccionado el modo batch y que
+	 * inicializa el programa en función del modo.
+	 * @throws InputMismatchException
+	 * @throws FileNotFoundException
+	 */
 	private static void batchMode() throws InputMismatchException, FileNotFoundException {
 		// leer el programa
 		ProgramMv program = null;
@@ -318,6 +331,10 @@ public class Main {
 
 	}
 	
+	/**
+	 * Método que se ejecuta en caso de que se haya indicado el modo window y que
+	 * inicializa el programa en función del modo.
+	 */
 	private static void windowMode() {
 		// leer el programa
 		ProgramMv program = null;

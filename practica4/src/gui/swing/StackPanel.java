@@ -25,7 +25,12 @@ class StackPanel extends JPanel {
 		this.guiCtrl = guiCtrl;
 		initGUI();
 	}
-
+	
+	/**
+	 * Inicializa el StackPanel creando el panel y una lista para mostrar la
+	 * información de la pila. También crea los botones que permitirán interactuar
+	 * con la pila desde la interfaz.
+	 */
 	private void initGUI() {
 		// Establecer un borde para el panel
 		setBorder(BorderFactory.createTitledBorder("Pila de Operandos"));
@@ -68,7 +73,10 @@ class StackPanel extends JPanel {
 		panel.add(btnPop);
 		add(panel, BorderLayout.SOUTH);	
 	}
-
+	
+	/**
+	 * Actualiza la información mostrada en la interfaz sobre la pila.
+	 */
 	void updateView() {
 		//obtengo la pila actual
 		OperandStack<Integer> operandStack = guiCtrl.getOperandStack();

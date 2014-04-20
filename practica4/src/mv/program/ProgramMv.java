@@ -88,13 +88,23 @@ public class ProgramMv {
 		return aux;
 	}
 	
+	/**
+	 * Devuelve la instrucción almacenada en la posición que indique el parámetro.
+	 * @param int i
+	 * @return Instruction
+	 */
 	public Instruction get(int i){
 		return this.userProgram[i];
 	}
 	
+	/**
+	 * Devuelve el tamaño del programa
+	 * @return int
+	 */
 	public int getSizeProgram(){
 		return this.numberInstructions;
 	}
+	
 	/**
 	 * Metodo que se encarga de determinar si la memoria esta vacia o no
 	 * @return true/false
@@ -127,6 +137,11 @@ public class ProgramMv {
 		return "El programa introducido es: \n"+contenidoProgram;
 	}
 	
+	/**
+	 * Devuelve un String con la instrucción de la posición indicada en el parámetro
+	 * @param int line
+	 * @return String
+	 */
 	public String lineToString(int line){
 		if(this.isEmpty()) return "<vacio>";
 		else{

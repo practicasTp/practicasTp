@@ -10,5 +10,8 @@ public class NullIn implements InputMethod {
 		return -1;
 	}
 	
+	/**
+	 * No hace nada porque no tiene ningún archivo que cerrar.
+	 */
 	public void close() {}
 }

@@ -23,5 +23,8 @@ public class StdIn implements InputMethod {
 		return in;
 	}
 	
+	/**
+	 * No hace nada porque no tiene ningún archivo que cerrar.
+	 */
 	public void close() {}
 }

@@ -10,5 +10,8 @@ public class StdOut implements OutputMethod{
 		System.out.print(c);
 	}
 	
+	/**
+	 * No hace nada porque no tiene ningún archivo que cerrar.
+	 */
 	public void close() {}
 }

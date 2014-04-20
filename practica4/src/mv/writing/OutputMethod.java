@@ -8,5 +8,8 @@ public interface OutputMethod {
 	 */
 	abstract public void writeChar(char c);
 	
+	/**
+	 * Cierra el archivo abierto.
+	 */
 	abstract public void close();
 }

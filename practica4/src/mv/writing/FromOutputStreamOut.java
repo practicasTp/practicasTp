@@ -31,6 +31,10 @@ public class FromOutputStreamOut implements OutputMethod{
 		}
 	}
 	
+	/**
+	 * Cierra el archivo de salida abierto capturando las excepciones que se puedan
+	 * producir.
+	 */
 	public void close() {
 		try {
 			this.out.close();

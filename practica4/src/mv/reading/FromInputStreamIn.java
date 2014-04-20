@@ -18,6 +18,10 @@ public class FromInputStreamIn implements InputMethod {
 		}
 	}
 	
+	/**
+	 * Devuelve el objeto de entrada.
+	 * @return InputStream
+	 */
 	public InputStream getInputStream(){
 		return this.in;
 	}
@@ -41,6 +45,10 @@ public class FromInputStreamIn implements InputMethod {
 		return entrada;
 	}
 	
+	/**
+	 * Cierra el archivo de entrada abierto y captura las excepciones que se puedan
+	 * producir.
+	 */
 	public void close() {
 		try {
 			this.in.close();

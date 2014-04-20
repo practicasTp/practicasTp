@@ -132,8 +132,10 @@ public class Memory<T> {
 		return "Memoria: "+contenidoMemoria+"\n";
 	}
 	
-	
-	
+	/**
+	 * Devuelve la tabla que almacena la memoria.
+	 * @return int[][]
+	 */
 	public int[][] getMemory(){
 		int[][] memTable = new int[this.getMaxLength()][2];
 		int cont = 0;
@@ -150,6 +152,10 @@ public class Memory<T> {
 		return memTable;
 	}
 	
+	/**
+	 * Devuelve la longitud máxima de la tabla de la memoria.
+	 * @return int
+	 */
 	public int getMaxLength(){
 		int maxRealLength = 0;
 		for(int i = 0; i <= (this.registros.length - 1); i++){

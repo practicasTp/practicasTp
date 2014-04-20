@@ -25,6 +25,10 @@ public class OutputPanel extends JPanel{
 		initGui();
 	}
 	
+	/**
+	 * Inicializa el OutputPanel creando el outputTextArea para mostrar la 
+	 * información de salida.
+	 */
 	private void initGui(){
 		this.setLayout(new BorderLayout());
 		this.setBorder(new TitledBorder("Output"));
@@ -40,10 +44,6 @@ public class OutputPanel extends JPanel{
 		guiCtrl.setOutStream(outNew);
 	}
 	
-	public void updateView () {
-		
-	}
-	
 	class OutStreamGUI implements OutputMethod {
 		// definir los atributos necesarios
 		StringBuilder content;
@@ -53,12 +53,26 @@ public class OutputPanel extends JPanel{
 			this.content = new StringBuilder();
 			this.content.append(outputTextArea.getText());
 		}
+		
+		/**
+		 * No hace nada ya que se encarga otro método de abrir el archivo.
+		 */
 		public void open() {
 		// no hacer nada, suponemos que old ya está abierto
 		}
+		
+		/**
+		 * Cierra el archivo de salida abierto.
+		 */
 		public void close() {
 			outCurr.close();
 		}
+		
+		/**
+		 * Escribe un caracter tanto en el archivo de salida indicado, como en el
+		 * outputTextArea de salida.
+		 * @param char c
+		 */
 		public void writeChar(char c) {
 		// 1. pasar c al OutStream original
 			outCurr.writeChar(c);

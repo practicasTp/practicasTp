@@ -37,7 +37,12 @@ public class GUIControler {
 		this.cpu = cpu;
 		this.gui = gui;
 	}
-
+	
+	/**
+	 * Método que se encarga de presentar una pantalla indicando el error producido.
+	 * @param msg
+	 * @param title
+	 */
 	private void reportError(String msg, String title) { 
 		JDialog dialogo = new JDialog(gui);
 		dialogo.setTitle(title);
@@ -78,7 +83,11 @@ public class GUIControler {
       	dialogo.setLayout(new FlowLayout(FlowLayout.LEADING, 40, 50));
         
 	}
-
+	
+	/**
+	 * Intenta realizar el step de la cpu y en caso de error 
+	 * se encarga de capturar y mostrar todas las excepciones.
+	 */
 	void step() { 
 		try {
 			this.cpu.step();
@@ -98,7 +107,11 @@ public class GUIControler {
 		
 		this.gui.updateView();
 	}
-
+	
+	/**
+	 * Ejecuta el run de la cpu y en caso de error se encarga de capturar y mostrar
+	 * todas las excepciones.
+	 */
 	void run() { 
 		try {
 			this.cpu.run();
@@ -118,11 +131,19 @@ public class GUIControler {
 		
 		this.gui.updateView();
 	}
-
+	
+	/**
+	 * Comprueba que la cpu no haya finalizado.
+	 * @return boolean
+	 */
 	boolean finished(){
 		return this.cpu.finished();
 	}
 	
+	/**
+	 * Ejecuta el pop de la cpu y captura las excepciones que se puedan producir,
+	 * mostrando el error. Después actualiza la interfaz.
+	 */
 	void pop() { 
 		try {
 			this.cpu.pop();
@@ -131,11 +152,22 @@ public class GUIControler {
 		}
 		this.gui.updateView();
 	}
-
+	
+	/**
+	 * Valida el operando que se le pasa.
+	 * @param operando
+	 * @return boolean
+	 */
 	private boolean validarOperando(String operando){
 		return operando.matches("[-+]?\\d*\\.?\\d+");
 	}
 	
+	/**
+	 * Ejecuta el método push de la cpu comprobando que el operando cumpla las
+	 * condiciones, en caso negativo lanza un mensaje de error. Después actualiza
+	 * la interfaz.
+	 * @param s
+	 */
 	void push(String s) {
 		if(this.validarOperando(s)){
 			this.cpu.push(Integer.parseInt(s));
@@ -144,7 +176,10 @@ public class GUIControler {
 		}
 		this.gui.updateView();
 	}
-
+	
+	/**
+	 * Cierra el programa finalizando todos los archivos que puedan estar abiertos.
+	 */
 	void quit() { 
 		 String ObjButtons[] = {"Aceptar","Cancelar"};
 		 int PromptResult = JOptionPane.showOptionDialog(null,"¿Estás seguro de que deseas salir?","Cerrar máquina virtual",JOptionPane.DEFAULT_OPTION,JOptionPane.QUESTION_MESSAGE,null,ObjButtons,ObjButtons[1]);
@@ -156,7 +191,13 @@ public class GUIControler {
 			 System.exit(0);
 		 }
 	}
-
+	
+	/**
+	 * Ejecuta el store de la cpu realizando las correspondientes validaciones de los
+	 * operandos a utilizar. Después actualiza la interfaz.
+	 * @param pos
+	 * @param dato
+	 */
 	void memorySet(String pos, String dato) { 
 		if(this.validarOperando(pos)){
 			if(this.validarOperando(dato)){
@@ -171,10 +212,19 @@ public class GUIControler {
 		this.gui.updateView();
 	}
 	
+	/**
+	 * Devuelve el valor del PC de la cpu.
+	 * @return int
+	 */
 	int getPC() {
 		return cpu.getPC();
 	}
-
+	
+	/**
+	 * Rellena el InStream de la cpu caturando las excepciones que se puedan
+	 * producir.
+	 * @param in
+	 */
 	void setInStream(InputMethod in) { 
 		try {
 			this.cpu.setInStream(in);
@@ -182,7 +232,12 @@ public class GUIControler {
 			reportError(e.getMessage(), this.errorTitle);
 		}
 	}
-
+	
+	/**
+	 * Rellena el OutStream de la cpu capturando las excepciones que se puedan
+	 * producir.
+	 * @param out
+	 */
 	void setOutStream(OutputMethod out) { 
 		try {
 			this.cpu.setOutStream(out);
@@ -190,23 +245,43 @@ public class GUIControler {
 			reportError(e.getMessage(), this.errorTitle);
 		}
 	}
-
+	
+	/**
+	 * Devuelve el InStream de la cpu
+	 * @return InputMethod
+	 */
 	InputMethod getInStream() {
 		return this.cpu.getInStream();
 	}
-
+	
+	/**
+	 * Devuelve el OutStream de la cpu.
+	 * @return OutputStream
+	 */
 	OutputMethod getOutStream() { 
 		return this.cpu.getOutStream();
 	}
-
+	
+	/**
+	 * Devuelve el programa de la cpu.
+	 * @return ProgramMv
+	 */
 	ProgramMv getProgram() { 
 		return this.cpu.getProgram();
 	}
 
+	/**
+	 * Devuelve la pila de la cpu.
+	 * @return OperandStack<Integer>
+	 */
 	OperandStack<Integer> getOperandStack() { 
 		return this.cpu.getOperandStack();
 	}
-
+	
+	/**
+	 * Devuelve la memoria de la cpu
+	 * @return Memory<Integer>
+	 */
 	Memory<Integer> getMemory() { 
 		return this.cpu.getMemory();
 	}

@@ -14,7 +14,11 @@ class ToolBarPanel extends JPanel {
 		this.guiCtrl = guiCtrl;
 		initGUI();
 	}
-
+	
+	/**
+	 * Inicializa el ToolBarPanel creando los botones correspondientes de acción para
+	 * interactuar con el programa.
+	 */
 	private void initGUI() {
 		stepButton = new JButton();
 		stepButton.setIcon(createImageIcon("step.png"));
@@ -44,7 +48,12 @@ class ToolBarPanel extends JPanel {
 			}
 		});
 	}
-
+	
+	/**
+	 * Genera una imagen de icono y lo devuelve.
+	 * @param path
+	 * @return ImageIcon
+	 */
 	private static ImageIcon createImageIcon(String path) {
 		java.net.URL imgURL = MainWindow.class.getResource(path);
 		if (imgURL != null)
@@ -52,6 +61,9 @@ class ToolBarPanel extends JPanel {
 		return null;
 	}
 	
+	/**
+	 * Actualiza el estado de los botones.
+	 */
 	public void updateview(){
 		if(this.guiCtrl.finished()){
 			stepButton.setEnabled(false);

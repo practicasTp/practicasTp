@@ -25,6 +25,9 @@ public class InputPanel extends JPanel {
 		initGUI();
 	}
 	
+	/**
+	 * Inicializa el InputPanel incluyendo el inputTextArea.
+	 */
 	private void initGUI() {
 		this.setLayout(new BorderLayout());
 		this.setBorder(new TitledBorder("Input"));
@@ -57,10 +60,21 @@ public class InputPanel extends JPanel {
 			inputTextArea.setText(content.toString());
 		}
 		
+		/**
+		 * No hace nada porque ya se encarga otro método de abrir el archivo.
+		 */
 		public void open() {} // suponemos que old ya está abierto
 		
+		/**
+		 * Se encarga de cerrar el archivo de entrada abierto.
+		 */
 		public void close() { inCurr.close(); } // cerrar old también
 		
+		/**
+		 * Lee el siguiente caracter guardado y lo devueve. Además actualiza el 
+		 * inputTextArea para que muestre un * en lugar del caracter obtenido.
+		 * @return int
+		 */
 		public int readChar() {
 			int c = -1;
 			// 1. si pos == content.length() entonce ya no hay más caracteres

@@ -29,6 +29,12 @@ public class MainWindow extends JFrame {
 		initGUI();
 		updateView();
 	}
+	
+	/**
+	 * Inicializa el MainWindow rellenando los atributos que objetos correspondientes
+	 * al tipo. Además crea las ventanas necesarias para mostrar toda la información
+	 * en la interfaz.
+	 */
 	private void initGUI() {
 		guiCtrl = new GUIControler(cpu, this);
 		this.toolBar 	= new ToolBarPanel(guiCtrl);
@@ -84,6 +90,10 @@ public class MainWindow extends JFrame {
 			}
 		});
 	}
+	
+	/**
+	 * Actualiza la interfaz: programa, pila, memoria y toolBar.
+	 */
 	void updateView() {
 		program.updateView();
 		stack.updateView();

@@ -34,7 +34,12 @@ class MemoryPanel extends JPanel {
 		this.guiCtrl = guiCtrl;
 		initGUI();
 	}
-
+	
+	/**
+	 * Inicializa la memoria creando la tabla para mostrar los valores y creando
+	 * los paneles correspondientes. También crea el botón que permitirá interactuar
+	 * con la memoria.
+	 */
 	private void initGUI() {
 		this.setLayout(new BorderLayout());
 		// Establecer un borde para el panel
@@ -56,7 +61,7 @@ class MemoryPanel extends JPanel {
 		lblPosicion = new JLabel("Posicion", JLabel.CENTER);
 		lblValor = new JLabel("Valor", JLabel.CENTER);
 		
-		// Crear el panel con los textfields y el botÃƒÂ³n
+		// Crear el panel con los textfields y el botón
 		JPanel panel = new JPanel();
 		txtPos = new JTextField(5);
 		txtValor = new JTextField(5);
@@ -77,7 +82,10 @@ class MemoryPanel extends JPanel {
 		panel.add(btnWrite);
 		add(panel, BorderLayout.SOUTH);
 	}
-
+	
+	/**
+	 * Actualiza la información mostrada de la memoria.
+	 */
 	void updateView() {
 		_modelo.refresh();
 		if(this.guiCtrl.finished()){
@@ -93,7 +101,10 @@ class MemoryPanel extends JPanel {
 		TableModel() {
 			refresh();
 		}
-
+		
+		/**
+		 * Refresca el contenido de la tabla de la memoria.
+		 */
 		public void refresh() {
 			Memory<Integer> memory = guiCtrl.getMemory();
 			memTable = memory.getMemory();
@@ -101,21 +112,36 @@ class MemoryPanel extends JPanel {
 			
 		}
 		
+		/**
+		 * Devuelve el nombre de la columna
+		 */
 		public String getColumnName(int column){
 			return colNames[column];
 		}
-
+		
+		/**
+		 * Devuelve 2
+		 * @return int
+		 */
 		@Override
 		public int getColumnCount() {
 			return 2;
 		}
-
+		
+		/**
+		 * Devuelve la longitud máxima de la memoria.
+		 * @return int
+		 */
 		@Override
 		public int getRowCount() {
 			Memory<Integer> memory = guiCtrl.getMemory();
 			return memory.getMaxLength();
 		}
-
+		
+		/**
+		 * Devuelve el valor de la posición indicada en la tabla.
+		 * @return Object
+		 */
 		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
 			return memTable[rowIndex][columnIndex];

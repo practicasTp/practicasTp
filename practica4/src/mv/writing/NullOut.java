@@ -7,5 +7,8 @@ public class NullOut implements OutputMethod {
 	 */
 	public void writeChar(char c) {}
 	
+	/**
+	 * No hace nada porque no tiene ningún archivo que cerrar.
+	 */
 	public void close() {}
 }

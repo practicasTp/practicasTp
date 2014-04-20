@@ -8,5 +8,8 @@ public interface InputMethod {
 	 */
 	abstract public int readChar();
 	
+	/**
+	 * Cierra el archivo abierto.
+	 */
 	abstract public void close();
 }

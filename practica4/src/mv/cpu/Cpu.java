@@ -162,10 +162,19 @@ public class Cpu {
 	
 	//Operaciones E/S
 	
+	/**
+	 * Llama al método de escritura del output para que escriba un caracter.
+	 * @param char c
+	 */
 	public void writeChar(char c) {
 		this.output.writeChar(c);
 	}
 	
+	/**
+	 * Llama al método de lectura del input para que lea el siguiente caracter y
+	 * lo devuelva.
+	 * @return int
+	 */
 	public int readChar() {
 		int lectura = this.input.readChar();
 		
@@ -175,7 +184,7 @@ public class Cpu {
 	//Operaciones CPU
 	
 	/**
-	 * Realiza la misma función que a instrucción halt.
+	 * Realiza la misma función que la instrucción halt.
 	 */
 	public void exit () {
 		this.fin = true;
@@ -284,6 +293,10 @@ public class Cpu {
 		this.pc++;
 	}
 	
+	/**
+	 * Incrementa el program counter tantas veces como indique el parámetro de entrada.
+	 * @param n
+	 */
 	public void increaseProgramCounter(int n){
 		this.pc = this.pc + n;
 	}

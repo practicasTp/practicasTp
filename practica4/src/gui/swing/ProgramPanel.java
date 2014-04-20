@@ -18,7 +18,10 @@ class ProgramPanel extends JPanel {
 		this.guiCtrl = guiCtrl;
 		initGUI();
 	}
-
+	/**
+	 * Inicializa el ProgramPanel creando el programTextArea para poder mostrar la
+	 * información del programa.
+	 */
 	private void initGUI() {
 		this.setLayout(new BorderLayout());
 		this.setBorder(new TitledBorder("Programa"));
@@ -29,7 +32,10 @@ class ProgramPanel extends JPanel {
 		this.add(new JScrollPane(programTextArea));
 		this.setPreferredSize(new Dimension(160, 0));
 	}
-
+	
+	/**
+	 * Actualiza la información del programPanel
+	 */
 	void updateView() {
 		ProgramMv program = guiCtrl.getProgram();
 		String allProgram = "";
