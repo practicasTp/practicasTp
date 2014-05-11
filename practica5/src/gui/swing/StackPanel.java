@@ -6,12 +6,25 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
-import javax.swing.border.TitledBorder;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 
 import mv.cpu.OperandStack;
+import mv.instructions.Instruction;
+import mv.program.ProgramMv;
+import observers.CPUObserver;
+import observers.Observable;
+import observers.StackObserver;
+import controllers.GUIControler;
 
-class StackPanel extends JPanel {
+public class StackPanel extends JPanel implements StackObserver<Integer>, CPUObserver{
 	private GUIControler guiCtrl;
 	private JScrollPane _scroll;
 	private JList _lstPila;
@@ -21,8 +34,8 @@ class StackPanel extends JPanel {
 	private JButton btnPush;
 	private JButton btnPop;
 
-	StackPanel(GUIControler guiCtrl) {
-		this.guiCtrl = guiCtrl;
+	public StackPanel(GUIControler ctrl, Observable<StackObserver<Integer>> stack, Observable<CPUObserver> cpu) {
+		this.guiCtrl = ctrl;
 		initGUI();
 	}
 	
@@ -92,5 +105,65 @@ class StackPanel extends JPanel {
 			btnPush.setEnabled(false);
 			btnPop.setEnabled(false);
 		}
+	}
+
+	@Override
+	public void onStartInstrExecution(Instruction instr) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onEndInstrExecution(int pc) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onStartRun() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onEndRun() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onError(String msg) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onHalt() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onReset(ProgramMv program) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onPush(Integer value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onPop(Integer value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onStackReset() {
+		// TODO Auto-generated method stub
+		
 	}
 }

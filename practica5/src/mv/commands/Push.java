@@ -18,7 +18,6 @@ public class Push extends CommandInterpreter {
 		CommandInterpreter.cpu.push(this.pushedNumber);
 		//muestro estado de la máquina
 		CommandInterpreter.printStateMachine();
-		
 		return resultado;
 	}
 	

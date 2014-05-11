@@ -9,6 +9,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 
 import mv.reading.InputMethod;
+import controllers.GUIControler;
 
 public class InputPanel extends JPanel {
 	/**
@@ -20,7 +21,7 @@ public class InputPanel extends JPanel {
 	private static InputMethod inCurr;
 	private InputMethod inNew;
 	
-	InputPanel (GUIControler guiCtrl) {
+	public InputPanel (GUIControler guiCtrl) {
 		this.guiCtrl = guiCtrl;
 		initGUI();
 	}

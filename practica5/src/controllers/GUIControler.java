@@ -1,19 +1,18 @@
-package gui.swing;
+package controllers;
+
+import mv.cpu.Cpu;
+import gui.swing.MainWindow;
 
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.event.WindowEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextPane;
 
-import mv.cpu.Cpu;
 import mv.cpu.Memory;
 import mv.cpu.OperandStack;
 import mv.exceptions.DivisionByZeroException;
@@ -27,17 +26,22 @@ import mv.program.ProgramMv;
 import mv.reading.InputMethod;
 import mv.writing.OutputMethod;
 
-public class GUIControler {
+public class GUIControler extends Controller {
+	
+	public GUIControler(Cpu cpu) {
+		super(cpu);
+	}
+
 	private Cpu cpu;
 	private MainWindow gui;
 	JDialog dialogo = null;
-	private String errorTitle = "Error en la máquina virtual";
+	private String errorTitle = "Error en la máquina virtual";	
 	
-	GUIControler(Cpu cpu, MainWindow gui) {
-		this.cpu = cpu;
-		this.gui = gui;
+	// no hace nada, swing se encarga de la comunicación con el usuario en este caso
+	public void start() {
+		
 	}
-	
+
 	/**
 	 * Método que se encarga de presentar una pantalla indicando el error producido.
 	 * @param msg
@@ -88,7 +92,7 @@ public class GUIControler {
 	 * Intenta realizar el step de la cpu y en caso de error 
 	 * se encarga de capturar y mostrar todas las excepciones.
 	 */
-	void step() { 
+	public void step() { 
 		try {
 			this.cpu.step();
 		} catch (InsufficientOperandsException e) {
@@ -105,14 +109,14 @@ public class GUIControler {
 			reportError(e.getMessage(),this.errorTitle);
 		}
 		
-		this.gui.updateView();
+		//this.gui.updateView();
 	}
 	
 	/**
 	 * Ejecuta el run de la cpu y en caso de error se encarga de capturar y mostrar
 	 * todas las excepciones.
 	 */
-	void run() { 
+	public void run() { 
 		try {
 			this.cpu.run();
 		} catch (InsufficientOperandsException e) {
@@ -129,14 +133,14 @@ public class GUIControler {
 			reportError(e.getMessage(),this.errorTitle);
 		}
 		
-		this.gui.updateView();
+		//this.gui.updateView();
 	}
 	
 	/**
 	 * Comprueba que la cpu no haya finalizado.
 	 * @return boolean
 	 */
-	boolean finished(){
+	public boolean finished(){
 		return this.cpu.finished();
 	}
 	
@@ -144,13 +148,13 @@ public class GUIControler {
 	 * Ejecuta el pop de la cpu y captura las excepciones que se puedan producir,
 	 * mostrando el error. Después actualiza la interfaz.
 	 */
-	void pop() { 
+	public void pop() { 
 		try {
 			this.cpu.pop();
 		} catch (EmptyStackException e) {
 			reportError(e.getMessage(),this.errorTitle);
 		}
-		this.gui.updateView();
+		//this.gui.updateView();
 	}
 	
 	/**
@@ -168,19 +172,19 @@ public class GUIControler {
 	 * la interfaz.
 	 * @param s
 	 */
-	void push(String s) {
+	public void push(String s) {
 		if(this.validarOperando(s)){
 			this.cpu.push(Integer.parseInt(s));
 		}else{
 			reportError("Solo están admitidos los números a la hora de insertar elementos", this.errorTitle);
 		}
-		this.gui.updateView();
+		//this.gui.updateView();
 	}
 	
 	/**
 	 * Cierra el programa finalizando todos los archivos que puedan estar abiertos.
 	 */
-	void quit() { 
+	public void quit() { 
 		 String ObjButtons[] = {"Aceptar","Cancelar"};
 		 int PromptResult = JOptionPane.showOptionDialog(null,"¿Estás seguro de que deseas salir?","Cerrar máquina virtual",JOptionPane.DEFAULT_OPTION,JOptionPane.QUESTION_MESSAGE,null,ObjButtons,ObjButtons[1]);
 		 if(PromptResult==JOptionPane.YES_OPTION) {
@@ -198,7 +202,7 @@ public class GUIControler {
 	 * @param pos
 	 * @param dato
 	 */
-	void memorySet(String pos, String dato) { 
+	public void memorySet(String pos, String dato) { 
 		if(this.validarOperando(pos)){
 			if(this.validarOperando(dato)){
 				this.cpu.store(Integer.parseInt(pos), Integer.parseInt(dato));
@@ -209,14 +213,14 @@ public class GUIControler {
 			reportError("Solo están admitidos los números en la posición de memoria", this.errorTitle);
 		}
 
-		this.gui.updateView();
+		//this.gui.updateView();
 	}
 	
 	/**
 	 * Devuelve el valor del PC de la cpu.
 	 * @return int
 	 */
-	int getPC() {
+	public int getPC() {
 		return cpu.getPC();
 	}
 	
@@ -225,7 +229,7 @@ public class GUIControler {
 	 * producir.
 	 * @param in
 	 */
-	void setInStream(InputMethod in) { 
+	public void setInStream(InputMethod in) { 
 		try {
 			this.cpu.setInStream(in);
 		} catch (MvError e) {
@@ -238,7 +242,7 @@ public class GUIControler {
 	 * producir.
 	 * @param out
 	 */
-	void setOutStream(OutputMethod out) { 
+	public void setOutStream(OutputMethod out) { 
 		try {
 			this.cpu.setOutStream(out);
 		} catch (MvError e) {
@@ -250,7 +254,7 @@ public class GUIControler {
 	 * Devuelve el InStream de la cpu
 	 * @return InputMethod
 	 */
-	InputMethod getInStream() {
+	public InputMethod getInStream() {
 		return this.cpu.getInStream();
 	}
 	
@@ -258,7 +262,7 @@ public class GUIControler {
 	 * Devuelve el OutStream de la cpu.
 	 * @return OutputStream
 	 */
-	OutputMethod getOutStream() { 
+	public OutputMethod getOutStream() { 
 		return this.cpu.getOutStream();
 	}
 	
@@ -266,7 +270,7 @@ public class GUIControler {
 	 * Devuelve el programa de la cpu.
 	 * @return ProgramMv
 	 */
-	ProgramMv getProgram() { 
+	public ProgramMv getProgram() { 
 		return this.cpu.getProgram();
 	}
 
@@ -274,7 +278,7 @@ public class GUIControler {
 	 * Devuelve la pila de la cpu.
 	 * @return OperandStack<Integer>
 	 */
-	OperandStack<Integer> getOperandStack() { 
+	public OperandStack<Integer> getOperandStack() { 
 		return this.cpu.getOperandStack();
 	}
 	
@@ -282,7 +286,7 @@ public class GUIControler {
 	 * Devuelve la memoria de la cpu
 	 * @return Memory<Integer>
 	 */
-	Memory<Integer> getMemory() { 
+	public Memory<Integer> getMemory() { 
 		return this.cpu.getMemory();
 	}
 }

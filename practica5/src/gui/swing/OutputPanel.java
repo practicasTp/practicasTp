@@ -9,6 +9,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 
 import mv.writing.OutputMethod;
+import controllers.GUIControler;
 
 public class OutputPanel extends JPanel{
 	/**
@@ -20,7 +21,7 @@ public class OutputPanel extends JPanel{
 	private static OutputMethod outCurr;
 	private OutputMethod outNew;
 	
-	OutputPanel(GUIControler guiCtrl){
+	public OutputPanel(GUIControler guiCtrl){
 		this.guiCtrl = guiCtrl;
 		initGui();
 	}

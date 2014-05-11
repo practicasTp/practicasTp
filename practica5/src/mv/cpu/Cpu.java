@@ -1,5 +1,9 @@
 package mv.cpu;
 
+import java.util.ArrayList;
+
+import observers.CPUObserver;
+import observers.Observable;
 import mv.exceptions.DivisionByZeroException;
 import mv.exceptions.EmptyStackException;
 import mv.exceptions.IncorrectMemoryPositionException;
@@ -12,7 +16,7 @@ import mv.program.ProgramMv;
 import mv.reading.InputMethod;
 import mv.writing.OutputMethod;
 
-public class Cpu {
+public class Cpu implements Observable<CPUObserver>{
 	private Memory<Integer> memoria;
 	private OperandStack<Integer> pila;
 	private boolean fin;
@@ -21,6 +25,7 @@ public class Cpu {
 	private boolean correctPc;
 	private InputMethod input;
 	private OutputMethod output;
+	private ArrayList<CPUObserver> observers;
 	
 	public Cpu(InputMethod input, OutputMethod output, ProgramMv program){
 		this.memoria 	= new Memory<Integer> ();
@@ -31,6 +36,8 @@ public class Cpu {
 		this.input 		= input;
 		this.output 	= output;
 		this.program 	= program;
+		this.observers	= new ArrayList<CPUObserver>();
+		
 	}
 	
 	/**
@@ -97,6 +104,11 @@ public class Cpu {
 	public void run() throws EmptyStackException, NegativeNumberIntoMemoryException, InsufficientOperandsException, DivisionByZeroException, IncorrectProgramCounterException, IncorrectMemoryPositionException{
 		boolean resultado = false;
 		
+		//aviso que la ejecucion del run ha empezado
+		for(CPUObserver o: this.observers){
+			o.onStartRun();
+		}
+		
 		do{
 			//si la instrucción se ejecuta correctamente
 			if (this.step()){
@@ -108,7 +120,25 @@ public class Cpu {
 		//repito hasta que la cpu me diga que no hay más instrucciones a ejecutar	
 		}while(resultado!=false);
 		
+		//avisar que la ejecución del run ha terminado
+		for(CPUObserver o: this.observers){
+			o.onEndRun();
+		}
+		
 	}
+	
+	 public void pause() {       
+		 // parar la ejecución del run -- ver los ejemplos de Threads, etc.     
+	 }
+	 
+	 public void loadProgram(ProgramMv p) {      
+		 // - cargar el programa p       
+		 // - inicializar la Pila, Memoria, etc.     
+	 }
+	 
+	 public void reset() {      
+		 // - inicializar la Pila, Memoria, etc.     
+	 }
 	
 	/**
 	 * Metodo que devuelve si la cpu ha sido finalizada o no
@@ -186,6 +216,9 @@ public class Cpu {
 	 * Realiza la misma función que la instrucción halt.
 	 */
 	public void exit () {
+		for(CPUObserver o: this.observers){
+			o.onHalt();
+		}
 		this.fin = true;
 		this.correctPc = false;
 	}
@@ -194,6 +227,9 @@ public class Cpu {
 	 * Inicializa todos los atributos de la Cpu para preparar una ejecución con run.
 	 */
 	public void resetCpu () {
+		for(CPUObserver o: this.observers){
+			o.onReset(program);
+		}
 		this.fin = false;
 		this.pc = 0;
 		this.correctPc = true;
@@ -209,10 +245,10 @@ public class Cpu {
 	 */
 	public Instruction getCurrentInstruction() {
 		//si el contador del programa es menor que el tamaño
-		if (this.program.getSizeProgram() > this.pc)
+		if (this.program.getSizeProgram() > this.pc){
 			//devuelvo la instrución
 			return this.program.get(this.pc);
-		else {
+		}else {
 			//si no entonces ya no tengo contador del programa
 			this.correctPc = false;
 			return null;
@@ -253,12 +289,55 @@ public class Cpu {
 		
 		//obtengo una instruccion
 		Instruction inst = this.getCurrentInstruction();
-		if (inst != null) {			
+		
+		//aviso a los observers que comienza la ejecución
+		for(CPUObserver o: this.observers){
+			o.onStartInstrExecution(this.program.get(this.pc));
+		}
+		
+		if (inst != null) {
 			//retorno cómo ha ido la ejecución
-			inst.execute(this);
+			try {
+				inst.execute(this);
+			} catch (InsufficientOperandsException e) {
+				for(CPUObserver o: this.observers){
+					o.onError(e.getMessage());
+				}
+				throw new InsufficientOperandsException(e.getMessage());
+			} catch (EmptyStackException e) {
+				for(CPUObserver o: this.observers){
+					o.onError(e.getMessage());
+				}
+				throw new EmptyStackException(e.getMessage());
+			} catch (DivisionByZeroException e) {
+				for(CPUObserver o: this.observers){
+					o.onError(e.getMessage());
+				}
+				throw new DivisionByZeroException(e.getMessage());
+			} catch (IncorrectProgramCounterException e) {
+				for(CPUObserver o: this.observers){
+					o.onError(e.getMessage());
+				}
+				throw new IncorrectProgramCounterException(e.getMessage());
+			} catch (NegativeNumberIntoMemoryException e) {
+				for(CPUObserver o: this.observers){
+					o.onError(e.getMessage());
+				}
+				throw new NegativeNumberIntoMemoryException(e.getMessage());
+			} catch (IncorrectMemoryPositionException e) {
+				for(CPUObserver o: this.observers){
+					o.onError(e.getMessage());
+				}
+				throw new IncorrectMemoryPositionException(e.getMessage());
+			}
 			execute = true;
 		} else{
 			this.exit();
+		}
+		
+		//aviso a los observers que comienza la ejecución
+		for(CPUObserver o: this.observers){
+			o.onEndInstrExecution(pc);
 		}
 		
 		return execute;
@@ -323,5 +402,34 @@ public class Cpu {
 		contenidoCpu += this.pila.toString();
 		
 		return contenidoCpu;
+	}
+
+	/**
+	 * Método que añade un observador de la cpu
+	 */
+	public void addObserver(CPUObserver o) {
+		observers.add(o);		
+	}
+
+	/**
+	 * Método que elimina un observador de la cpu
+	 */
+	@Override
+	public void removeObserver(CPUObserver o) {
+		observers.remove(o);
+		
+	}
+
+	/**
+	 * Método que avisa a los observadores que el programa ha sido cargado
+	 */
+	public void programLoaded() {
+		for(CPUObserver o: this.observers){
+			o.onReset(program);
+		}
+	}
+	
+	public void printStateMachine(){
+		
 	}
 }

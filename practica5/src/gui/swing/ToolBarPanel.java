@@ -3,14 +3,20 @@ package gui.swing;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
-class ToolBarPanel extends JPanel {
+import observers.CPUObserver;
+import observers.Observable;
+import controllers.GUIControler;
+
+public class ToolBarPanel extends JPanel {
 	private GUIControler guiCtrl;
 	private JButton stepButton;
 	private JButton runButton;
 	
-	ToolBarPanel(GUIControler guiCtrl) {
+	public ToolBarPanel(GUIControler guiCtrl, Observable<CPUObserver> cpu) {
 		this.guiCtrl = guiCtrl;
 		initGUI();
 	}

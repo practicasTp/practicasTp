@@ -5,17 +5,23 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 
+import mv.instructions.Instruction;
 import mv.program.ProgramMv;
+import observers.CPUObserver;
+import observers.Observable;
+import controllers.GUIControler;
 
-class ProgramPanel extends JPanel {
+public class ProgramPanel extends JPanel implements CPUObserver { 
 	private GUIControler guiCtrl;
 	private JTextArea programTextArea;
 
-	ProgramPanel(GUIControler guiCtrl) {
-		this.guiCtrl = guiCtrl;
+	public ProgramPanel(GUIControler ctrl, Observable<CPUObserver> cpu) { 
+		this.guiCtrl = ctrl; 
 		initGUI();
 	}
 	/**
@@ -48,5 +54,40 @@ class ProgramPanel extends JPanel {
 		}
 		
 		programTextArea.setText(allProgram);
+	}
+	@Override
+	public void onStartInstrExecution(Instruction instr) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void onEndInstrExecution(int pc) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void onStartRun() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void onEndRun() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void onError(String msg) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void onHalt() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void onReset(ProgramMv program) {
+		// TODO Auto-generated method stub
+		
 	}
 }

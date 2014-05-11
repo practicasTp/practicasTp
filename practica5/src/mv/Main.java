@@ -4,24 +4,18 @@ import gui.swing.MainWindow;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
-import mv.commands.CommandInterpreter;
-import mv.commands.CommandParser;
 import mv.cpu.Cpu;
 import mv.exceptions.DivisionByZeroException;
 import mv.exceptions.EmptyStackException;
 import mv.exceptions.IncorrectMemoryPositionException;
-import mv.exceptions.IncorrectParsingCommandException;
 import mv.exceptions.IncorrectParsingInstruction;
 import mv.exceptions.IncorrectProgramCounterException;
-import mv.exceptions.InsufficientInstructionsException;
 import mv.exceptions.InsufficientOperandsException;
 import mv.exceptions.NegativeNumberIntoMemoryException;
-import mv.instructions.Instruction;
 import mv.program.ProgramMv;
 import mv.reading.FromInputStreamIn;
 import mv.reading.InputMethod;
@@ -41,7 +35,8 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.UnrecognizedOptionException;
 
-import com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel;
+import views.InteractiveView;
+import controllers.InteractiveController;
 
 
 public class Main {
@@ -223,7 +218,6 @@ public class Main {
 	 * @throws IncorrectParsingInstruction
 	 */
 	private static void interactiveMode() throws InputMismatchException, FileNotFoundException, IncorrectParsingInstruction {
-		boolean end = false;
 		
 		// leer el programa
 		ProgramMv program = programFileName == null ? ProgramMv.readProgram() : ProgramMv.readProgram(programFileName);
@@ -231,59 +225,10 @@ public class Main {
 		//Creamos la CPU y cargamos el programa.
 		cpu = new Cpu (input, output, program); //Se pasan las E/S y el programa.
 		
-		//Muestra el programa introducido.
-		System.out.println(program.toString());
-		
-		//Pasamos al intérprete de comandos la cpu.
-		CommandInterpreter.configureCommandInterpreter(cpu);
-		
-		do {
-			try {				
-				Scanner sc = new Scanner(System.in);
-				CommandInterpreter command = null; 
-				
-				System.out.print("> ");
-				//Muestra el prompt y lee el comando.
-				String commandLine;
-				
-				do{
-					sc.reset();
-					commandLine = sc.nextLine();
-				}while(commandLine.length() == 0);
-				
-				//Parseamos los comandos.
-				command = CommandParser.parseCommand(commandLine);
-				
-				if(command != null){
-					try {
-						Instruction inst = cpu.getCurrentInstruction();		
-						System.out.println("Comienza la ejecución de "+inst.toString()+"\n");
-						command.executeCommand();
-					} catch (EmptyStackException e){
-						System.err.println(e.getMessage());
-					} catch (NegativeNumberIntoMemoryException e) {
-						System.err.println(e.getMessage());
-					}catch (InsufficientOperandsException e) {
-						System.err.println(e.getMessage());
-					} catch (DivisionByZeroException e) {
-						System.err.println(e.getMessage());
-					} catch (IncorrectProgramCounterException e) {
-						System.err.println(e.getMessage());
-					} catch (IncorrectMemoryPositionException e) {
-						System.err.println(e.getMessage());
-					}
-					if(command.isFinished()){
-						end = true;
-					}
-				}
-				
-			}catch (InsufficientInstructionsException e) {
-				System.err.println(e.getMessage());
-			} catch (IncorrectParsingCommandException e) {
-				System.err.println(e.getMessage());	
-			}
-		// escribir el estado de la maquina
-		} while (!end);
+		// Crear el controlador y la vista 
+		InteractiveController ctrl 	= new InteractiveController(cpu); 
+		InteractiveView view 		= new InteractiveView(cpu); 
+		ctrl.start();
 		
 	}
 	
@@ -373,6 +318,6 @@ public class Main {
 		}
 		
 		// Construir el objeto que corresponde a la vista
-		MainWindow view = new MainWindow(cpu);
+		//MainWindow view = new MainWindow(cpu);
 	}
 }

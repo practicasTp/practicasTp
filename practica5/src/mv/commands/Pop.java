@@ -17,7 +17,7 @@ public class Pop extends CommandInterpreter {
 		//si el contenido de la pila es mayor que 0
 		if(CommandInterpreter.cpu.getSizeStack()>0){
 			//saco de la pila
-			CommandInterpreter.cpu.pop();
+			CommandInterpreter.cpu.pop();	
 			//muestro estado de la máquina
 			CommandInterpreter.printStateMachine();
 			resultado = true;

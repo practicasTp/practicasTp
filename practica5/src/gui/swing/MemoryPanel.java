@@ -2,7 +2,6 @@ package gui.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,8 +16,14 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import mv.cpu.Memory;
+import mv.instructions.Instruction;
+import mv.program.ProgramMv;
+import observers.CPUObserver;
+import observers.MemoryObserver;
+import observers.Observable;
+import controllers.GUIControler;
 
-class MemoryPanel extends JPanel {
+public class MemoryPanel extends JPanel  implements MemoryObserver<Integer>, CPUObserver {
 	private GUIControler guiCtrl;
 	// Componentes visuales
 	private JScrollPane _scroll;
@@ -30,8 +35,8 @@ class MemoryPanel extends JPanel {
 	private JLabel lblPosicion;
 	private JLabel lblValor;
 
-	MemoryPanel(GUIControler guiCtrl) {
-		this.guiCtrl = guiCtrl;
+	public MemoryPanel(GUIControler ctrl, Observable<MemoryObserver<Integer>> memory, Observable<CPUObserver> cpu) {
+		this.guiCtrl = ctrl;
 		initGUI();
 	}
 	
@@ -146,5 +151,59 @@ class MemoryPanel extends JPanel {
 		public Object getValueAt(int rowIndex, int columnIndex) {
 			return memTable[rowIndex][columnIndex];
 		}
+	}
+
+	@Override
+	public void onStartInstrExecution(Instruction instr) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onEndInstrExecution(int pc) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onStartRun() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onEndRun() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onError(String msg) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onHalt() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onReset(ProgramMv program) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onWrite(int index, Integer value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onMemReset() {
+		// TODO Auto-generated method stub
+		
 	}
 }

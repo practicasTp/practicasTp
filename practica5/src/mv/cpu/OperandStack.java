@@ -1,8 +1,11 @@
 package mv.cpu;
 
 import mv.exceptions.EmptyStackException;
+import observers.CPUObserver;
+import observers.Observable;
+import observers.StackObserver;
 
-public class OperandStack<T> {
+public class OperandStack<T> implements Observable<StackObserver<T>>{
 	private int cima;
 	private Object[] stack;
 	public final int TAMANIO = 30;
@@ -160,5 +163,15 @@ public class OperandStack<T> {
 	public void clean () {
 		this.stack = this.inicializaPila(TAMANIO);
 		this.cima = -1;
+	}
+	
+	@Override
+	public void addObserver(StackObserver<T> o) {
+		//¿?¿?¿
+	}
+	
+	@Override
+	public void removeObserver(StackObserver<T> o) {
+		//¿?¿?¿
 	}
 }

@@ -1,8 +1,10 @@
 package mv.cpu;
 
 import mv.exceptions.IncorrectMemoryPositionException;
+import observers.MemoryObserver;
+import observers.Observable;
 
-public class Memory<T> {
+public class Memory<T> implements Observable<MemoryObserver<T>>{
 	private Object[] registros;
 	public final int TAMANIO = 50;
 	
@@ -162,5 +164,15 @@ public class Memory<T> {
 			if (this.registros[i] != null) maxRealLength++;
 		}
 		return maxRealLength;
+	}
+
+	@Override
+	public void addObserver(MemoryObserver<T> o) {
+		//¿?¿?¿		
+	}
+
+	@Override
+	public void removeObserver(MemoryObserver<T> o) {
+		//¿?¿?¿		
 	}
 }
