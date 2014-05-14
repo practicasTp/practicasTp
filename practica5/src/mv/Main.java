@@ -252,28 +252,10 @@ public class Main {
 		//Creamos la CPU y cargamos el programa.
 		cpu = new Cpu (input, output, program); //Se pasan las E/S y el programa.
 		
-		try {
-			cpu.run();
-		} catch (EmptyStackException e) {
-			System.err.println(e.getMessage());
-			System.exit(1);
-		} catch (NegativeNumberIntoMemoryException e) {
-			System.err.println(e.getMessage());
-			System.exit(1);
-		}catch (InsufficientOperandsException e) {
-			System.err.println(e.getMessage());
-			System.exit(1);
-		} catch (DivisionByZeroException e) {
-			System.err.println(e.getMessage());
-			System.exit(1);
-		} catch (IncorrectProgramCounterException e) {
-			System.err.println(e.getMessage());
-			System.exit(1);
-		} catch (IncorrectMemoryPositionException e) {
-			System.err.println(e.getMessage());
-			System.exit(1);
-		}
-
+		// Crear el controlador y la vista 
+		BatchController ctrl 	= new BatchController(cpu); 
+		BatchView view 		= new BatchView(cpu); 
+		ctrl.start();
 	}
 	
 	/**

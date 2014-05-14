@@ -21,17 +21,17 @@ public class InteractiveView implements CPUObserver {
 	/**
 	 * Método que muestra el fin de la instrucción actual
 	 */
-	public void onEndInstrExecution(int pc) {} //NO SÉ QUÉ HACER AQUI, HABLAR CON MIGUEL Y SAMIR
+	public void onEndInstrExecution(int pc) {}
 
 	/**
 	 * Método que avisa del inicio de la instrucción run
 	 */
-	public void onStartRun(){} //NO SÉ QUÉ HACER AQUI, HABLAR CON SAMIR
+	public void onStartRun(){}
 
 	/**
 	 * Método que avisa del fin de la instrucción run
 	 */
-	public void onEndRun(){} //NO SÉ QUÉ HACER AQUI, HABLAR CON SAMIR
+	public void onEndRun(){}
 
 	/**
 	 * Método que muestra un error

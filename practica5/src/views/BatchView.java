@@ -11,46 +11,47 @@ public class BatchView implements CPUObserver{
 		cpu.addObserver(this);
 	}
 	
-	@Override
+	/**
+	 * Método que muestra el inicio de la instrucción actual
+	 */
 	public void onStartInstrExecution(Instruction instr) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Comienza la ejecución de "+instr.toString()+"\n");
 	}
 
-	@Override
-	public void onEndInstrExecution(int pc) {
-		// TODO Auto-generated method stub
-		
-	}
+	/**
+	 * Método que muestra el fin de la instrucción actual
+	 */
+	public void onEndInstrExecution(int pc) {}
 
-	@Override
-	public void onStartRun() {
-		// TODO Auto-generated method stub
-		
-	}
+	/**
+	 * Método que avisa del inicio de la instrucción run
+	 */
+	public void onStartRun() {}
 
-	@Override
-	public void onEndRun() {
-		// TODO Auto-generated method stub
-		
-	}
+	/**
+	 * Método que avisa del fin de la instrucción run
+	 */
+	public void onEndRun() {}
 
-	@Override
+	/**
+	 * Método que muestra un error
+	 */
 	public void onError(String msg) {
-		// TODO Auto-generated method stub
-		
+		System.err.println(msg);
 	}
 
-	@Override
+	/**
+	 * Método que muestra que la ejecución ha terminado
+	 */
 	public void onHalt() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("La ejecución de la máquina se ha parado.\n");
 	}
 
-	@Override
+	/**
+	 * Método que muestra que la máquina se ha resetado
+	 */
 	public void onReset(ProgramMv program) {
-		// TODO Auto-generated method stub
-		
+		System.out.println(program.toString());
 	}
 
 }

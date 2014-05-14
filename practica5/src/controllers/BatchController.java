@@ -9,8 +9,15 @@ public class BatchController extends Controller {
 	}
 
 	public void start() {
-	
-		
+		try {
+			cpu.run();
+		} 
+		catch (EmptyStackException e) {} 
+		catch (NegativeNumberIntoMemoryException e) {}
+		catch (InsufficientOperandsException e) {} 
+		catch (DivisionByZeroException e) {} 
+		catch (IncorrectProgramCounterException e) {} 
+		catch (IncorrectMemoryPositionException e) {}
 	}
 
 }
