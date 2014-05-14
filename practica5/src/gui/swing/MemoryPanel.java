@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import mv.cpu.Cpu;
 import mv.cpu.Memory;
 import mv.cpu.OperandStack;
 import mv.instructions.Instruction;
@@ -35,10 +36,12 @@ public class MemoryPanel extends JPanel  implements MemoryObserver<Integer>, CPU
 	private JButton btnWrite;
 	private JLabel lblPosicion;
 	private JLabel lblValor;
+	private Cpu cpu;
 
 	public MemoryPanel(GUIControler ctrl, Observable<MemoryObserver<Integer>> memory, Observable<CPUObserver> cpu) {
 		this.guiCtrl = ctrl;
 		initGUI();
+		
 	}
 	
 	/**

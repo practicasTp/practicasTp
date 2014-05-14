@@ -31,8 +31,7 @@ public class GUIControler extends Controller {
 	public GUIControler(Cpu cpu) {
 		super(cpu);
 	}
-
-	private Cpu cpu;
+	
 	private MainWindow gui;
 	JDialog dialogo = null;
 	private String errorTitle = "Error en la máquina virtual";	
