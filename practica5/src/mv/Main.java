@@ -30,6 +30,8 @@ import org.apache.commons.cli.UnrecognizedOptionException;
 
 import views.BatchView;
 import views.InteractiveView;
+import views.MainWindow;
+import controllers.GUIControler;
 import controllers.BatchController;
 import controllers.InteractiveController;
 
@@ -294,7 +296,9 @@ public class Main {
 		    }
 		}
 		
-		// Construir el objeto que corresponde a la vista
-		//MainWindow view = new MainWindow(cpu);
+		// Crear el controlador y la vista 
+		GUIControler ctrl 	= new GUIControler(cpu); 
+		MainWindow view 		= new MainWindow(ctrl, cpu, cpu.getOperandStack(), cpu.getMemory()); 
+		ctrl.start();
 	}
 }
