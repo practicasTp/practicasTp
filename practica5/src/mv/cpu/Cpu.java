@@ -290,12 +290,13 @@ public class Cpu implements Observable<CPUObserver>{
 		//obtengo una instruccion
 		Instruction inst = this.getCurrentInstruction();
 		
-		//aviso a los observers que comienza la ejecución
-		for(CPUObserver o: this.observers){
-			o.onStartInstrExecution(this.program.get(this.pc));
-		}
-		
 		if (inst != null) {
+			
+			//aviso a los observers que comienza la ejecución
+			for(CPUObserver o: this.observers){
+				o.onStartInstrExecution(this.program.get(this.pc));
+			}
+			
 			//retorno cómo ha ido la ejecución
 			try {
 				inst.execute(this);
@@ -331,13 +332,14 @@ public class Cpu implements Observable<CPUObserver>{
 				throw new IncorrectMemoryPositionException(e.getMessage());
 			}
 			execute = true;
+			
+			//aviso a los observers que comienza la ejecución
+			for(CPUObserver o: this.observers){
+				o.onEndInstrExecution(pc,this.getMemory(),this.getOperandStack());
+			}
+			
 		} else{
 			this.exit();
-		}
-		
-		//aviso a los observers que comienza la ejecución
-		for(CPUObserver o: this.observers){
-			o.onEndInstrExecution(pc,this.getMemory(),this.getOperandStack());
 		}
 		
 		return execute;
