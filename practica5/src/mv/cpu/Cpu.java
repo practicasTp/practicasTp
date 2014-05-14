@@ -430,8 +430,4 @@ public class Cpu implements Observable<CPUObserver>{
 			o.onReset(program);
 		}
 	}
-	
-	public void printStateMachine(){
-		
-	}
 }
