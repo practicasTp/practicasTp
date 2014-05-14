@@ -16,9 +16,7 @@ public class BatchView implements CPUObserver{
 	/**
 	 * Método que muestra el inicio de la instrucción actual
 	 */
-	public void onStartInstrExecution(Instruction instr) {
-		System.out.println("Comienza la ejecución de "+instr.toString()+"\n");
-	}
+	public void onStartInstrExecution(Instruction instr) {}
 
 	/**
 	 * Método que muestra el fin de la instrucción actual
@@ -52,8 +50,6 @@ public class BatchView implements CPUObserver{
 	/**
 	 * Método que muestra que la máquina se ha resetado
 	 */
-	public void onReset(ProgramMv program) {
-		System.out.println(program.toString());
-	}
+	public void onReset(ProgramMv program) {}
 
 }
