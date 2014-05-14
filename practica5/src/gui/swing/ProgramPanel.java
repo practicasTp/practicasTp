@@ -10,6 +10,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 
+import mv.cpu.Memory;
+import mv.cpu.OperandStack;
 import mv.instructions.Instruction;
 import mv.program.ProgramMv;
 import observers.CPUObserver;
@@ -61,7 +63,7 @@ public class ProgramPanel extends JPanel implements CPUObserver {
 		
 	}
 	@Override
-	public void onEndInstrExecution(int pc) {
+	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack) {
 		// TODO Auto-generated method stub
 		
 	}

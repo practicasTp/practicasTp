@@ -16,6 +16,8 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import mv.cpu.Memory;
+import mv.cpu.OperandStack;
 import mv.instructions.Instruction;
 import mv.program.ProgramMv;
 import observers.CPUObserver;
@@ -116,7 +118,7 @@ public class MainWindow  extends JFrame implements CPUObserver{
 	}
 
 	@Override
-	public void onEndInstrExecution(int pc) {
+	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack) {
 		// TODO Auto-generated method stub
 		
 	}

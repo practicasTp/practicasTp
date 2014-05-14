@@ -1,5 +1,7 @@
 package views;
 
+import mv.cpu.Memory;
+import mv.cpu.OperandStack;
 import mv.instructions.Instruction;
 import mv.program.ProgramMv;
 import observers.CPUObserver;
@@ -21,17 +23,24 @@ public class InteractiveView implements CPUObserver {
 	/**
 	 * Método que muestra el fin de la instrucción actual
 	 */
-	public void onEndInstrExecution(int pc) {}
+	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack) {
+		String contenidoCpu;
+		System.out.println("El estado de la máquina tras ejecutar la instrucción es:");
+		contenidoCpu = memory.toString();
+		contenidoCpu += stack.toString();
+		
+		System.out.println(contenidoCpu);
+	}
 
 	/**
 	 * Método que avisa del inicio de la instrucción run
 	 */
-	public void onStartRun(){}
+	public void onStartRun(){} //NO SÉ QUÉ HACER AQUI, HABLAR CON SAMIR
 
 	/**
 	 * Método que avisa del fin de la instrucción run
 	 */
-	public void onEndRun(){}
+	public void onEndRun(){} //NO SÉ QUÉ HACER AQUI, HABLAR CON SAMIR
 
 	/**
 	 * Método que muestra un error

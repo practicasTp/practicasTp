@@ -26,19 +26,9 @@ public class Run extends Step {
 		//cuando hago un run, reseteo la máquina
 		boolean resultado = false;
 		
-		do{
-			//si la instrucción se ejecuta correctamente
-			if (CommandInterpreter.cpu.step()){
-				resultado = true;
-				//muestro el estado de la máquina
-				CommandInterpreter.printStateMachine();
-			}else{
-				//si no, paro ejecución
-				resultado = false;
-			}
-		//repito hasta que la cpu me diga que no hay más instrucciones a ejecutar	
-		}while(resultado!=false);
-			
+		//run
+		CommandInterpreter.cpu.run();
+		
 		//si la cpu me dice que ha terminado, paro la máquina (del bucle se puede salir por fallo de instrucción)
 		if(CommandInterpreter.cpu.finished()  || CommandInterpreter.cpu.abortComputation()){
 			this.isFinished = true;

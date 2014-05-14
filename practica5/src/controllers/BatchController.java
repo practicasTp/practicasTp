@@ -1,6 +1,12 @@
 package controllers;
 
 import mv.cpu.Cpu;
+import mv.exceptions.DivisionByZeroException;
+import mv.exceptions.EmptyStackException;
+import mv.exceptions.IncorrectMemoryPositionException;
+import mv.exceptions.IncorrectProgramCounterException;
+import mv.exceptions.InsufficientOperandsException;
+import mv.exceptions.NegativeNumberIntoMemoryException;
 
 public class BatchController extends Controller {
 

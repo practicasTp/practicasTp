@@ -1,5 +1,7 @@
 package views;
 
+import mv.cpu.Memory;
+import mv.cpu.OperandStack;
 import mv.instructions.Instruction;
 import mv.program.ProgramMv;
 import observers.CPUObserver;
@@ -21,7 +23,7 @@ public class BatchView implements CPUObserver{
 	/**
 	 * Método que muestra el fin de la instrucción actual
 	 */
-	public void onEndInstrExecution(int pc) {}
+	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack) {}
 
 	/**
 	 * Método que avisa del inicio de la instrucción run

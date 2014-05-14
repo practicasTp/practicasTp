@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import mv.cpu.Memory;
 import mv.cpu.OperandStack;
 import mv.instructions.Instruction;
 import mv.program.ProgramMv;
@@ -114,7 +115,7 @@ public class StackPanel extends JPanel implements StackObserver<Integer>, CPUObs
 	}
 
 	@Override
-	public void onEndInstrExecution(int pc) {
+	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack) {
 		// TODO Auto-generated method stub
 		
 	}

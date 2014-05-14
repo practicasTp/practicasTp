@@ -28,11 +28,7 @@ public class Step extends CommandInterpreter {
 		boolean resultado = false;
 		
 		//si la ejecución ha ido correctamente, muestro el estado de la máquina
-		if (CommandInterpreter.cpu.step()){
-			resultado = true;
-			CommandInterpreter.printStateMachine();
-			//si hay fallo de ejecución ¿reinicio la máquina?
-		}
+		CommandInterpreter.cpu.step();
 		
 		//si la cpu me dice que no hay más instrucciones entonces paro la máquina
 		if(CommandInterpreter.cpu.finished() || CommandInterpreter.cpu.abortComputation()){

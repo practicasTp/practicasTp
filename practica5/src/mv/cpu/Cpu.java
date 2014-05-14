@@ -337,7 +337,7 @@ public class Cpu implements Observable<CPUObserver>{
 		
 		//aviso a los observers que comienza la ejecución
 		for(CPUObserver o: this.observers){
-			o.onEndInstrExecution(pc);
+			o.onEndInstrExecution(pc,this.getMemory(),this.getOperandStack());
 		}
 		
 		return execute;

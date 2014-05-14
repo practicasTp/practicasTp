@@ -16,6 +16,7 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import mv.cpu.Memory;
+import mv.cpu.OperandStack;
 import mv.instructions.Instruction;
 import mv.program.ProgramMv;
 import observers.CPUObserver;
@@ -160,7 +161,7 @@ public class MemoryPanel extends JPanel  implements MemoryObserver<Integer>, CPU
 	}
 
 	@Override
-	public void onEndInstrExecution(int pc) {
+	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack) {
 		// TODO Auto-generated method stub
 		
 	}

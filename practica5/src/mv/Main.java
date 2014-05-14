@@ -1,6 +1,4 @@
 package mv;
-import gui.swing.MainWindow;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.InputMismatchException;
@@ -9,13 +7,8 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 import mv.cpu.Cpu;
-import mv.exceptions.DivisionByZeroException;
-import mv.exceptions.EmptyStackException;
-import mv.exceptions.IncorrectMemoryPositionException;
 import mv.exceptions.IncorrectParsingInstruction;
-import mv.exceptions.IncorrectProgramCounterException;
 import mv.exceptions.InsufficientOperandsException;
-import mv.exceptions.NegativeNumberIntoMemoryException;
 import mv.program.ProgramMv;
 import mv.reading.FromInputStreamIn;
 import mv.reading.InputMethod;
@@ -35,7 +28,9 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.UnrecognizedOptionException;
 
+import views.BatchView;
 import views.InteractiveView;
+import controllers.BatchController;
 import controllers.InteractiveController;
 
 
