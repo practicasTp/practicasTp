@@ -1,5 +1,7 @@
 package mv.cpu;
 
+import java.util.ArrayList;
+
 import mv.exceptions.EmptyStackException;
 import observers.CPUObserver;
 import observers.Observable;
@@ -9,8 +11,10 @@ public class OperandStack<T> implements Observable<StackObserver<T>>{
 	private int cima;
 	private Object[] stack;
 	public final int TAMANIO = 30;
+	private ArrayList<StackObserver<T>> observers;
 
 	public OperandStack(){
+		this.observers	= new ArrayList<StackObserver<T>>();
 		this.stack = new Object[TAMANIO];
 		this.cima = -1;
 	}
@@ -72,6 +76,12 @@ public class OperandStack<T> implements Observable<StackObserver<T>>{
 			//relleno el dato
 			stack[this.cima]=value;
 		}
+		
+		//aviso a los observers
+		for(StackObserver<T> o: this.observers){
+			o.onPush(value);
+		}
+		
 	}
 	
 	/**
@@ -81,9 +91,15 @@ public class OperandStack<T> implements Observable<StackObserver<T>>{
 	public boolean unstackData (){
 		//si la pila no estÃ¡ vacÃ­a, vacÃ­o la posicion mÃ¡s alta, y bajo el nivel en una posiciÃ³n 
 		if (!isEmpty()){
+			T value = (T)this.stack[this.cima];
 			stack[this.cima] = null;
 			this.cima--;
-					
+			
+			//aviso a los observers
+			for(StackObserver<T> o: this.observers){
+				o.onPop(value);
+			}
+			
 			return true;
 		} else return false;
 	}
@@ -167,11 +183,11 @@ public class OperandStack<T> implements Observable<StackObserver<T>>{
 	
 	@Override
 	public void addObserver(StackObserver<T> o) {
-		//¿?¿?¿
+		observers.add(o);
 	}
 	
 	@Override
 	public void removeObserver(StackObserver<T> o) {
-		//¿?¿?¿
+		observers.remove(o);
 	}
 }

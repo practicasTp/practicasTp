@@ -36,8 +36,11 @@ public class StackPanel extends JPanel implements StackObserver<Integer>, CPUObs
 	private JButton btnPop;
 
 	public StackPanel(GUIControler ctrl, Observable<StackObserver<Integer>> stack, Observable<CPUObserver> cpu) {
+		stack.addObserver(this);
+		cpu.addObserver(this);
 		this.guiCtrl = ctrl;
 		initGUI();
+		
 	}
 	
 	/**
@@ -88,83 +91,53 @@ public class StackPanel extends JPanel implements StackObserver<Integer>, CPUObs
 		add(panel, BorderLayout.SOUTH);	
 	}
 	
-	/**
-	 * Actualiza la información mostrada en la interfaz sobre la pila.
-	 */
-	void updateView() {
-		//obtengo la pila actual
-		OperandStack<Integer> operandStack = guiCtrl.getOperandStack();
-		//limpio el modelo
-		_modeloLista.clear();
-		//voy insertando cada elemento de la pila dentro del modelo
-		for (int i=0; i<= operandStack.getCima(); i++){
-			_modeloLista.addElement(operandStack.operandToString(i));
-		}
-		
-		if(this.guiCtrl.finished()){
-			txtValor.setEnabled(false);
-			btnPush.setEnabled(false);
-			btnPop.setEnabled(false);
-		}
-	}
+	@Override
+	public void onStartInstrExecution(Instruction instr) {}
 
 	@Override
-	public void onStartInstrExecution(Instruction instr) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack, ProgramMv program) {}
 
 	@Override
 	public void onStartRun() {
-		// TODO Auto-generated method stub
-		
+		this.txtValor.setEnabled(false);
+		this.btnPush.setEnabled(false);
+		this.btnPop.setEnabled(false);
 	}
 
 	@Override
 	public void onEndRun() {
-		// TODO Auto-generated method stub
-		
+		this.txtValor.setEnabled(true);
+		this.btnPush.setEnabled(true);
+		this.btnPop.setEnabled(true);
 	}
 
 	@Override
-	public void onError(String msg) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onError(String msg) {}
 
 	@Override
 	public void onHalt() {
-		// TODO Auto-generated method stub
-		
+		this.txtValor.setEnabled(false);
+		this.btnPush.setEnabled(false);
+		this.btnPop.setEnabled(false);
 	}
 
 	@Override
 	public void onReset(ProgramMv program) {
-		// TODO Auto-generated method stub
-		
+		_modeloLista.clear();
 	}
 
 	@Override
 	public void onPush(Integer value) {
-		// TODO Auto-generated method stub
-		
+		_modeloLista.addElement(value);
 	}
 
 	@Override
 	public void onPop(Integer value) {
-		// TODO Auto-generated method stub
-		
+		_modeloLista.removeElement(value);
 	}
 
 	@Override
 	public void onStackReset() {
-		// TODO Auto-generated method stub
-		
+		this.guiCtrl.getOperandStack().clean();
 	}
 }

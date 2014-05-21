@@ -8,10 +8,16 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 
+import observers.CPUObserver;
+import observers.Observable;
+import mv.cpu.Memory;
+import mv.cpu.OperandStack;
+import mv.instructions.Instruction;
+import mv.program.ProgramMv;
 import mv.reading.InputMethod;
 import controllers.GUIControler;
 
-public class InputPanel extends JPanel {
+public class InputPanel extends JPanel implements CPUObserver{
 	/**
 	 * 
 	 */
@@ -21,7 +27,8 @@ public class InputPanel extends JPanel {
 	private static InputMethod inCurr;
 	private InputMethod inNew;
 	
-	public InputPanel (GUIControler guiCtrl) {
+	public InputPanel (GUIControler guiCtrl, Observable<CPUObserver> cpu){
+		cpu.addObserver(this);
 		this.guiCtrl = guiCtrl;
 		initGUI();
 	}
@@ -69,7 +76,9 @@ public class InputPanel extends JPanel {
 		/**
 		 * Se encarga de cerrar el archivo de entrada abierto.
 		 */
-		public void close() { inCurr.close(); } // cerrar old también
+		public void close() {
+			inCurr.close(); 
+		} // cerrar old también
 		
 		/**
 		 * Lee el siguiente caracter guardado y lo devueve. Además actualiza el 
@@ -93,5 +102,48 @@ public class InputPanel extends JPanel {
 			// 6. devolver c;
 			return c;
 		}
+	}
+
+	@Override
+	public void onStartInstrExecution(Instruction instr) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onEndInstrExecution(int pc, Memory<Integer> memory,
+			OperandStack<Integer> stack, ProgramMv program) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onStartRun() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onEndRun() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onError(String msg) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onHalt() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onReset(ProgramMv program) {
+		inCurr = guiCtrl.getInStream();
+		initGUI();
 	}
 }

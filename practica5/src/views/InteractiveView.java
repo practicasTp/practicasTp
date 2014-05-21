@@ -23,7 +23,7 @@ public class InteractiveView implements CPUObserver {
 	/**
 	 * Método que muestra el fin de la instrucción actual
 	 */
-	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack) {
+	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack, ProgramMv program) {
 		String contenidoCpu;
 		System.out.println("El estado de la máquina tras ejecutar la instrucción es:");
 		contenidoCpu = memory.toString();

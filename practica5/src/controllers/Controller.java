@@ -1,5 +1,16 @@
 package controllers;
 
+import gui.swing.MainWindow;
+
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import mv.cpu.Cpu;
 import mv.exceptions.DivisionByZeroException;
 import mv.exceptions.EmptyStackException;
@@ -15,73 +26,164 @@ import mv.writing.OutputMethod;
 public abstract class Controller {
 
 	protected Cpu cpu;
+	private MainWindow gui;
+	protected String errorTitle = "Error en la máquina virtual";
 	
 	public Controller(Cpu cpu){
 		this.cpu = cpu;
 	}
 	
-	public void step(){
+	/**
+	 * Método que se encarga de presentar una pantalla indicando el error producido.
+	 * @param msg
+	 * @param title
+	 */
+	protected void reportError(String msg, String title) { 
+		JDialog dialogo = new JDialog(gui);
+		dialogo.setTitle(title);
+		dialogo.setModal(true);
+        dialogo.setSize(700, 250);
+        
+        
+		Image img = new ImageIcon(MainWindow.class.getResource("error.png")).getImage();
+		dialogo.setIconImage(img);
+		
+		JPanel warning = new JPanel();
+		warning.setSize(680, 230);
+		warning.setLocation(10, 10);
+		warning.setLayout(null);
+		
+		JLabel iconLabel = new JLabel();  
+        iconLabel.setIcon(new ImageIcon(MainWindow.class.getResource("error.png")));
+        iconLabel.setHorizontalAlignment(JLabel.CENTER);
+        iconLabel.setLocation(300, 20); 
+        iconLabel.setSize(70, 70);
+        warning.add(iconLabel);
+        
+        JLabel textArea = new JLabel();
+        textArea.setText(msg);
+        textArea.setSize(640, 80);
+        textArea.setLocation(25, 80);
+        textArea.setHorizontalAlignment(JLabel.CENTER);
+        textArea.setFont(new Font("Courier", Font.BOLD, 16));
+        textArea.setBackground(null);
+        warning.add(textArea);
+        
+		dialogo.add(warning);
+
+		
+		dialogo.setLocationRelativeTo(gui);
+        dialogo.setVisible(true);
+        //Definimos el tipo de estructura general de nuestra ventana
+      	dialogo.setLayout(new FlowLayout(FlowLayout.LEADING, 40, 50));
+        
+	}
+	
+	/**
+	 * Intenta realizar el step de la cpu y en caso de error 
+	 * se encarga de capturar y mostrar todas las excepciones.
+	 */
+	public void step() { 
 		try {
-			cpu.step();
+			this.cpu.step();
 		} catch (InsufficientOperandsException e) {
+			reportError(e.getMessage(),this.errorTitle);
 		} catch (EmptyStackException e) {
+			reportError(e.getMessage(),this.errorTitle);
 		} catch (DivisionByZeroException e) {
+			reportError(e.getMessage(),this.errorTitle);
 		} catch (IncorrectProgramCounterException e) {
+			reportError(e.getMessage(),this.errorTitle);
 		} catch (NegativeNumberIntoMemoryException e) {
+			reportError(e.getMessage(),this.errorTitle);
 		} catch (IncorrectMemoryPositionException e) {
+			reportError(e.getMessage(),this.errorTitle);
 		}
 	}
 	
-	// ejecuta el run del cpu !
-	public void run() {
+	/**
+	 * Ejecuta el run de la cpu y en caso de error se encarga de capturar y mostrar
+	 * todas las excepciones.
+	 */
+	public void run() { 
 		try {
-			cpu.run();
+			this.cpu.run();
 		} catch (InsufficientOperandsException e) {
+			reportError(e.getMessage(),this.errorTitle);
 		} catch (EmptyStackException e) {
+			reportError(e.getMessage(),this.errorTitle);
 		} catch (DivisionByZeroException e) {
+			reportError(e.getMessage(),this.errorTitle);
 		} catch (IncorrectProgramCounterException e) {
+			reportError(e.getMessage(),this.errorTitle);
 		} catch (NegativeNumberIntoMemoryException e) {
+			reportError(e.getMessage(),this.errorTitle);
 		} catch (IncorrectMemoryPositionException e) {
+			reportError(e.getMessage(),this.errorTitle);
 		}
-	}  
+	}
 	
-	public void pop() {
+	/**
+	 * Comprueba que la cpu no haya finalizado.
+	 * @return boolean
+	 */
+	public boolean finished(){
+		return this.cpu.finished();
+	}
+	
+	/**
+	 * Ejecuta el pop de la cpu y captura las excepciones que se puedan producir,
+	 * mostrando el error. Después actualiza la interfaz.
+	 */
+	public void pop() { 
 		try {
-			cpu.pop();
-		} catch (EmptyStackException e) {}
-	} // ejecuta el pop del cpu ! 
+			this.cpu.pop();
+		} catch (EmptyStackException e) {
+			reportError(e.getMessage(),this.errorTitle);
+		}
+		//this.gui.updateView();
+	}
 	
-	public void push(int v) {
-		cpu.push(v);
-	} // ejecuta el push del cpu !
+	/**
+	 * Valida el operando que se le pasa.
+	 * @param operando
+	 * @return boolean
+	 */
+	private boolean validarOperando(String operando){
+		return operando.matches("[-+]?\\d*\\.?\\d+");
+	}
 	
-	public void memorySet(int i, int v) {
-		cpu.store(i, v);
-	} // ejecuta el setMem del cpu ! 
+	/**
+	 * Ejecuta el método push de la cpu comprobando que el operando cumpla las
+	 * condiciones, en caso negativo lanza un mensaje de error. Después actualiza
+	 * la interfaz.
+	 * @param s
+	 */
+	public void push(String s) {
+		if(this.validarOperando(s)){
+			this.cpu.push(Integer.parseInt(s));
+		}else{
+			reportError("Solo están admitidos los números a la hora de insertar elementos", this.errorTitle);
+		}
+	}
 	
-	public ProgramMv getProgram() {
-		return cpu.getProgram();
-	} // devuelve el programa actual ! 
-	
-	public void setInStream(InputMethod in) {
-		try {
-			cpu.setInStream(in);
-		} catch (MvError e) {}
-	} // cambia el inStream ! 
-	
-	public InputMethod getInStream() {
-		return cpu.getInStream();
-	} // devuelve el inStream actual ! 
-	
-	public void setOutStream(OutputMethod out) {
-		try {
-			cpu.setOutStream(out);
-		} catch (MvError e) {}
-	} // cambia el outStream ! 
-	
-	public OutputMethod getOutStream() {
-		return cpu.getOutStream();	
-	} //devuelve el outStream actual ! 
+	/**
+	 * Ejecuta el store de la cpu realizando las correspondientes validaciones de los
+	 * operandos a utilizar. Después actualiza la interfaz.
+	 * @param pos
+	 * @param dato
+	 */
+	public void memorySet(String pos, String dato) { 
+		if(this.validarOperando(pos)){
+			if(this.validarOperando(dato)){
+				this.cpu.store(Integer.parseInt(pos), Integer.parseInt(dato));
+			}else{
+				reportError("Solo están admitidos los números en memoria", this.errorTitle);
+			}
+		}else{
+			reportError("Solo están admitidos los números en la posición de memoria", this.errorTitle);
+		}
+	}
 	
 	public void pause() {
 		
@@ -89,10 +191,6 @@ public abstract class Controller {
 	
 	public abstract void start(); // un método abstracto, depende del modo ! 
 	
-	public void quit() {
-		this.getOutStream().close(); 
-		this.getInStream().close(); 
-		System.exit(0);
-	} 
+
 	
 }

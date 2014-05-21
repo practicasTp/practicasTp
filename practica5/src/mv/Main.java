@@ -297,7 +297,7 @@ public class Main {
 		}
 		
 		// Crear el controlador y la vista 
-		GUIControler ctrl 	= new GUIControler(cpu); 
+		GUIControler ctrl 		= new GUIControler(cpu); 
 		MainWindow view 		= new MainWindow(ctrl, cpu, cpu.getOperandStack(), cpu.getMemory()); 
 		ctrl.start();
 	}

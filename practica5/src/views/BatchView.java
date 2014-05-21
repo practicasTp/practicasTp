@@ -28,7 +28,7 @@ public class BatchView implements CPUObserver{
 	/**
 	 * Método que muestra el fin de la instrucción actual
 	 */
-	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack) {}
+	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack, ProgramMv program) {}
 
 	/**
 	 * Método que avisa del inicio de la instrucción run

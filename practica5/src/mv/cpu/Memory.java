@@ -1,5 +1,7 @@
 package mv.cpu;
 
+import java.util.ArrayList;
+
 import mv.exceptions.IncorrectMemoryPositionException;
 import observers.MemoryObserver;
 import observers.Observable;
@@ -7,9 +9,11 @@ import observers.Observable;
 public class Memory<T> implements Observable<MemoryObserver<T>>{
 	private Object[] registros;
 	public final int TAMANIO = 50;
+	private ArrayList<MemoryObserver<T>> observers;
 	
 	public Memory(){	
 		//inicializo los atributos
+		this.observers	= new ArrayList<MemoryObserver<T>>();
 		this.registros =  inicializarMemory(TAMANIO);
 	}
 
@@ -59,6 +63,11 @@ public class Memory<T> implements Observable<MemoryObserver<T>>{
 			
 			//almaceno el dato en la posiciÃ³n que me han indicado
 			this.registros[pos] = dato;
+		}
+		
+		//aviso a los observers
+		for(MemoryObserver<T> o: this.observers){
+			o.onWrite(pos,dato);
 		}
 
 	}
@@ -168,11 +177,11 @@ public class Memory<T> implements Observable<MemoryObserver<T>>{
 
 	@Override
 	public void addObserver(MemoryObserver<T> o) {
-		//¿?¿?¿		
+		observers.add(o);	
 	}
 
 	@Override
 	public void removeObserver(MemoryObserver<T> o) {
-		//¿?¿?¿		
+		observers.remove(o);		
 	}
 }

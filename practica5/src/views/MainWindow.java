@@ -6,6 +6,7 @@ import gui.swing.MemoryPanel;
 import gui.swing.OutputPanel;
 import gui.swing.ProgramPanel;
 import gui.swing.StackPanel;
+import gui.swing.StatePanel;
 import gui.swing.ToolBarPanel;
 
 import java.awt.BorderLayout;
@@ -24,7 +25,6 @@ import observers.CPUObserver;
 import observers.MemoryObserver;
 import observers.Observable;
 import observers.StackObserver;
-import controllers.Controller;
 import controllers.GUIControler;
 
 public class MainWindow  extends JFrame implements CPUObserver{
@@ -39,6 +39,7 @@ public class MainWindow  extends JFrame implements CPUObserver{
 	private MemoryPanel memoryPanel;
 	private InputPanel input;
 	private OutputPanel output;
+	private StatePanel statePanel;
 	
 	public MainWindow(GUIControler ctrl, Observable<CPUObserver> cpu, Observable<StackObserver<Integer>> stack, Observable<MemoryObserver<Integer>> memory) {
 		super("Virtual Machine");
@@ -56,12 +57,13 @@ public class MainWindow  extends JFrame implements CPUObserver{
 	 * en la interfaz.
 	 */
 	private void initGUI() {
-		this.toolBar 	= new ToolBarPanel(ctrl, cpu);
+		this.toolBar 	= new ToolBarPanel(ctrl, cpu,memory,stack);
 		this.program	= new ProgramPanel(ctrl,cpu);
 		this.stackPanel = new StackPanel(ctrl,stack,cpu);
 		this.memoryPanel= new MemoryPanel(ctrl,memory,cpu);
-		this.input		= new InputPanel(ctrl);
-		this.output		= new OutputPanel(ctrl);
+		this.input		= new InputPanel(ctrl,cpu);
+		this.output		= new OutputPanel(ctrl,cpu);
+		this.statePanel = new StatePanel(ctrl,stack,memory,cpu);
 		//this.outputView = new StatusBar(cpu, stack, memory);
 		
 
@@ -70,6 +72,7 @@ public class MainWindow  extends JFrame implements CPUObserver{
 		//Dividimos la ventana en secciones
 		add(program, BorderLayout.WEST); 
 		add(toolBar, BorderLayout.NORTH);
+		add(statePanel,BorderLayout.SOUTH);
 		
 		//Panel para todo lo que va en el centro, Memoria, Pila, Entrada y Salida.
 		JPanel centerPanel = new JPanel(new GridLayout(2,0));
@@ -106,7 +109,7 @@ public class MainWindow  extends JFrame implements CPUObserver{
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent we){ 
-				//guiCtrl.quit();
+				ctrl.quit();
 			}
 		});
 	}
@@ -118,7 +121,7 @@ public class MainWindow  extends JFrame implements CPUObserver{
 	}
 
 	@Override
-	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack) {
+	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack, ProgramMv program) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -148,9 +151,6 @@ public class MainWindow  extends JFrame implements CPUObserver{
 	}
 
 	@Override
-	public void onReset(ProgramMv program) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onReset(ProgramMv program) {}
 
 }

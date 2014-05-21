@@ -25,6 +25,8 @@ public class Cpu implements Observable<CPUObserver>{
 	private boolean correctPc;
 	private InputMethod input;
 	private OutputMethod output;
+	private InputMethod auxInput;
+	private OutputMethod auxOutput;
 	private ArrayList<CPUObserver> observers;
 	
 	public Cpu(InputMethod input, OutputMethod output, ProgramMv program){
@@ -35,6 +37,8 @@ public class Cpu implements Observable<CPUObserver>{
 		this.correctPc 	= true;
 		this.input 		= input;
 		this.output 	= output;
+		this.auxInput	= input;
+		this.auxOutput	= output;
 		this.program 	= program;
 		this.observers	= new ArrayList<CPUObserver>();
 		
@@ -125,6 +129,9 @@ public class Cpu implements Observable<CPUObserver>{
 			o.onEndRun();
 		}
 		
+		//finalizo la ejecución
+		this.exit();
+		
 	}
 	
 	 public void pause() {       
@@ -133,10 +140,6 @@ public class Cpu implements Observable<CPUObserver>{
 	 
 	 public void loadProgram(ProgramMv p) {      
 		 // - cargar el programa p       
-		 // - inicializar la Pila, Memoria, etc.     
-	 }
-	 
-	 public void reset() {      
 		 // - inicializar la Pila, Memoria, etc.     
 	 }
 	
@@ -157,6 +160,7 @@ public class Cpu implements Observable<CPUObserver>{
 	 */
 	public boolean push (int value) {
 		this.pila.stackData(value);
+		
 		return true;
 	}
 	
@@ -225,16 +229,19 @@ public class Cpu implements Observable<CPUObserver>{
 	
 	/**
 	 * Inicializa todos los atributos de la Cpu para preparar una ejecución con run.
+	 * @throws MvError 
 	 */
-	public void resetCpu () {
-		for(CPUObserver o: this.observers){
-			o.onReset(program);
-		}
+	public void resetCpu () throws MvError {
+		this.setInStream(this.auxInput);
+		this.setOutStream(this.auxOutput);
 		this.fin = false;
 		this.pc = 0;
 		this.correctPc = true;
 		pila.clean();
 		memoria.clean();
+		for(CPUObserver o: this.observers){
+			o.onReset(program);
+		}
 	}
 	
 	/**
@@ -269,7 +276,12 @@ public class Cpu implements Observable<CPUObserver>{
 	 * @return boolean
 	 */
 	public boolean abortComputation () {
-		if (!this.correctPc) return true;
+		if (!this.correctPc){
+			for(CPUObserver o: this.observers){
+				o.onHalt();
+			}
+			return true;
+		}
 		else return false;
 	}
 	
@@ -335,7 +347,7 @@ public class Cpu implements Observable<CPUObserver>{
 			
 			//aviso a los observers que comienza la ejecución
 			for(CPUObserver o: this.observers){
-				o.onEndInstrExecution(pc,this.getMemory(),this.getOperandStack());
+				o.onEndInstrExecution(pc,this.getMemory(),this.getOperandStack(), this.getProgram());
 			}
 			
 		} else{

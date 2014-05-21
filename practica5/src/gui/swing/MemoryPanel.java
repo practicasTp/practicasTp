@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -15,7 +18,6 @@ import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
-import mv.cpu.Cpu;
 import mv.cpu.Memory;
 import mv.cpu.OperandStack;
 import mv.instructions.Instruction;
@@ -36,9 +38,10 @@ public class MemoryPanel extends JPanel  implements MemoryObserver<Integer>, CPU
 	private JButton btnWrite;
 	private JLabel lblPosicion;
 	private JLabel lblValor;
-	private Cpu cpu;
 
 	public MemoryPanel(GUIControler ctrl, Observable<MemoryObserver<Integer>> memory, Observable<CPUObserver> cpu) {
+		memory.addObserver(this);
+		cpu.addObserver(this);
 		this.guiCtrl = ctrl;
 		initGUI();
 		
@@ -92,33 +95,27 @@ public class MemoryPanel extends JPanel  implements MemoryObserver<Integer>, CPU
 		add(panel, BorderLayout.SOUTH);
 	}
 	
-	/**
-	 * Actualiza la información mostrada de la memoria.
-	 */
-	void updateView() {
-		_modelo.refresh();
-		if(this.guiCtrl.finished()){
-			txtValor.setEnabled(false);
-			txtPos.setEnabled(false);
-			btnWrite.setEnabled(false);
-		}
-	}
-	
 	private class TableModel extends AbstractTableModel {
 		String[] colNames = { "Posición", "Valor" };
-		int[][] memTable; // tiene dos columnas
-		TableModel() {
-			refresh();
+		TreeMap<Integer, Integer> content;
+		
+		public TableModel() { 
+			content = new TreeMap<Integer, Integer>();
 		}
 		
-		/**
-		 * Refresca el contenido de la tabla de la memoria.
-		 */
-		public void refresh() {
-			Memory<Integer> memory = guiCtrl.getMemory();
-			memTable = memory.getMemory();
+		// onWrite llama a setValue cuando hay cambios en la memoria
+		public void setValue(int index, int value) {
+			//- modiﬁcar la posición de index (en content) para que tenga el valor nuevo
+			this.content.put(index,value);
+			// - avisar al JTable que el modelo ha sido modiﬁcado
 			this.fireTableDataChanged();
 			
+		}
+		
+		// onMemReset (de la memoria) llama a este método 
+		public void reset() {      
+			this.content.clear();
+			this.fireTableDataChanged();
 		}
 		
 		/**
@@ -146,17 +143,40 @@ public class MemoryPanel extends JPanel  implements MemoryObserver<Integer>, CPU
 			Memory<Integer> memory = guiCtrl.getMemory();
 			return memory.getMaxLength();
 		}
+
+		/**
+		 * Devuelve el objeto que toca para pintarlo en la tabla
+		 * @return Object
+		 */
+		@Override
+		public Object getValueAt(int rowIndex, int columnIndex) {			
+			Object[] objects = new Object[content.size()];
+			//obtengo todas las keys
+			content.keySet().toArray(objects);
+			//guardo la key que toque en el objeto
+			Object key 		 = objects[rowIndex];
+			//guardo el valor de la key de turno
+			Object value 	 = content.get(key);
+			
+			//en función de la columna que toca
+			switch (columnIndex) {
+				case 0://devuelvo la key
+					return key;
+				case 1://devuelvo el valor
+					return value;
+			}
+			
+			//si la columna no existe, retorno null
+			return null;
+		}
 		
 		/**
 		 * Devuelve el valor de la posición indicada en la tabla.
 		 * @return Object
 		 */
-		@Override
-		public Object getValueAt(int rowIndex, int columnIndex) {
-			return memTable[rowIndex][columnIndex];
-		}
+		
 	}
-
+	
 	@Override
 	public void onStartInstrExecution(Instruction instr) {
 		// TODO Auto-generated method stub
@@ -164,21 +184,21 @@ public class MemoryPanel extends JPanel  implements MemoryObserver<Integer>, CPU
 	}
 
 	@Override
-	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack) {
-		// TODO Auto-generated method stub
-		
+	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack, ProgramMv program) {
 	}
 
 	@Override
 	public void onStartRun() {
-		// TODO Auto-generated method stub
-		
+		txtValor.setEnabled(false);
+		txtPos.setEnabled(false);
+		btnWrite.setEnabled(false);		
 	}
 
 	@Override
 	public void onEndRun() {
-		// TODO Auto-generated method stub
-		
+		txtValor.setEnabled(true);
+		txtPos.setEnabled(true);
+		btnWrite.setEnabled(true);
 	}
 
 	@Override
@@ -189,25 +209,24 @@ public class MemoryPanel extends JPanel  implements MemoryObserver<Integer>, CPU
 
 	@Override
 	public void onHalt() {
-		// TODO Auto-generated method stub
-		
+		txtValor.setEnabled(false);
+		txtPos.setEnabled(false);
+		btnWrite.setEnabled(false);
 	}
 
 	@Override
 	public void onReset(ProgramMv program) {
-		// TODO Auto-generated method stub
-		
+		_modelo.reset();
 	}
 
 	@Override
 	public void onWrite(int index, Integer value) {
-		// TODO Auto-generated method stub
-		
+		_modelo.setValue(index, value);
 	}
 
+	
 	@Override
 	public void onMemReset() {
-		// TODO Auto-generated method stub
-		
+		_modelo.reset();
 	}
 }

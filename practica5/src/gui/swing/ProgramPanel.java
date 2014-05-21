@@ -21,8 +21,11 @@ import controllers.GUIControler;
 public class ProgramPanel extends JPanel implements CPUObserver { 
 	private GUIControler guiCtrl;
 	private JTextArea programTextArea;
+	private ProgramMv program;
+	private int pc;
 
 	public ProgramPanel(GUIControler ctrl, Observable<CPUObserver> cpu) { 
+		cpu.addObserver(this);
 		this.guiCtrl = ctrl; 
 		initGUI();
 	}
@@ -39,16 +42,15 @@ public class ProgramPanel extends JPanel implements CPUObserver {
 		programTextArea.setEditable(false);
 		this.add(new JScrollPane(programTextArea));
 		this.setPreferredSize(new Dimension(160, 0));
+		this.program = this.guiCtrl.getProgram();
+		this.pc=0;
 	}
 	
-	/**
-	 * Actualiza la información del programPanel
-	 */
-	void updateView() {
-		ProgramMv program = guiCtrl.getProgram();
+	private void showProgram(){
 		String allProgram = "";
+		this.pc = guiCtrl.getPC();
 		for(int i=0;i<program.getSizeProgram();i++){
-			if(i == guiCtrl.getPC()){
+			if(i == this.pc){
 				allProgram += "*    "+program.lineToString(i);
 			}else{
 				allProgram += "      "+program.lineToString(i);
@@ -57,39 +59,55 @@ public class ProgramPanel extends JPanel implements CPUObserver {
 		
 		programTextArea.setText(allProgram);
 	}
-	@Override
-	public void onStartInstrExecution(Instruction instr) {
-		// TODO Auto-generated method stub
-		
+	
+	/**
+	 * No se hace nada en este metodo
+	 */
+	public void onStartInstrExecution(Instruction instr) {}
+	
+	/**
+	 * Actualizamos el programa
+	 */
+	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack, ProgramMv program) {
+		this.showProgram();
 	}
-	@Override
-	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
+
+	/**
+	 * No se hace nada en este metodo
+	 */
 	public void onStartRun() {
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
+
+	/**
+	 * No se hace nada en este metodo
+	 */
 	public void onEndRun() {
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
+
+	/**
+	 * No se hace nada en este metodo
+	 */
 	public void onError(String msg) {
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
+	
+	/**
+	 * No se hace nada en este metodo
+	 */
 	public void onHalt() {
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
+
+	/**
+	 * Repintamos el programa
+	 */
 	public void onReset(ProgramMv program) {
-		// TODO Auto-generated method stub
-		
+		this.showProgram();
 	}
 }
