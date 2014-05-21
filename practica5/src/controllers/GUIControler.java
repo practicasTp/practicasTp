@@ -1,13 +1,21 @@
 package controllers;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+
 import mv.cpu.Cpu;
+
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+
 import mv.cpu.Memory;
 import mv.cpu.OperandStack;
+import mv.exceptions.IncorrectParsingInstruction;
 import mv.exceptions.MvError;
 import mv.program.ProgramMv;
+import mv.reading.FromInputStreamIn;
 import mv.reading.InputMethod;
+import mv.reading.NullIn;
 import mv.writing.OutputMethod;
 
 public class GUIControler extends Controller {
@@ -21,6 +29,48 @@ public class GUIControler extends Controller {
 	public void start() {
 		//avisamos al programa de que el programa ya ha sido cargado
 		cpu.programLoaded();
+	}
+	
+	public void loadNewProgram(String path){
+		try {
+			ProgramMv program = ProgramMv.readProgram(path);
+			cpu.loadProgram(program);
+			try {
+				cpu.resetCpu();
+			} catch (MvError e) {
+				reportError(e.getMessage(), this.errorTitle);
+			}
+		} catch (IncorrectParsingInstruction e) {
+			reportError(e.getMessage()+"\nLa instrucción fallida se encuentra en la linea "
+					+ ProgramMv.contLinea + ": '"
+					+ ProgramMv.instructionLine + "'", this.errorTitle);
+			
+			System.exit(1);
+		}
+	}
+	
+	public void loadNewInput(String path){
+		InputMethod input;
+		//intentamos abrir el archivo de entrada que nos pasan
+    	try{
+    		new FileReader(path);
+    		input = new FromInputStreamIn(path);
+    	}catch (FileNotFoundException e) { 
+    		reportError(e.getMessage()+"\n Se activa la entrada nula.", this.errorTitle);
+			input = new NullIn();
+		}
+    	
+    	try {
+			this.cpu.setInStream(input);
+			
+			try {
+				cpu.resetCpu();
+			} catch (MvError e) {
+				reportError(e.getMessage(), this.errorTitle);
+			}
+		} catch (MvError e) {
+			reportError(e.getMessage(), this.errorTitle);
+		}
 	}
 	
 	public void reset(){

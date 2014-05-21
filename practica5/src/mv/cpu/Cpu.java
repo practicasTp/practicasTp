@@ -135,8 +135,7 @@ public class Cpu implements Observable<CPUObserver>{
 	 }
 	 
 	 public void loadProgram(ProgramMv p) {      
-		 // - cargar el programa p       
-		 // - inicializar la Pila, Memoria, etc.     
+		this.program = p;
 	 }
 	
 	/**
@@ -236,7 +235,7 @@ public class Cpu implements Observable<CPUObserver>{
 		pila.clean();
 		memoria.clean();
 		for(CPUObserver o: this.observers){
-			o.onReset(program);
+			o.onReset(this.program);
 		}
 	}
 	

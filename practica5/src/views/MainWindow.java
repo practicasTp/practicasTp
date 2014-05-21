@@ -10,11 +10,21 @@ import gui.swing.StatePanel;
 import gui.swing.ToolBarPanel;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import mv.cpu.Memory;
@@ -27,7 +37,7 @@ import observers.Observable;
 import observers.StackObserver;
 import controllers.GUIControler;
 
-public class MainWindow  extends JFrame implements CPUObserver{
+public class MainWindow  extends JFrame implements CPUObserver, ActionListener{
 
 	private GUIControler ctrl;
 	private Observable<CPUObserver> cpu;
@@ -40,6 +50,12 @@ public class MainWindow  extends JFrame implements CPUObserver{
 	private InputPanel input;
 	private OutputPanel output;
 	private StatePanel statePanel;
+	
+	//menu
+	private JMenuBar menu;
+	private JMenu opciones, importar;
+	private JMenuItem programa, entrada, exit;
+	private JFileChooser fc;
 	
 	public MainWindow(GUIControler ctrl, Observable<CPUObserver> cpu, Observable<StackObserver<Integer>> stack, Observable<MemoryObserver<Integer>> memory) {
 		super("Virtual Machine");
@@ -102,6 +118,32 @@ public class MainWindow  extends JFrame implements CPUObserver{
 		centerPanelSouth.add(input);
 		centerPanelSouth.add(output);
 		
+		//menu
+		this.menu = new JMenuBar();
+		this.setJMenuBar(menu);
+		this.opciones = new JMenu("Archivo");
+		this.opciones.setPreferredSize(new Dimension(150, 20));
+		this.menu.add(this.opciones);
+		this.importar = new JMenu("Importar ...");
+		this.importar.setIcon(new ImageIcon(this.getClass().getResource("folder.png")));
+		this.importar.setPreferredSize(new Dimension(150, 20));
+		this.programa = new JMenuItem("Programa", new ImageIcon(this.getClass().getResource("program.png")));
+		this.programa.setPreferredSize(new Dimension(150, 20));
+		this.programa.addActionListener(this);
+		this.importar.add(this.programa);
+		this.importar.addSeparator();
+		this.entrada = new JMenuItem("Entrada", new ImageIcon(this.getClass().getResource("entrada.png")));
+		this.entrada.addActionListener(this);
+		this.importar.add(this.entrada);
+		this.opciones.add(this.importar);
+		this.fc = new JFileChooser();
+		this.opciones.addSeparator();
+		this.exit = new JMenuItem("Salir ...", new ImageIcon(this.getClass().getResource("exit.png")));   
+	    this.opciones.add(this.exit);
+	    this.exit.addActionListener(this);
+	
+
+		
 		this.setSize(1000,1000);
         this.setLocationRelativeTo(null);
 		this.setVisible(true);
@@ -113,44 +155,35 @@ public class MainWindow  extends JFrame implements CPUObserver{
 			}
 		});
 	}
+
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == this.programa) {
+			int returnVal = fc.showOpenDialog(null);
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				File file = fc.getSelectedFile();
+				this.ctrl.loadNewProgram(file.getPath());
+				JOptionPane.showMessageDialog(this, "Se ha importado correctamente el programa: " + file.getName());
+			}
+		} else if (e.getSource() == this.entrada) {
+			int returnVal = fc.showOpenDialog(null);
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				File file = fc.getSelectedFile();
+			
+				this.ctrl.loadNewInput(file.getPath());
+				JOptionPane.showMessageDialog(this,"Se ha importado correctamente la entrada: "+ file.getName());
+			}
+		}else if (e.getSource() == this.exit) {
+			this.ctrl.quit();
+		}
+	}
 	
-	@Override
-	public void onStartInstrExecution(Instruction instr) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack, ProgramMv program) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onStartRun() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onEndRun() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onError(String msg) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onHalt() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
+	//métodos inservibles en esta parte
+	public void onStartInstrExecution(Instruction instr) {}
+	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack, ProgramMv program) {}
+	public void onStartRun() {}
+	public void onEndRun() {}
+	public void onError(String msg) {}
+	public void onHalt() {}
 	public void onReset(ProgramMv program) {}
 
 }

@@ -111,7 +111,8 @@ public class InputPanel extends JPanel implements CPUObserver{
 			init();
 		}
 	}
-
+	
+	
 	@Override
 	public void onStartInstrExecution(Instruction instr) {
 		// TODO Auto-generated method stub
@@ -135,6 +136,5 @@ public class InputPanel extends JPanel implements CPUObserver{
 
 	@Override
 	public void onReset(ProgramMv program) {
-		
 	}
 }

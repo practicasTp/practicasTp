@@ -21,7 +21,6 @@ import controllers.GUIControler;
 public class ProgramPanel extends JPanel implements CPUObserver { 
 	private GUIControler guiCtrl;
 	private JTextArea programTextArea;
-	private ProgramMv program;
 	private int pc;
 
 	public ProgramPanel(GUIControler ctrl, Observable<CPUObserver> cpu) { 
@@ -42,18 +41,17 @@ public class ProgramPanel extends JPanel implements CPUObserver {
 		programTextArea.setEditable(false);
 		this.add(new JScrollPane(programTextArea));
 		this.setPreferredSize(new Dimension(160, 0));
-		this.program = this.guiCtrl.getProgram();
 		this.pc=0;
 	}
 	
-	private void showProgram(){
+	private void showProgram(ProgramMv p){
 		String allProgram = "";
 		this.pc = guiCtrl.getPC();
-		for(int i=0;i<program.getSizeProgram();i++){
+		for(int i=0;i<p.getSizeProgram();i++){
 			if(i == this.pc){
-				allProgram += "*    "+program.lineToString(i);
+				allProgram += "*    "+p.lineToString(i);
 			}else{
-				allProgram += "      "+program.lineToString(i);
+				allProgram += "      "+p.lineToString(i);
 			}
 		}
 		
@@ -69,7 +67,7 @@ public class ProgramPanel extends JPanel implements CPUObserver {
 	 * Actualizamos el programa
 	 */
 	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack, ProgramMv program) {
-		this.showProgram();
+		this.showProgram(program);
 	}
 
 	/**
@@ -107,7 +105,7 @@ public class ProgramPanel extends JPanel implements CPUObserver {
 	/**
 	 * Repintamos el programa
 	 */
-	public void onReset(ProgramMv program) {
-		this.showProgram();
+	public void onReset(ProgramMv p) {
+		this.showProgram(p);
 	}
 }
