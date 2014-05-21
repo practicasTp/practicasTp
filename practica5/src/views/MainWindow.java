@@ -53,7 +53,7 @@ public class MainWindow  extends JFrame implements CPUObserver{
 	
 	/**
 	 * Inicializa el MainWindow rellenando los atributos que objetos correspondientes
-	 * al tipo. Además crea las ventanas necesarias para mostrar toda la información
+	 * al tipo. Adem√°s crea las ventanas necesarias para mostrar toda la informaci√≥n
 	 * en la interfaz.
 	 */
 	private void initGUI() {
