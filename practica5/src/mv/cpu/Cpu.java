@@ -16,7 +16,7 @@ import mv.program.ProgramMv;
 import mv.reading.InputMethod;
 import mv.writing.OutputMethod;
 
-public class Cpu implements Observable<CPUObserver>{
+public class Cpu implements Observable<CPUObserver> {
 	private Memory<Integer> memoria;
 	private OperandStack<Integer> pila;
 	private boolean fin;
@@ -37,7 +37,6 @@ public class Cpu implements Observable<CPUObserver>{
 		this.output 	= output;
 		this.program 	= program;
 		this.observers	= new ArrayList<CPUObserver>();
-		
 	}
 	
 	/**
