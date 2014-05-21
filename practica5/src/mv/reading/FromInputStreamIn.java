@@ -8,14 +8,11 @@ import java.io.InputStream;
 
 public class FromInputStreamIn implements InputMethod {
 	private InputStream in = null;
+	private String file;
 	
 	public FromInputStreamIn(String archivo) {
-		try {
-			this.in = new FileInputStream (archivo);
-		}
-		catch(FileNotFoundException e) {
-			System.err.println(e.getMessage());
-		}
+		this.file = archivo;
+		this.open();
 	}
 	
 	/**
@@ -55,5 +52,22 @@ public class FromInputStreamIn implements InputMethod {
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 		}
+	}
+
+	@Override
+	public void reset() {
+		this.close();
+		this.open();
+	}
+
+	@Override
+	public void open() {
+		try {
+			this.in = new FileInputStream (file);
+		}
+		catch(FileNotFoundException e) {
+			System.err.println(e.getMessage());
+		}
+		
 	}
 }

@@ -58,7 +58,11 @@ public class OutputPanel extends JPanel implements CPUObserver{
 		StringBuilder content;
 		
 		public OutStreamGUI() {
-		// inicializar los atributos
+			init();
+		}
+		
+		private void init(){
+			// inicializar los atributos
 			this.content = new StringBuilder();
 			this.content.append(outputTextArea.getText());
 		}
@@ -66,9 +70,7 @@ public class OutputPanel extends JPanel implements CPUObserver{
 		/**
 		 * No hace nada ya que se encarga otro método de abrir el archivo.
 		 */
-		public void open() {
-		// no hacer nada, suponemos que old ya está abierto
-		}
+		public void open() {}
 		
 		/**
 		 * Cierra el archivo de salida abierto.
@@ -88,6 +90,13 @@ public class OutputPanel extends JPanel implements CPUObserver{
 		// 2. concatenar c al contenido del outputTextArea
 			this.content.append(c);
 			outputTextArea.setText(content.toString());
+		}
+
+		@Override
+		public void reset() {
+			outCurr.reset();
+			outputTextArea.setText("");
+			init();
 		}
 	}
 
@@ -129,7 +138,5 @@ public class OutputPanel extends JPanel implements CPUObserver{
 	}
 
 	@Override
-	public void onReset(ProgramMv program) {
-		outputTextArea.setText("");
-	}
+	public void onReset(ProgramMv program) {}
 }

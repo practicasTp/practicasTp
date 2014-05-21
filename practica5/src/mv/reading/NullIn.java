@@ -14,4 +14,13 @@ public class NullIn implements InputMethod {
 	 * No hace nada porque no tiene ningún archivo que cerrar.
 	 */
 	public void close() {}
+
+	@Override
+	public void reset() {}
+
+	@Override
+	public void open() {
+		// TODO Auto-generated method stub
+		
+	}
 }

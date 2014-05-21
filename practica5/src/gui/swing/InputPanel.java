@@ -56,6 +56,10 @@ public class InputPanel extends JPanel implements CPUObserver{
 		int pos;
 		
 		public InStreamGUI() {
+			init();
+		}
+		
+		private void init(){ 
 			this.content = new StringBuilder();
 			this.pos = 0;
 			// 1. leer toda la entrada del old, y construir el StringBuilder content
@@ -76,9 +80,7 @@ public class InputPanel extends JPanel implements CPUObserver{
 		/**
 		 * Se encarga de cerrar el archivo de entrada abierto.
 		 */
-		public void close() {
-			inCurr.close(); 
-		} // cerrar old también
+		public void close() { inCurr.close(); } // cerrar old también
 		
 		/**
 		 * Lee el siguiente caracter guardado y lo devueve. Además actualiza el 
@@ -102,6 +104,12 @@ public class InputPanel extends JPanel implements CPUObserver{
 			// 6. devolver c;
 			return c;
 		}
+
+		@Override
+		public void reset() {
+			inCurr.reset();
+			init();
+		}
 	}
 
 	@Override
@@ -111,39 +119,22 @@ public class InputPanel extends JPanel implements CPUObserver{
 	}
 
 	@Override
-	public void onEndInstrExecution(int pc, Memory<Integer> memory,
-			OperandStack<Integer> stack, ProgramMv program) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onEndInstrExecution(int pc, Memory<Integer> memory,OperandStack<Integer> stack, ProgramMv program) {}
 
 	@Override
-	public void onStartRun() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onStartRun() {}
 
 	@Override
-	public void onEndRun() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onEndRun() {}
 
 	@Override
-	public void onError(String msg) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onError(String msg) {}
 
 	@Override
-	public void onHalt() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onHalt() {}
 
 	@Override
 	public void onReset(ProgramMv program) {
-		inCurr = guiCtrl.getInStream();
-		initGUI();
+		
 	}
 }

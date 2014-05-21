@@ -25,8 +25,6 @@ public class Cpu implements Observable<CPUObserver>{
 	private boolean correctPc;
 	private InputMethod input;
 	private OutputMethod output;
-	private InputMethod auxInput;
-	private OutputMethod auxOutput;
 	private ArrayList<CPUObserver> observers;
 	
 	public Cpu(InputMethod input, OutputMethod output, ProgramMv program){
@@ -37,8 +35,6 @@ public class Cpu implements Observable<CPUObserver>{
 		this.correctPc 	= true;
 		this.input 		= input;
 		this.output 	= output;
-		this.auxInput	= input;
-		this.auxOutput	= output;
 		this.program 	= program;
 		this.observers	= new ArrayList<CPUObserver>();
 		
@@ -232,8 +228,8 @@ public class Cpu implements Observable<CPUObserver>{
 	 * @throws MvError 
 	 */
 	public void resetCpu () throws MvError {
-		this.setInStream(this.auxInput);
-		this.setOutStream(this.auxOutput);
+		this.input.reset();
+		this.output.reset();
 		this.fin = false;
 		this.pc = 0;
 		this.correctPc = true;

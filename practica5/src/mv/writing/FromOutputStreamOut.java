@@ -7,15 +7,11 @@ import java.io.OutputStream;
 
 public class FromOutputStreamOut implements OutputMethod{
 	private OutputStream out;
+	private String file;
 	
 	public FromOutputStreamOut(String archivo) {
-		//Recibo la ruta del archivo y la añado al objeto out.
-		try {
-			this.out = new FileOutputStream(archivo);
-		}
-		catch(FileNotFoundException e){
-			System.out.println(e.getMessage());
-		}
+		this.file = archivo;
+		this.open();
 	}
 	
 	/**
@@ -41,5 +37,22 @@ public class FromOutputStreamOut implements OutputMethod{
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 		}
+	}
+
+	@Override
+	public void open() {
+		//Recibo la ruta del archivo y la añado al objeto out.
+		try {
+			this.out = new FileOutputStream(this.file);
+		}
+		catch(FileNotFoundException e){
+			System.out.println(e.getMessage());
+		}
+	}
+
+	@Override
+	public void reset() {
+		this.close();
+		this.open();
 	}
 }
