@@ -223,9 +223,10 @@ public class Cpu implements Observable<CPUObserver> {
 	
 	/**
 	 * Inicializa todos los atributos de la Cpu para preparar una ejecución con run.
+	 * @param newIn ->determina si previamente se ha cargado un nuevo método de entrada
 	 * @throws MvError 
 	 */
-	public void resetCpu () throws MvError {
+	public void resetCpu (boolean newIn) throws MvError {
 		this.input.reset();
 		this.output.reset();
 		this.fin = false;
@@ -233,8 +234,17 @@ public class Cpu implements Observable<CPUObserver> {
 		this.correctPc = true;
 		pila.clean();
 		memoria.clean();
+		
+		//llamo a los observers
 		for(CPUObserver o: this.observers){
 			o.onReset(this.program);
+		}
+		
+		//si se ha cargado un nuevo in, me avisan por lo que tengo que avisar al observador
+		if(newIn){
+			for(CPUObserver o: this.observers){
+				o.onNewIn();
+			}
 		}
 	}
 	

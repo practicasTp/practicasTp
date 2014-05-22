@@ -190,5 +190,6 @@ public class MainWindow  extends JFrame implements CPUObserver, ActionListener{
 	public void onError(String msg) {}
 	public void onHalt() {}
 	public void onReset(ProgramMv program) {}
+	public void onNewIn() {}
 
 }

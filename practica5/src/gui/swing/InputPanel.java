@@ -135,6 +135,12 @@ public class InputPanel extends JPanel implements CPUObserver{
 	public void onHalt() {}
 
 	@Override
-	public void onReset(ProgramMv program) {
+	public void onReset(ProgramMv program) {}
+
+	@Override
+	public void onNewIn() {
+		inCurr = guiCtrl.getInStream();
+		this.inNew = new InStreamGUI();
+		guiCtrl.setInStream( inNew );
 	}
 }

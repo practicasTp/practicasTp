@@ -156,5 +156,11 @@ public class StatePanel extends JPanel implements MemoryObserver<Integer>, Stack
 	@Override
 	public void onMemReset() {}
 
+	@Override
+	public void onNewIn() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 }

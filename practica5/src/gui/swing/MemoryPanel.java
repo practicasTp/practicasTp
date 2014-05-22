@@ -229,4 +229,10 @@ public class MemoryPanel extends JPanel  implements MemoryObserver<Integer>, CPU
 	public void onMemReset() {
 		_modelo.reset();
 	}
+
+	@Override
+	public void onNewIn() {
+		// TODO Auto-generated method stub
+		
+	}
 }

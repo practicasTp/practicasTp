@@ -108,4 +108,9 @@ public class ProgramPanel extends JPanel implements CPUObserver {
 	public void onReset(ProgramMv p) {
 		this.showProgram(p);
 	}
+	@Override
+	public void onNewIn() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -185,5 +185,11 @@ public class ToolBarPanel extends JPanel implements CPUObserver, MemoryObserver<
 
 	@Override
 	public void onStackReset() {}
+
+	@Override
+	public void onNewIn() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

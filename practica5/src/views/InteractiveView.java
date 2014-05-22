@@ -62,5 +62,7 @@ public class InteractiveView implements CPUObserver {
 	public void onReset(ProgramMv program) {
 		System.out.println(program.toString());
 	}
+
+	public void onNewIn() {}
 	
 }

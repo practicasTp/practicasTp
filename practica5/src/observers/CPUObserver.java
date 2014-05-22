@@ -13,4 +13,5 @@ public interface CPUObserver {
 	public void onError(String msg);
 	public void onHalt();
 	public void onReset(ProgramMv program);
+	public void onNewIn();
 }

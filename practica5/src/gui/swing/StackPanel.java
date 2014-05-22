@@ -140,4 +140,10 @@ public class StackPanel extends JPanel implements StackObserver<Integer>, CPUObs
 	public void onStackReset() {
 		this.guiCtrl.getOperandStack().clean();
 	}
+
+	@Override
+	public void onNewIn() {
+		// TODO Auto-generated method stub
+		
+	}
 }

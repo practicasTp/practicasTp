@@ -139,4 +139,10 @@ public class OutputPanel extends JPanel implements CPUObserver{
 
 	@Override
 	public void onReset(ProgramMv program) {}
+
+	@Override
+	public void onNewIn() {
+		// TODO Auto-generated method stub
+		
+	}
 }

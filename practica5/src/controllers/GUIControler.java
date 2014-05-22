@@ -26,20 +26,31 @@ public class GUIControler extends Controller {
 	
 	JDialog dialogo = null;	
 	
+	/**
+	 * aviso de que el programa se ha cargado
+	 */
 	public void start() {
 		//avisamos al programa de que el programa ya ha sido cargado
 		cpu.programLoaded();
 	}
 	
+	/**
+	 * Carga un nuevo programa en la cpu
+	 */
 	public void loadNewProgram(String path){
 		try {
+			//intento cargar el programa
 			ProgramMv program = ProgramMv.readProgram(path);
+			//lo paso a la cpu
 			cpu.loadProgram(program);
 			try {
-				cpu.resetCpu();
+				//reseteo la cpu avisando de que NO he cargado ninguna entrada previa
+				cpu.resetCpu(false);
 			} catch (MvError e) {
+				//si hay algún error, aviso
 				reportError(e.getMessage(), this.errorTitle);
 			}
+			//si hay algún problema en el programa aviso y termino la ejecución
 		} catch (IncorrectParsingInstruction e) {
 			reportError(e.getMessage()+"\nLa instrucción fallida se encuentra en la linea "
 					+ ProgramMv.contLinea + ": '"
@@ -49,33 +60,45 @@ public class GUIControler extends Controller {
 		}
 	}
 	
+	/**
+	 * Carga una nueva entrada en la cpu
+	 */
 	public void loadNewInput(String path){
 		InputMethod input;
 		//intentamos abrir el archivo de entrada que nos pasan
     	try{
+    		//con esto determino si el archivo existe o no
     		new FileReader(path);
+    		//si existe, creará un nuevo método de entrada
     		input = new FromInputStreamIn(path);
-    	}catch (FileNotFoundException e) { 
+    	}catch (FileNotFoundException e) {
+    		//si por alguna cosa hay algún problema, lo detecto y activo la entrada nula
     		reportError(e.getMessage()+"\n Se activa la entrada nula.", this.errorTitle);
 			input = new NullIn();
 		}
     	
     	try {
+    		//establezco la nueva entrada
 			this.cpu.setInStream(input);
 			
 			try {
-				cpu.resetCpu();
-			} catch (MvError e) {
+				//reseteo la cpu avisando que previamente he cargado una nueva entrada
+				cpu.resetCpu(true);
+			} catch (MvError e) {//si hay algún problema, aviso
 				reportError(e.getMessage(), this.errorTitle);
 			}
-		} catch (MvError e) {
+		} catch (MvError e) {//si hay algún problema, aviso
 			reportError(e.getMessage(), this.errorTitle);
 		}
 	}
 	
+	/**
+	 * Resetea la cpu
+	 */
 	public void reset(){
 		try {
-			cpu.resetCpu();
+			//reseteo la cpu avisando de que previamente NO he cargado una nueva entrada
+			cpu.resetCpu(false);
 		} catch (MvError e) {
 			reportError(e.getMessage(), this.errorTitle);
 		}
