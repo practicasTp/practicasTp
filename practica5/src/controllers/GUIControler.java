@@ -35,6 +35,13 @@ public class GUIControler extends Controller {
 	}
 	
 	/**
+	 * pausa la ejecución del programa
+	 */
+	public void stop(){
+		cpu.pause();
+	}
+	
+	/**
 	 * Carga un nuevo programa en la cpu
 	 */
 	public void loadNewProgram(String path){

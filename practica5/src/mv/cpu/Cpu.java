@@ -26,6 +26,7 @@ public class Cpu implements Observable<CPUObserver> {
 	private InputMethod input;
 	private OutputMethod output;
 	private ArrayList<CPUObserver> observers;
+	private boolean pauseRun = false;
 	
 	public Cpu(InputMethod input, OutputMethod output, ProgramMv program){
 		this.memoria 	= new Memory<Integer> ();
@@ -112,25 +113,30 @@ public class Cpu implements Observable<CPUObserver> {
 			//si la instrucción se ejecuta correctamente
 			if (this.step()){
 				resultado = true;
+				this.sleepabit();
 			}else{
 				//si no, paro ejecución
 				resultado = false;
 			}
 		//repito hasta que la cpu me diga que no hay más instrucciones a ejecutar	
-		}while(resultado!=false);
+		}while(resultado!=false && !this.pauseRun);
 		
 		//avisar que la ejecución del run ha terminado
 		for(CPUObserver o: this.observers){
 			o.onEndRun();
 		}
 		
-		//finalizo la ejecución
-		this.exit();
+		if(!this.pauseRun){
+			//finalizo la ejecución
+			this.exit();
+		}else{
+			this.pauseRun = false;
+		}
 		
 	}
 	
 	 public void pause() {       
-		 // parar la ejecución del run -- ver los ejemplos de Threads, etc.     
+		 this.pauseRun = true;  
 	 }
 	 
 	 public void loadProgram(ProgramMv p) {      
@@ -232,6 +238,7 @@ public class Cpu implements Observable<CPUObserver> {
 		this.fin = false;
 		this.pc = 0;
 		this.correctPc = true;
+		this.pauseRun = false;
 		pila.clean();
 		memoria.clean();
 		
@@ -359,6 +366,14 @@ public class Cpu implements Observable<CPUObserver> {
 		}
 		
 		return execute;
+	}
+	
+	private void sleepabit() {
+		try {
+			Thread.sleep(200);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+		}
 	}
 	
 	/**

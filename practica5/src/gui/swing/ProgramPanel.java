@@ -8,6 +8,7 @@ import java.awt.Font;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 import javax.swing.border.TitledBorder;
 
 import mv.cpu.Memory;
@@ -66,8 +67,8 @@ public class ProgramPanel extends JPanel implements CPUObserver {
 	/**
 	 * Actualizamos el programa
 	 */
-	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack, ProgramMv program) {
-		this.showProgram(program);
+	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack,  ProgramMv program) {
+		showProgram(program);
 	}
 
 	/**
@@ -81,36 +82,27 @@ public class ProgramPanel extends JPanel implements CPUObserver {
 	/**
 	 * No se hace nada en este metodo
 	 */
-	public void onEndRun() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onEndRun() {}
 
 	/**
 	 * No se hace nada en este metodo
 	 */
-	public void onError(String msg) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onError(String msg) {}
 	
 	/**
 	 * No se hace nada en este metodo
 	 */
-	public void onHalt() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onHalt() {}
 
 	/**
 	 * Repintamos el programa
 	 */
 	public void onReset(ProgramMv p) {
-		this.showProgram(p);
+		showProgram(p);
 	}
-	@Override
-	public void onNewIn() {
-		// TODO Auto-generated method stub
-		
-	}
+	
+	/**
+	 * No se hace nada en este metodo
+	 */
+	public void onNewIn() {}
 }

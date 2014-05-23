@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.InputMismatchException;
 
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
@@ -297,8 +298,13 @@ public class Main {
 		}
 		
 		// Crear el controlador y la vista 
-		GUIControler ctrl 		= new GUIControler(cpu); 
-		MainWindow view 		= new MainWindow(ctrl, cpu, cpu.getOperandStack(), cpu.getMemory()); 
-		ctrl.start();
+		final GUIControler ctrl 		= new GUIControler(cpu); 
+		
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				MainWindow view 		= new MainWindow(ctrl, cpu, cpu.getOperandStack(), cpu.getMemory()); 
+				ctrl.start();
+			}
+		});
 	}
 }

@@ -70,7 +70,12 @@ public class ToolBarPanel extends JPanel implements CPUObserver, MemoryObserver<
 		centerPanelWest.add(runButton);
 		runButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				guiCtrl.run();
+				new Thread() {
+					public void run() {
+						guiCtrl.run();
+					}	
+				}.start();
+				
 			}
 		});
 		pauseButton = new JButton();
@@ -80,7 +85,7 @@ public class ToolBarPanel extends JPanel implements CPUObserver, MemoryObserver<
 		pauseButton.setVisible(false);
 		pauseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				guiCtrl.run();
+				guiCtrl.stop();
 			}
 		});
 		resetButton = new JButton();
