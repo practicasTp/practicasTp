@@ -1,7 +1,5 @@
 package controllers;
 
-import gui.swing.MainWindow;
-
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
@@ -17,11 +15,8 @@ import mv.exceptions.EmptyStackException;
 import mv.exceptions.IncorrectMemoryPositionException;
 import mv.exceptions.IncorrectProgramCounterException;
 import mv.exceptions.InsufficientOperandsException;
-import mv.exceptions.MvError;
 import mv.exceptions.NegativeNumberIntoMemoryException;
-import mv.program.ProgramMv;
-import mv.reading.InputMethod;
-import mv.writing.OutputMethod;
+import views.MainWindow;
 
 public abstract class Controller {
 

@@ -116,7 +116,7 @@ public class ToolBarPanel extends JPanel implements CPUObserver, MemoryObserver<
 	 * @return ImageIcon
 	 */
 	private static ImageIcon createImageIcon(String path) {
-		java.net.URL imgURL = MainWindow.class.getResource(path);
+		java.net.URL imgURL = ToolBarPanel.class.getResource(path);
 		if (imgURL != null)
 			return new ImageIcon(imgURL);
 		return null;

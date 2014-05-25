@@ -221,7 +221,7 @@ public class Main {
 		ProgramMv program = programFileName == null ? ProgramMv.readProgram() : ProgramMv.readProgram(programFileName);
 		
 		//Creamos la CPU y cargamos el programa.
-		cpu = new Cpu (input, output, program); //Se pasan las E/S y el programa.
+		cpu = new Cpu (input, output, program,0); //Se pasan las E/S y el programa.
 		
 		// Crear el controlador y la vista 
 		InteractiveController ctrl 	= new InteractiveController(cpu); 
@@ -248,7 +248,7 @@ public class Main {
 		}
 		
 		//Creamos la CPU y cargamos el programa.
-		cpu = new Cpu (input, output, program); //Se pasan las E/S y el programa.
+		cpu = new Cpu (input, output, program, 0); //Se pasan las E/S y el programa.
 		
 		// Crear el controlador y la vista 
 		BatchController ctrl 	= new BatchController(cpu); 
@@ -275,7 +275,7 @@ public class Main {
 		}
 
 		// Creamos la CPU y cargamos el programa.
-		cpu = new Cpu (input, output, program); //Se pasan las E/S y el programa.
+		cpu = new Cpu (input, output, program, 200); //Se pasan las E/S y el programa.
 		
 		//le metemos un poco de look&feel predeterminado
 		try {

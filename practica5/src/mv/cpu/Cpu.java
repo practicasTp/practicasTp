@@ -27,8 +27,9 @@ public class Cpu implements Observable<CPUObserver> {
 	private OutputMethod output;
 	private ArrayList<CPUObserver> observers;
 	private boolean pauseRun = false;
+	private int delay = 200;
 	
-	public Cpu(InputMethod input, OutputMethod output, ProgramMv program){
+	public Cpu(InputMethod input, OutputMethod output, ProgramMv program, int delay){
 		this.memoria 	= new Memory<Integer> ();
 		this.pila 		= new OperandStack<Integer> ();
 		this.fin 		= false;
@@ -38,6 +39,9 @@ public class Cpu implements Observable<CPUObserver> {
 		this.output 	= output;
 		this.program 	= program;
 		this.observers	= new ArrayList<CPUObserver>();
+		if(delay!=0){
+			this.delay = delay;
+		}
 	}
 	
 	/**
@@ -370,7 +374,7 @@ public class Cpu implements Observable<CPUObserver> {
 	
 	private void sleepabit() {
 		try {
-			Thread.sleep(200);
+			Thread.sleep(this.delay);
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 		}
