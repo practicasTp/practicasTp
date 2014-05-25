@@ -28,13 +28,7 @@ public class StdIn implements InputMethod {
 	 */
 	public void close() {}
 
-	@Override
-	public void reset() {		
-	}
+	public void reset() {}
 
-	@Override
-	public void open() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void open() {}
 }

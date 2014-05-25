@@ -185,9 +185,7 @@ public abstract class Controller {
 		}
 	}
 	
-	public void pause() {
-		
-	} // ejecuta el pause del cpu 
+	public void pause() {} // ejecuta el pause del cpu 
 	
 	public abstract void start(); // un método abstracto, depende del modo ! 
 	

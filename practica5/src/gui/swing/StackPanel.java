@@ -97,14 +97,18 @@ public class StackPanel extends JPanel implements StackObserver<Integer>, CPUObs
 	@Override
 	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack, ProgramMv program) {}
 
-	@Override
+	/**
+	 * Desactiva los botones y el textField al ejecutar el comando run.
+	 */
 	public void onStartRun() {
 		this.txtValor.setEnabled(false);
 		this.btnPush.setEnabled(false);
 		this.btnPop.setEnabled(false);
 	}
 
-	@Override
+	/**
+	 * Activa los botones y el textField al terminar la ejecución del comando run.
+	 */
 	public void onEndRun() {
 		this.txtValor.setEnabled(true);
 		this.btnPush.setEnabled(true);
@@ -114,36 +118,44 @@ public class StackPanel extends JPanel implements StackObserver<Integer>, CPUObs
 	@Override
 	public void onError(String msg) {}
 
-	@Override
+	/**
+	 * Desactiva los botones y el textField al terminar la ejecución del programa.
+	 */
 	public void onHalt() {
 		this.txtValor.setEnabled(false);
 		this.btnPush.setEnabled(false);
 		this.btnPop.setEnabled(false);
 	}
 
-	@Override
+	/**
+	 * Limpia la ventana donde se muestran los valores de la pila al resetear la
+	 * máquina.
+	 */
 	public void onReset(ProgramMv program) {
 		_modeloLista.clear();
 	}
 
-	@Override
+	/**
+	 * Añade un elemento a la ventana donde se muestran los valores de la pila.
+	 */
 	public void onPush(Integer value) {
 		_modeloLista.addElement(value);
 	}
 
-	@Override
+	/**
+	 * Elimina un elemento de la ventana donde se muestran los valores de la pila.
+	 */
 	public void onPop(Integer value) {
 		_modeloLista.removeElement(value);
 	}
 
-	@Override
+	/**
+	 * Limpia el contenido de la pila, la vacía.
+	 */
 	public void onStackReset() {
 		this.guiCtrl.getOperandStack().clean();
 	}
 
 	@Override
-	public void onNewIn() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onNewIn() {}
 }

@@ -13,7 +13,10 @@ public class BatchController extends Controller {
 	public BatchController(Cpu cpu) {
 		super(cpu);
 	}
-
+	
+	/**
+	 * Inicia la ejecución de run capturando todas las excepciones.
+	 */
 	public void start() {
 		try {
 			cpu.run();

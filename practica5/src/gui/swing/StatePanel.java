@@ -52,14 +52,14 @@ public class StatePanel extends JPanel implements MemoryObserver<Integer>, Stack
 	        super(text,selected);
 	    }
 
-	    protected void processKeyEvent(KeyEvent e) {
-	    }
+	    protected void processKeyEvent(KeyEvent e) {}
 
-	    protected void processMouseEvent(MouseEvent e) {
-
-	    }
+	    protected void processMouseEvent(MouseEvent e) {}
 	}
 	
+	/**
+	 * Crea un panel en el que indica el estado de la máquina.
+	 */
 	private void initGUI(){
 		
 		panel = new JPanel();
@@ -85,42 +85,37 @@ public class StatePanel extends JPanel implements MemoryObserver<Integer>, Stack
 	}
 	
 	@Override
-	public void onStartInstrExecution(Instruction instr) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onStartInstrExecution(Instruction instr) {}
 
-	@Override
+	/**
+	 * Imprime el número de instrucciones ejecutadas cada vez que se acaba de ejecutar
+	 * una.
+	 */
 	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack, ProgramMv program) {
 		lblNumIns.setText("Num. instrucciones ejecutadas: " + ++i);
 	}
 
 	@Override
-	public void onStartRun() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onStartRun() {}
 
 	@Override
-	public void onEndRun() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onEndRun() {}
 
 	@Override
-	public void onError(String msg) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onError(String msg) {}
 
-	@Override
+	/**
+	 * Modifica las etiquetas del panel de estado al finalizar la ejecución.
+	 */
 	public void onHalt() {
 		chMem.setSelected(false);
 		chPila.setSelected(false);
 		lblParada.setVisible(true);	
 	}
 
-	@Override
+	/**
+	 * Modifica las etiquetas del panel de estado reiniciando sus valores.
+	 */
 	public void onReset(ProgramMv program) {
 		chMem.setSelected(false);
 		chPila.setSelected(false);
@@ -129,25 +124,28 @@ public class StatePanel extends JPanel implements MemoryObserver<Integer>, Stack
 		this.i=0;
 	}
 
-	@Override
+	/**
+	 * Muestra que se ha modificado la pila cada vez que se hace un push.
+	 */
 	public void onPush(Integer value) {
 		chPila.setSelected(true);
 		chMem.setSelected(false);
 	}
 
-	@Override
+	/**
+	 * Muestra que se ha modificado la pila cada vez que se hace un pop.
+	 */
 	public void onPop(Integer value) {
 		chPila.setSelected(true);
 		chMem.setSelected(false);
 	}
 
 	@Override
-	public void onStackReset() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onStackReset() {}
 
-	@Override
+	/**
+	 * Muestra que se ha modificado la memoria cada vez que se escribe en ella.
+	 */
 	public void onWrite(int index, Integer value) {
 		chMem.setSelected(true);
 		chPila.setSelected(false);
@@ -157,10 +155,5 @@ public class StatePanel extends JPanel implements MemoryObserver<Integer>, Stack
 	public void onMemReset() {}
 
 	@Override
-	public void onNewIn() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
+	public void onNewIn() {}
 }

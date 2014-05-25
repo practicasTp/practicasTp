@@ -134,7 +134,10 @@ public class ToolBarPanel extends JPanel implements CPUObserver, MemoryObserver<
 		resetButton.setVisible(true);
 	}
 
-	@Override
+	/**
+	 * Desactiva todos los botones excepto el del pause cuando se ejecuta el comando
+	 * run.
+	 */
 	public void onStartRun() {
 		stepButton.setEnabled(false);
 		runButton.setEnabled(false);
@@ -142,7 +145,10 @@ public class ToolBarPanel extends JPanel implements CPUObserver, MemoryObserver<
 		resetButton.setEnabled(false);
 	}
 
-	@Override
+	/**
+	 * Activa todos los botones excepto el pause al finalizar la ejecución del comando
+	 * run.
+	 */
 	public void onEndRun() {
 		stepButton.setEnabled(true);
 		runButton.setEnabled(true);
@@ -150,18 +156,20 @@ public class ToolBarPanel extends JPanel implements CPUObserver, MemoryObserver<
 		resetButton.setEnabled(true);
 	}
 
-	/**
-	 * No hace nada en este elemento
-	 */
 	public void onError(String msg) {}
 
-	@Override
+	/**
+	 * Desactiva los botones de step y run al finalizar la ejecución del programa.
+	 */
 	public void onHalt() {
 		stepButton.setEnabled(false);
 		runButton.setEnabled(false);
 	}
 
-	@Override
+	/**
+	 * Desactiva los botones de pause y reset y activa los botones de run y step al
+	 * reiniciar la máquina.
+	 */
 	public void onReset(ProgramMv program) {
 		pauseButton.setVisible(false);
 		resetButton.setVisible(false);		
@@ -170,7 +178,9 @@ public class ToolBarPanel extends JPanel implements CPUObserver, MemoryObserver<
 		
 	}
 
-	@Override
+	/**
+	 * Activa el botón de reset al escribir en memoria.
+	 */
 	public void onWrite(int index, Integer value) {
 		resetButton.setVisible(true);
 	}
@@ -178,12 +188,16 @@ public class ToolBarPanel extends JPanel implements CPUObserver, MemoryObserver<
 	@Override
 	public void onMemReset() {}
 
-	@Override
+	/**
+	 * Activa el botón de reset cada vez que se hace un push.
+	 */
 	public void onPush(Integer value) {
 		resetButton.setVisible(true);
 	}
 
-	@Override
+	/**
+	 * Activa el botón de reset cada vez que se hace un pop.
+	 */
 	public void onPop(Integer value) {
 		resetButton.setVisible(true);
 	}
@@ -192,9 +206,5 @@ public class ToolBarPanel extends JPanel implements CPUObserver, MemoryObserver<
 	public void onStackReset() {}
 
 	@Override
-	public void onNewIn() {
-		// TODO Auto-generated method stub
-		
-	}
-	
+	public void onNewIn() {}
 }

@@ -59,6 +59,10 @@ public class InputPanel extends JPanel implements CPUObserver{
 			init();
 		}
 		
+		/**
+		 * Se encarga de leer el input, cargarlo en el StringBuilder y mostrarlo en el
+		 * textArea.
+		 */
 		private void init(){ 
 			this.content = new StringBuilder();
 			this.pos = 0;
@@ -72,9 +76,6 @@ public class InputPanel extends JPanel implements CPUObserver{
 			inputTextArea.setText(content.toString());
 		}
 		
-		/**
-		 * No hace nada porque ya se encarga otro método de abrir el archivo.
-		 */
 		public void open() {} // suponemos que old ya está abierto
 		
 		/**
@@ -105,39 +106,33 @@ public class InputPanel extends JPanel implements CPUObserver{
 			return c;
 		}
 
-		@Override
+		/**
+		 * Resetea el input y lo reinicia.
+		 */
 		public void reset() {
 			inCurr.reset();
 			init();
 		}
 	}
 	
-	
-	@Override
-	public void onStartInstrExecution(Instruction instr) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onStartInstrExecution(Instruction instr) {}
 
-	@Override
 	public void onEndInstrExecution(int pc, Memory<Integer> memory,OperandStack<Integer> stack, ProgramMv program) {}
 
-	@Override
 	public void onStartRun() {}
 
-	@Override
 	public void onEndRun() {}
 
-	@Override
 	public void onError(String msg) {}
 
-	@Override
 	public void onHalt() {}
 
-	@Override
 	public void onReset(ProgramMv program) {}
 
-	@Override
+	/**
+	 * Se carga un nuevo input en inCurr, se genera un nuevo objeto de la clase
+	 * InStreamGui para reiniciar el text area y se establece en la cpu.
+	 */
 	public void onNewIn() {
 		inCurr = guiCtrl.getInStream();
 		this.inNew = new InStreamGUI();

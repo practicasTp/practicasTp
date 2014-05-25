@@ -54,13 +54,17 @@ public class FromInputStreamIn implements InputMethod {
 		}
 	}
 
-	@Override
+	/**
+	 * Cierra el input actual y abre uno nuevo.
+	 */
 	public void reset() {
 		this.close();
 		this.open();
 	}
 
-	@Override
+	/**
+	 * Genera un nuevo input.
+	 */
 	public void open() {
 		try {
 			this.in = new FileInputStream (file);

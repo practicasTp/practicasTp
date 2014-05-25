@@ -12,9 +12,7 @@ public class NullOut implements OutputMethod {
 	 */
 	public void close() {}
 
-	@Override
 	public void open() {}
 
-	@Override
 	public void reset() {}
 }

@@ -103,6 +103,11 @@ public class MemoryPanel extends JPanel  implements MemoryObserver<Integer>, CPU
 			content = new TreeMap<Integer, Integer>();
 		}
 		
+		/**
+		 * Modifica el modelo añadiendo un nuevo valor.
+		 * @param index
+		 * @param value
+		 */
 		// onWrite llama a setValue cuando hay cambios en la memoria
 		public void setValue(int index, int value) {
 			//- modiﬁcar la posición de index (en content) para que tenga el valor nuevo
@@ -112,6 +117,9 @@ public class MemoryPanel extends JPanel  implements MemoryObserver<Integer>, CPU
 			
 		}
 		
+		/**
+		 * Resetea el contenido a mostrar de la memoria.
+		 */
 		// onMemReset (de la memoria) llama a este método 
 		public void reset() {      
 			this.content.clear();
@@ -148,7 +156,6 @@ public class MemoryPanel extends JPanel  implements MemoryObserver<Integer>, CPU
 		 * Devuelve el objeto que toca para pintarlo en la tabla
 		 * @return Object
 		 */
-		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {			
 			Object[] objects = new Object[content.size()];
 			//obtengo todas las keys
@@ -169,70 +176,65 @@ public class MemoryPanel extends JPanel  implements MemoryObserver<Integer>, CPU
 			//si la columna no existe, retorno null
 			return null;
 		}
-		
-		/**
-		 * Devuelve el valor de la posición indicada en la tabla.
-		 * @return Object
-		 */
-		
 	}
 	
-	@Override
-	public void onStartInstrExecution(Instruction instr) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onStartInstrExecution(Instruction instr) {}
 
 	@Override
-	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack, ProgramMv program) {
-	}
+	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack, ProgramMv program) {}
 
-	@Override
+	/**
+	 * Desactiva los textField y el botón al ejecutar el comando run.
+	 */
 	public void onStartRun() {
 		txtValor.setEnabled(false);
 		txtPos.setEnabled(false);
 		btnWrite.setEnabled(false);		
 	}
 
-	@Override
+	/**
+	 * Activa los textField y el botón al finalizar la ejecución del comando run.
+	 */
 	public void onEndRun() {
 		txtValor.setEnabled(true);
 		txtPos.setEnabled(true);
 		btnWrite.setEnabled(true);
 	}
 
-	@Override
-	public void onError(String msg) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onError(String msg) {}
 
-	@Override
+	/**
+	 * Desactiva los textField y el botón al finalizar la ejecución del programa.
+	 */
 	public void onHalt() {
 		txtValor.setEnabled(false);
 		txtPos.setEnabled(false);
 		btnWrite.setEnabled(false);
 	}
 
-	@Override
+	/**
+	 * Resetea el modelo de la memoria.
+	 */
 	public void onReset(ProgramMv program) {
 		_modelo.reset();
 	}
 
-	@Override
+	/**
+	 * Añade un valor nuevo al modelo de la memoria.
+	 * @param index
+	 * @param value
+	 */
 	public void onWrite(int index, Integer value) {
 		_modelo.setValue(index, value);
 	}
 
 	
-	@Override
+	/**
+	 * Resetea el modelo de la memoria
+	 */
 	public void onMemReset() {
 		_modelo.reset();
 	}
 
-	@Override
-	public void onNewIn() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onNewIn() {}
 }

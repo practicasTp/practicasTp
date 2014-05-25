@@ -160,7 +160,10 @@ public class MainWindow  extends JFrame implements CPUObserver, ActionListener{
 			}
 		});
 	}
-
+	
+	/**
+	 * Establece las acciones de los listener.
+	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.programa) {
 			int returnVal = fc.showOpenDialog(null);
@@ -184,12 +187,19 @@ public class MainWindow  extends JFrame implements CPUObserver, ActionListener{
 	
 	//métodos inservibles en esta parte
 	public void onStartInstrExecution(Instruction instr) {}
+	
 	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack, ProgramMv program) {}
+	
 	public void onStartRun() {}
+	
 	public void onEndRun() {}
+	
 	public void onError(String msg) {}
+	
 	public void onHalt() {}
+	
 	public void onReset(ProgramMv program) {}
+	
 	public void onNewIn() {}
 
 }

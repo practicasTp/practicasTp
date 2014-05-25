@@ -20,7 +20,11 @@ public class InteractiveController extends Controller {
 	public InteractiveController(Cpu cpu) {
 		super(cpu);
 	}
-
+	
+	/**
+	 * Ejecuta el modo interactivo cargando el programa, pasando la cpu, leyendo los
+	 * comandos y ejecutándolos.
+	 */
 	public void start() {
 		boolean end = false;
 		

@@ -27,7 +27,7 @@ public class GUIControler extends Controller {
 	JDialog dialogo = null;	
 	
 	/**
-	 * aviso de que el programa se ha cargado
+	 * Aviso de que el programa se ha cargado
 	 */
 	public void start() {
 		//avisamos al programa de que el programa ya ha sido cargado
@@ -35,7 +35,7 @@ public class GUIControler extends Controller {
 	}
 	
 	/**
-	 * pausa la ejecución del programa
+	 * Pausa la ejecución del programa
 	 */
 	public void stop(){
 		cpu.pause();

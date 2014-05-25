@@ -61,15 +61,15 @@ public class OutputPanel extends JPanel implements CPUObserver{
 			init();
 		}
 		
+		/**
+		 * Inicia los atributos.
+		 */
 		private void init(){
 			// inicializar los atributos
 			this.content = new StringBuilder();
 			this.content.append(outputTextArea.getText());
 		}
 		
-		/**
-		 * No hace nada ya que se encarga otro método de abrir el archivo.
-		 */
 		public void open() {}
 		
 		/**
@@ -92,7 +92,9 @@ public class OutputPanel extends JPanel implements CPUObserver{
 			outputTextArea.setText(content.toString());
 		}
 
-		@Override
+		/**
+		 * Resetea el outputMethod, vacía el textArea y reinicia el OutputPanel.
+		 */
 		public void reset() {
 			outCurr.reset();
 			outputTextArea.setText("");
@@ -100,49 +102,20 @@ public class OutputPanel extends JPanel implements CPUObserver{
 		}
 	}
 
-	@Override
-	public void onStartInstrExecution(Instruction instr) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onStartInstrExecution(Instruction instr) {}
 
-	@Override
 	public void onEndInstrExecution(int pc, Memory<Integer> memory,
-			OperandStack<Integer> stack, ProgramMv program) {
-		// TODO Auto-generated method stub
-		
-	}
+			OperandStack<Integer> stack, ProgramMv program) {}
 
-	@Override
-	public void onStartRun() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onStartRun() {}
 
-	@Override
-	public void onEndRun() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onEndRun() {}
 
-	@Override
-	public void onError(String msg) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onError(String msg) {}
 
-	@Override
-	public void onHalt() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onHalt() {}
 
-	@Override
 	public void onReset(ProgramMv program) {}
 
-	@Override
-	public void onNewIn() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onNewIn() {}
 }

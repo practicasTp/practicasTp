@@ -59,9 +59,6 @@ public class ProgramPanel extends JPanel implements CPUObserver {
 		programTextArea.setText(allProgram);
 	}
 	
-	/**
-	 * No se hace nada en este metodo
-	 */
 	public void onStartInstrExecution(Instruction instr) {}
 	
 	/**
@@ -71,27 +68,12 @@ public class ProgramPanel extends JPanel implements CPUObserver {
 		showProgram(program);
 	}
 
-	/**
-	 * No se hace nada en este metodo
-	 */
-	public void onStartRun() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onStartRun() {}
 
-	/**
-	 * No se hace nada en este metodo
-	 */
 	public void onEndRun() {}
 
-	/**
-	 * No se hace nada en este metodo
-	 */
 	public void onError(String msg) {}
 	
-	/**
-	 * No se hace nada en este metodo
-	 */
 	public void onHalt() {}
 
 	/**
@@ -101,8 +83,5 @@ public class ProgramPanel extends JPanel implements CPUObserver {
 		showProgram(p);
 	}
 	
-	/**
-	 * No se hace nada en este metodo
-	 */
 	public void onNewIn() {}
 }

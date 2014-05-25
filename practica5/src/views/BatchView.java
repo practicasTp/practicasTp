@@ -58,10 +58,8 @@ public class BatchView implements CPUObserver{
 		}
 	}
 
-	/**
-	 * Método que muestra que la máquina se ha resetado
-	 */
 	public void onReset(ProgramMv program) {}
+	
 	public void onNewIn() {}
 
 }

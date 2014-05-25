@@ -39,7 +39,9 @@ public class FromOutputStreamOut implements OutputMethod{
 		}
 	}
 
-	@Override
+	/**
+	 * Abre el archivo y crea un nuevo objeto output.
+	 */
 	public void open() {
 		//Recibo la ruta del archivo y la añado al objeto out.
 		try {
@@ -50,7 +52,9 @@ public class FromOutputStreamOut implements OutputMethod{
 		}
 	}
 
-	@Override
+	/**
+	 * Se cierra el output anterior y se abre uno nuevo.
+	 */
 	public void reset() {
 		this.close();
 		this.open();
