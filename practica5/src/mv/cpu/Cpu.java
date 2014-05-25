@@ -39,7 +39,7 @@ public class Cpu implements Observable<CPUObserver> {
 		this.output 	= output;
 		this.program 	= program;
 		this.observers	= new ArrayList<CPUObserver>();
-		this.delay = delay;
+		this.delay 		= delay;
 	}
 	
 	/**
