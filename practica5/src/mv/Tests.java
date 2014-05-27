@@ -50,7 +50,7 @@ public class Tests {
 				"-m window -a " + base + "ejec3/programa.asm -i " + base
 						+ "ejec3/entrada.in" };
 
-		int i = 9; // el n�mero de ejemplo a ejecutar, 1 -- 20
+		int i = 18; // el n�mero de ejemplo a ejecutar, 1 -- 20
 		args = tests[i].split(" ");
 		try {
 			Main.main(args);

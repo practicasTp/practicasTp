@@ -58,26 +58,22 @@ public abstract class Controller {
         iconLabel.setSize(70, 70);
         warning.add(iconLabel);
         
-       
-        
-        JTextArea textArea = new JTextArea();
-        textArea.setEditable(false);
-        textArea.setBackground(new Color(0,0,0,0));
-        textArea.setBorder(null);
-        textArea.setText(msg + " Linea: " + cpu.getPC());
+        JLabel textArea = new JLabel();
+        textArea.setText(msg);
         textArea.setSize(640, 80);
-        textArea.setLocation(25, 120);
-        //textArea.setHorizontalAlignment(JLabel.CENTER);
+        textArea.setLocation(25, 80);
+        textArea.setHorizontalAlignment(JLabel.CENTER);
         textArea.setFont(new Font("Courier", Font.BOLD, 16));
+        textArea.setBackground(null);
         warning.add(textArea);
         
 		dialogo.add(warning);
-
+		
 		
 		dialogo.setLocationRelativeTo(gui);
         dialogo.setVisible(true);
         //Definimos el tipo de estructura general de nuestra ventana
-      	dialogo.setLayout(new FlowLayout(FlowLayout.LEADING, 40, 50));
+        dialogo.setLayout(new FlowLayout(FlowLayout.LEADING, 40, 50));
         
 	}
 	
