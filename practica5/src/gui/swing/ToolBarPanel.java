@@ -156,7 +156,12 @@ public class ToolBarPanel extends JPanel implements CPUObserver, MemoryObserver<
 		resetButton.setEnabled(true);
 	}
 
-	public void onError(String msg) {}
+	public void onError(String msg) {
+		stepButton.setEnabled(false);
+		runButton.setEnabled(false);
+		pauseButton.setVisible(false);
+		resetButton.setEnabled(true);
+	}
 
 	/**
 	 * Desactiva los botones de step y run al finalizar la ejecución del programa.

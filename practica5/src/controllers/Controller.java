@@ -40,7 +40,7 @@ public abstract class Controller {
         dialogo.setSize(700, 250);
         
         
-		Image img = new ImageIcon(MainWindow.class.getResource("error.png")).getImage();
+		Image img = new ImageIcon(MainWindow.class.getResource("/gui/swing/error.png")).getImage();
 		dialogo.setIconImage(img);
 		
 		JPanel warning = new JPanel();
@@ -49,7 +49,7 @@ public abstract class Controller {
 		warning.setLayout(null);
 		
 		JLabel iconLabel = new JLabel();  
-        iconLabel.setIcon(new ImageIcon(MainWindow.class.getResource("error.png")));
+        iconLabel.setIcon(new ImageIcon(MainWindow.class.getResource("/gui/swing/error.png")));
         iconLabel.setHorizontalAlignment(JLabel.CENTER);
         iconLabel.setLocation(300, 20); 
         iconLabel.setSize(70, 70);
@@ -148,6 +148,10 @@ public abstract class Controller {
 		return operando.matches("[-+]?\\d*\\.?\\d+");
 	}
 	
+	private boolean validarPosicion(String posicion) {
+		return posicion.matches("[+]?\\d*\\.?\\d+");
+	}
+	
 	/**
 	 * Ejecuta el método push de la cpu comprobando que el operando cumpla las
 	 * condiciones, en caso negativo lanza un mensaje de error. Después actualiza
@@ -169,14 +173,14 @@ public abstract class Controller {
 	 * @param dato
 	 */
 	public void memorySet(String pos, String dato) { 
-		if(this.validarOperando(pos)){
+		if(this.validarPosicion(pos)){
 			if(this.validarOperando(dato)){
 				this.cpu.store(Integer.parseInt(pos), Integer.parseInt(dato));
 			}else{
 				reportError("Solo están admitidos los números en memoria", this.errorTitle);
 			}
 		}else{
-			reportError("Solo están admitidos los números en la posición de memoria", this.errorTitle);
+			reportError("Sólo se admiten enteros positivos en la posición.", this.errorTitle);
 		}
 	}
 	
