@@ -1,7 +1,6 @@
 package controllers;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
@@ -25,172 +24,184 @@ public abstract class Controller {
 
 	protected Cpu cpu;
 	private MainWindow gui;
-	protected String errorTitle = "Error en la m√°quina virtual";
-	
-	public Controller(Cpu cpu){
+	protected String errorTitle = "Error en la m·quina virtual";
+
+	public Controller(Cpu cpu) {
 		this.cpu = cpu;
 	}
-	
+
 	/**
-	 * M√©todo que se encarga de presentar una pantalla indicando el error producido.
+	 * MÈtodo que se encarga de presentar una pantalla indicando el error
+	 * producido.
+	 * 
 	 * @param msg
 	 * @param title
 	 */
-	protected void reportError(String msg, String title) { 
+	protected void reportError(String msg, String title) {
 		JDialog dialogo = new JDialog(gui);
 		dialogo.setTitle(title);
 		dialogo.setModal(true);
-        dialogo.setSize(700, 250);
-        
-        
-		Image img = new ImageIcon(MainWindow.class.getResource("/gui/swing/error.png")).getImage();
+		dialogo.setSize(700, 250);
+
+		Image img = new ImageIcon(
+				MainWindow.class.getResource("/gui/swing/error.png"))
+				.getImage();
 		dialogo.setIconImage(img);
-		
+
 		JPanel warning = new JPanel();
 		warning.setSize(680, 230);
 		warning.setLocation(10, 10);
 		warning.setLayout(null);
-		
-		JLabel iconLabel = new JLabel();  
-        iconLabel.setIcon(new ImageIcon(MainWindow.class.getResource("/gui/swing/error.png")));
-        iconLabel.setHorizontalAlignment(JLabel.CENTER);
-        iconLabel.setLocation(300, 20); 
-        iconLabel.setSize(70, 70);
-        warning.add(iconLabel);
-        
-        JLabel textArea = new JLabel();
-        textArea.setText(msg);
-        textArea.setSize(640, 80);
-        textArea.setLocation(25, 80);
-        textArea.setHorizontalAlignment(JLabel.CENTER);
-        textArea.setFont(new Font("Courier", Font.BOLD, 16));
-        textArea.setBackground(null);
-        warning.add(textArea);
-        
+
+		JLabel iconLabel = new JLabel();
+		iconLabel.setIcon(new ImageIcon(MainWindow.class
+				.getResource("/gui/swing/error.png")));
+		iconLabel.setHorizontalAlignment(JLabel.CENTER);
+		iconLabel.setLocation(300, 20);
+		iconLabel.setSize(70, 70);
+		warning.add(iconLabel);
+
+		JTextArea textArea = new JTextArea();
+		textArea.setEditable(false);
+		textArea.setBackground(new Color(0, 0, 0, 0));
+		textArea.setBorder(null);
+		textArea.setText(msg + " Linea: " + cpu.getPC());
+		textArea.setSize(640, 80);
+		textArea.setLocation(25, 120);
+		// textArea.setHorizontalAlignment(JLabel.CENTER);
+		textArea.setFont(new Font("Courier", Font.BOLD, 16));
+		warning.add(textArea);
+
 		dialogo.add(warning);
-		
-		
+
 		dialogo.setLocationRelativeTo(gui);
-        dialogo.setVisible(true);
-        //Definimos el tipo de estructura general de nuestra ventana
-        dialogo.setLayout(new FlowLayout(FlowLayout.LEADING, 40, 50));
-        
+		dialogo.setVisible(true);
+		// Definimos el tipo de estructura general de nuestra ventana
+		dialogo.setLayout(new FlowLayout(FlowLayout.LEADING, 40, 50));
+
 	}
-	
+
 	/**
-	 * Intenta realizar el step de la cpu y en caso de error 
-	 * se encarga de capturar y mostrar todas las excepciones.
+	 * Intenta realizar el step de la cpu y en caso de error se encarga de
+	 * capturar y mostrar todas las excepciones.
 	 */
-	public void step() { 
+	public void step() {
 		try {
 			this.cpu.step();
 		} catch (InsufficientOperandsException e) {
-			reportError(e.getMessage(),this.errorTitle);
+			reportError(e.getMessage(), this.errorTitle);
 		} catch (EmptyStackException e) {
-			reportError(e.getMessage(),this.errorTitle);
+			reportError(e.getMessage(), this.errorTitle);
 		} catch (DivisionByZeroException e) {
-			reportError(e.getMessage(),this.errorTitle);
+			reportError(e.getMessage(), this.errorTitle);
 		} catch (IncorrectProgramCounterException e) {
-			reportError(e.getMessage(),this.errorTitle);
+			reportError(e.getMessage(), this.errorTitle);
 		} catch (NegativeNumberIntoMemoryException e) {
-			reportError(e.getMessage(),this.errorTitle);
+			reportError(e.getMessage(), this.errorTitle);
 		} catch (IncorrectMemoryPositionException e) {
-			reportError(e.getMessage(),this.errorTitle);
+			reportError(e.getMessage(), this.errorTitle);
 		}
 	}
-	
+
 	/**
-	 * Ejecuta el run de la cpu y en caso de error se encarga de capturar y mostrar
-	 * todas las excepciones.
+	 * Ejecuta el run de la cpu y en caso de error se encarga de capturar y
+	 * mostrar todas las excepciones.
 	 */
-	public void run() { 
+	public void run() {
 		try {
 			this.cpu.run();
 		} catch (InsufficientOperandsException e) {
-			reportError(e.getMessage(),this.errorTitle);
+			reportError(e.getMessage(), this.errorTitle);
 		} catch (EmptyStackException e) {
-			reportError(e.getMessage(),this.errorTitle);
+			reportError(e.getMessage(), this.errorTitle);
 		} catch (DivisionByZeroException e) {
-			reportError(e.getMessage(),this.errorTitle);
+			reportError(e.getMessage(), this.errorTitle);
 		} catch (IncorrectProgramCounterException e) {
-			reportError(e.getMessage(),this.errorTitle);
+			reportError(e.getMessage(), this.errorTitle);
 		} catch (NegativeNumberIntoMemoryException e) {
-			reportError(e.getMessage(),this.errorTitle);
+			reportError(e.getMessage(), this.errorTitle);
 		} catch (IncorrectMemoryPositionException e) {
-			reportError(e.getMessage(),this.errorTitle);
+			reportError(e.getMessage(), this.errorTitle);
 		}
 	}
-	
+
 	/**
 	 * Comprueba que la cpu no haya finalizado.
+	 * 
 	 * @return boolean
 	 */
-	public boolean finished(){
+	public boolean finished() {
 		return this.cpu.finished();
 	}
-	
+
 	/**
-	 * Ejecuta el pop de la cpu y captura las excepciones que se puedan producir,
-	 * mostrando el error. Despu√©s actualiza la interfaz.
+	 * Ejecuta el pop de la cpu y captura las excepciones que se puedan
+	 * producir, mostrando el error. DespuÈs actualiza la interfaz.
 	 */
-	public void pop() { 
+	public void pop() {
 		try {
 			this.cpu.pop();
 		} catch (EmptyStackException e) {
-			reportError(e.getMessage(),this.errorTitle);
+			reportError(e.getMessage(), this.errorTitle);
 		}
-		//this.gui.updateView();
+		// this.gui.updateView();
 	}
-	
+
 	/**
 	 * Valida el operando que se le pasa.
+	 * 
 	 * @param operando
 	 * @return boolean
 	 */
-	private boolean validarOperando(String operando){
+	private boolean validarOperando(String operando) {
 		return operando.matches("[-+]?\\d*\\.?\\d+");
 	}
-	
+
 	private boolean validarPosicion(String posicion) {
 		return posicion.matches("[+]?\\d*\\.?\\d+");
 	}
-	
+
 	/**
-	 * Ejecuta el m√©todo push de la cpu comprobando que el operando cumpla las
-	 * condiciones, en caso negativo lanza un mensaje de error. Despu√©s actualiza
-	 * la interfaz.
+	 * Ejecuta el mÈtodo push de la cpu comprobando que el operando cumpla las
+	 * condiciones, en caso negativo lanza un mensaje de error. DespuÈs
+	 * actualiza la interfaz.
+	 * 
 	 * @param s
 	 */
 	public void push(String s) {
-		if(this.validarOperando(s)){
+		if (this.validarOperando(s)) {
 			this.cpu.push(Integer.parseInt(s));
-		}else{
-			reportError("Solo est√°n admitidos los n√∫meros a la hora de insertar elementos", this.errorTitle);
+		} else {
+			reportError(
+					"Solo est·n admitidos los n˙meros a la hora de insertar elementos",
+					this.errorTitle);
 		}
 	}
-	
+
 	/**
-	 * Ejecuta el store de la cpu realizando las correspondientes validaciones de los
-	 * operandos a utilizar. Despu√©s actualiza la interfaz.
+	 * Ejecuta el store de la cpu realizando las correspondientes validaciones
+	 * de los operandos a utilizar. DespuÈs actualiza la interfaz.
+	 * 
 	 * @param pos
 	 * @param dato
 	 */
-	public void memorySet(String pos, String dato) { 
-		if(this.validarPosicion(pos)){
-			if(this.validarOperando(dato)){
+	public void memorySet(String pos, String dato) {
+		if (this.validarPosicion(pos)) {
+			if (this.validarOperando(dato)) {
 				this.cpu.store(Integer.parseInt(pos), Integer.parseInt(dato));
-			}else{
-				reportError("Solo est√°n admitidos los n√∫meros en memoria", this.errorTitle);
+			} else {
+				reportError("Solo est·n admitidos los n˙meros en memoria",
+						this.errorTitle);
 			}
-		}else{
-			reportError("S√≥lo se admiten enteros positivos en la posici√≥n.", this.errorTitle);
+		} else {
+			reportError("SÛlo se admiten enteros positivos en la posiciÛn.",
+					this.errorTitle);
 		}
 	}
-	
-	public void pause() {} // ejecuta el pause del cpu 
-	
-	public abstract void start(); // un m√©todo abstracto, depende del modo ! 
-	
 
-	
+	public void pause() {
+	} // ejecuta el pause del cpu
+
+	public abstract void start(); // un mÈtodo abstracto, depende del modo !
+
 }
