@@ -1,5 +1,7 @@
 package controllers;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
@@ -8,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 import mv.cpu.Cpu;
 import mv.exceptions.DivisionByZeroException;
@@ -55,13 +58,17 @@ public abstract class Controller {
         iconLabel.setSize(70, 70);
         warning.add(iconLabel);
         
-        JLabel textArea = new JLabel();
-        textArea.setText(msg);
+       
+        
+        JTextArea textArea = new JTextArea();
+        textArea.setEditable(false);
+        textArea.setBackground(new Color(0,0,0,0));
+        textArea.setBorder(null);
+        textArea.setText(msg + " Linea: " + cpu.getPC());
         textArea.setSize(640, 80);
-        textArea.setLocation(25, 80);
-        textArea.setHorizontalAlignment(JLabel.CENTER);
+        textArea.setLocation(25, 120);
+        //textArea.setHorizontalAlignment(JLabel.CENTER);
         textArea.setFont(new Font("Courier", Font.BOLD, 16));
-        textArea.setBackground(null);
         warning.add(textArea);
         
 		dialogo.add(warning);
