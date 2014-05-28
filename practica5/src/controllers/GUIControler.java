@@ -44,27 +44,9 @@ public class GUIControler extends Controller {
 	/**
 	 * Carga un nuevo programa en la cpu
 	 */
-	public void loadNewProgram(String path){
-		try {
-			//intento cargar el programa
-			ProgramMv program = ProgramMv.readProgram(path);
-			//lo paso a la cpu
-			cpu.loadProgram(program);
-			try {
-				//reseteo la cpu avisando de que NO he cargado ninguna entrada previa
-				cpu.resetCpu(false);
-			} catch (MvError e) {
-				//si hay algún error, aviso
-				reportError(e.getMessage(), this.errorTitle);
-			}
-			//si hay algún problema en el programa aviso y termino la ejecución
-		} catch (IncorrectParsingInstruction e) {
-			reportError(e.getMessage()+"\nLa instrucción fallida se encuentra en la linea "
-					+ ProgramMv.contLinea + ": '"
-					+ ProgramMv.instructionLine + "'", this.errorTitle);
-			
-			System.exit(1);
-		}
+	public void loadNewProgram(ProgramMv program){
+		cpu.loadProgram(program);
+		cpu.resetCpu(false);
 	}
 	
 	/**
@@ -79,36 +61,21 @@ public class GUIControler extends Controller {
     		//si existe, creará un nuevo método de entrada
     		input = new FromInputStreamIn(path);
     	}catch (FileNotFoundException e) {
-    		//si por alguna cosa hay algún problema, lo detecto y activo la entrada nula
-    		reportError(e.getMessage()+"\n Se activa la entrada nula.", this.errorTitle);
 			input = new NullIn();
 		}
     	
     	try {
     		//establezco la nueva entrada
 			this.cpu.setInStream(input);
-			
-			try {
-				//reseteo la cpu avisando que previamente he cargado una nueva entrada
-				cpu.resetCpu(true);
-			} catch (MvError e) {//si hay algún problema, aviso
-				reportError(e.getMessage(), this.errorTitle);
-			}
-		} catch (MvError e) {//si hay algún problema, aviso
-			reportError(e.getMessage(), this.errorTitle);
-		}
+			cpu.resetCpu(true);
+		} catch (MvError e) {}
 	}
 	
 	/**
 	 * Resetea la cpu
 	 */
 	public void reset(){
-		try {
-			//reseteo la cpu avisando de que previamente NO he cargado una nueva entrada
-			cpu.resetCpu(false);
-		} catch (MvError e) {
-			reportError(e.getMessage(), this.errorTitle);
-		}
+		cpu.resetCpu(false);
 	}
 	
 	/**
@@ -142,9 +109,7 @@ public class GUIControler extends Controller {
 	public void setInStream(InputMethod in) { 
 		try {
 			this.cpu.setInStream(in);
-		} catch (MvError e) {
-			reportError(e.getMessage(), this.errorTitle);
-		}
+		} catch (MvError e) {}
 	}
 	
 	/**
@@ -155,9 +120,7 @@ public class GUIControler extends Controller {
 	public void setOutStream(OutputMethod out) { 
 		try {
 			this.cpu.setOutStream(out);
-		} catch (MvError e) {
-			reportError(e.getMessage(), this.errorTitle);
-		}
+		} catch (MvError e) {}
 	}
 	
 	/**

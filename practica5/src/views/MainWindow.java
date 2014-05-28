@@ -36,6 +36,7 @@ import javax.swing.JTextArea;
 
 import mv.cpu.Memory;
 import mv.cpu.OperandStack;
+import mv.exceptions.IncorrectParsingInstruction;
 import mv.instructions.Instruction;
 import mv.program.ProgramMv;
 import observers.CPUObserver;
@@ -180,8 +181,20 @@ public class MainWindow  extends JFrame implements CPUObserver, ActionListener{
 			int returnVal = fc.showOpenDialog(null);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				File file = fc.getSelectedFile();
-				this.ctrl.loadNewProgram(file.getPath());
-				JOptionPane.showMessageDialog(this, "Se ha importado correctamente el programa: " + file.getName());
+				try {
+					//intento cargar el programa
+					ProgramMv program = ProgramMv.readProgram(file.getPath());
+					this.ctrl.loadNewProgram(program);
+					JOptionPane.showMessageDialog(this, "Se ha importado correctamente el programa: " + file.getName());
+					//si hay algún problema en el programa aviso y termino la ejecución
+				} catch (IncorrectParsingInstruction e1) {
+					JOptionPane.showMessageDialog(this, e1.getMessage()+"\nLa instrucción fallida se encuentra en la linea "
+							+ ProgramMv.contLinea + ": '"
+							+ ProgramMv.instructionLine + "'");
+					
+					System.exit(1);
+				}
+				
 			}
 		} else if (e.getSource() == this.entrada) {
 			int returnVal = fc.showOpenDialog(null);

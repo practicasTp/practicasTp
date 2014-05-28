@@ -21,17 +21,6 @@ public abstract class Controller {
 	}
 
 	/**
-	 * Método que se encarga de presentar una pantalla indicando el error
-	 * producido.
-	 * 
-	 * @param msg
-	 * @param title
-	 */
-	protected void reportError(String msg, String title) {
-		this.gui.reportError(msg, title);
-	}
-
-	/**
 	 * Intenta realizar el step de la cpu y en caso de error se encarga de
 	 * capturar y mostrar todas las excepciones.
 	 */
@@ -53,19 +42,12 @@ public abstract class Controller {
 	public void run() {
 		try {
 			this.cpu.run();
-		} catch (InsufficientOperandsException e) {
-			reportError(e.getMessage(), this.errorTitle);
-		} catch (EmptyStackException e) {
-			reportError(e.getMessage(), this.errorTitle);
-		} catch (DivisionByZeroException e) {
-			reportError(e.getMessage(), this.errorTitle);
-		} catch (IncorrectProgramCounterException e) {
-			reportError(e.getMessage(), this.errorTitle);
-		} catch (NegativeNumberIntoMemoryException e) {
-			reportError(e.getMessage(), this.errorTitle);
-		} catch (IncorrectMemoryPositionException e) {
-			reportError(e.getMessage(), this.errorTitle);
-		}
+		} catch (InsufficientOperandsException e) {} 
+		catch (EmptyStackException e) {} 
+		catch (DivisionByZeroException e) {} 
+		catch (IncorrectProgramCounterException e) {} 
+		catch (NegativeNumberIntoMemoryException e) {} 
+		catch (IncorrectMemoryPositionException e) {}
 	}
 
 	/**

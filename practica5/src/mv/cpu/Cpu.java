@@ -71,7 +71,12 @@ public class Cpu implements Observable<CPUObserver> {
 	 * @throws MvError
 	 */
 	public void setInStream(InputMethod s) throws MvError { 
-		if (s == null) throw new MvError("Cannot set inStream to null");
+		if (s == null) {
+			for(CPUObserver o: this.observers){
+				o.onError("Cannot set inStream to null");
+			}
+			throw new MvError("Cannot set inStream to null");
+		}
 		else input = s;
 	}
 	
@@ -81,7 +86,12 @@ public class Cpu implements Observable<CPUObserver> {
 	 * @throws MvError
 	 */
 	public void setOutStream(OutputMethod s) throws MvError {
-		if (s == null) throw new MvError("Cannot set inStream to null");
+		if (s == null) {
+			for(CPUObserver o: this.observers){
+				o.onError("Cannot set outStream to null");
+			}
+			throw new MvError("Cannot set outStream to null");
+		}
 		else output = s;
 	}
 	
@@ -239,9 +249,8 @@ public class Cpu implements Observable<CPUObserver> {
 	/**
 	 * Inicializa todos los atributos de la Cpu para preparar una ejecución con run.
 	 * @param newIn ->determina si previamente se ha cargado un nuevo método de entrada
-	 * @throws MvError 
 	 */
-	public void resetCpu (boolean newIn) throws MvError {
+	public void resetCpu (boolean newIn) {
 		this.input.reset();
 		this.output.reset();
 		this.fin = false;
