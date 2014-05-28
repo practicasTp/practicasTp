@@ -1,16 +1,6 @@
 package controllers;
 
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Image;
-
-import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-
+import observers.CPUObserver;
 import mv.cpu.Cpu;
 import mv.exceptions.DivisionByZeroException;
 import mv.exceptions.EmptyStackException;
@@ -38,47 +28,7 @@ public abstract class Controller {
 	 * @param title
 	 */
 	protected void reportError(String msg, String title) {
-		JDialog dialogo = new JDialog(gui);
-		dialogo.setTitle(title);
-		dialogo.setModal(true);
-		dialogo.setSize(700, 250);
-
-		Image img = new ImageIcon(
-				MainWindow.class.getResource("/gui/swing/error.png"))
-				.getImage();
-		dialogo.setIconImage(img);
-
-		JPanel warning = new JPanel();
-		warning.setSize(680, 230);
-		warning.setLocation(10, 10);
-		warning.setLayout(null);
-
-		JLabel iconLabel = new JLabel();
-		iconLabel.setIcon(new ImageIcon(MainWindow.class
-				.getResource("/gui/swing/error.png")));
-		iconLabel.setHorizontalAlignment(JLabel.CENTER);
-		iconLabel.setLocation(300, 20);
-		iconLabel.setSize(70, 70);
-		warning.add(iconLabel);
-
-		JTextArea textArea = new JTextArea();
-		textArea.setEditable(false);
-		textArea.setBackground(new Color(0, 0, 0, 0));
-		textArea.setBorder(null);
-		textArea.setText(msg + " Linea: " + cpu.getPC());
-		textArea.setSize(640, 80);
-		textArea.setLocation(25, 120);
-		// textArea.setHorizontalAlignment(JLabel.CENTER);
-		textArea.setFont(new Font("Courier", Font.BOLD, 16));
-		warning.add(textArea);
-
-		dialogo.add(warning);
-
-		dialogo.setLocationRelativeTo(gui);
-		dialogo.setVisible(true);
-		// Definimos el tipo de estructura general de nuestra ventana
-		dialogo.setLayout(new FlowLayout(FlowLayout.LEADING, 40, 50));
-
+		this.gui.reportError(msg, title);
 	}
 
 	/**
@@ -88,19 +38,12 @@ public abstract class Controller {
 	public void step() {
 		try {
 			this.cpu.step();
-		} catch (InsufficientOperandsException e) {
-			reportError(e.getMessage(), this.errorTitle);
-		} catch (EmptyStackException e) {
-			reportError(e.getMessage(), this.errorTitle);
-		} catch (DivisionByZeroException e) {
-			reportError(e.getMessage(), this.errorTitle);
-		} catch (IncorrectProgramCounterException e) {
-			reportError(e.getMessage(), this.errorTitle);
-		} catch (NegativeNumberIntoMemoryException e) {
-			reportError(e.getMessage(), this.errorTitle);
-		} catch (IncorrectMemoryPositionException e) {
-			reportError(e.getMessage(), this.errorTitle);
-		}
+		} catch (InsufficientOperandsException e) {} 
+		catch (EmptyStackException e) {} 
+		catch (DivisionByZeroException e) {} 
+		catch (IncorrectProgramCounterException e) {} 
+		catch (NegativeNumberIntoMemoryException e) {} 
+		catch (IncorrectMemoryPositionException e) {}
 	}
 
 	/**
@@ -141,9 +84,7 @@ public abstract class Controller {
 	public void pop() {
 		try {
 			this.cpu.pop();
-		} catch (EmptyStackException e) {
-			reportError(e.getMessage(), this.errorTitle);
-		}
+		} catch (EmptyStackException e) {}
 		// this.gui.updateView();
 	}
 
@@ -153,50 +94,34 @@ public abstract class Controller {
 	 * @param operando
 	 * @return boolean
 	 */
-	private boolean validarOperando(String operando) {
+	public boolean validarOperando(String operando) {
 		return operando.matches("[-+]?\\d*\\.?\\d+");
 	}
 
-	private boolean validarPosicion(String posicion) {
+	public boolean validarPosicion(String posicion) {
 		return posicion.matches("[+]?\\d*\\.?\\d+");
 	}
 
 	/**
-	 * Ejecuta el m�todo push de la cpu comprobando que el operando cumpla las
-	 * condiciones, en caso negativo lanza un mensaje de error. Despu�s
+	 * Ejecuta el método push de la cpu comprobando que el operando cumpla las
+	 * condiciones, en caso negativo lanza un mensaje de error. Después
 	 * actualiza la interfaz.
 	 * 
 	 * @param s
 	 */
 	public void push(String s) {
-		if (this.validarOperando(s)) {
-			this.cpu.push(Integer.parseInt(s));
-		} else {
-			reportError(
-					"Solo est�n admitidos los n�meros a la hora de insertar elementos",
-					this.errorTitle);
-		}
+		this.cpu.push(Integer.parseInt(s));	
 	}
 
 	/**
 	 * Ejecuta el store de la cpu realizando las correspondientes validaciones
-	 * de los operandos a utilizar. Despu�s actualiza la interfaz.
+	 * de los operandos a utilizar. Después actualiza la interfaz.
 	 * 
 	 * @param pos
 	 * @param dato
 	 */
 	public void memorySet(String pos, String dato) {
-		if (this.validarPosicion(pos)) {
-			if (this.validarOperando(dato)) {
-				this.cpu.store(Integer.parseInt(pos), Integer.parseInt(dato));
-			} else {
-				reportError("Solo est�n admitidos los n�meros en memoria",
-						this.errorTitle);
-			}
-		} else {
-			reportError("S�lo se admiten enteros positivos en la posici�n.",
-					this.errorTitle);
-		}
+		this.cpu.store(Integer.parseInt(pos), Integer.parseInt(dato));	
 	}
 
 	public void pause() {

@@ -10,7 +10,9 @@ import java.util.TreeMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -81,7 +83,15 @@ public class MemoryPanel extends JPanel  implements MemoryObserver<Integer>, CPU
 		
 		btnWrite.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				guiCtrl.memorySet(txtPos.getText(),txtValor.getText());
+				JDialog error = new JDialog();
+				if (guiCtrl.validarPosicion(txtPos.getText())) {
+					if (guiCtrl.validarOperando(txtValor.getText()))
+						guiCtrl.memorySet(txtPos.getText(),txtValor.getText());
+					else
+						JOptionPane.showMessageDialog(error,"Sólo están admitidos los números entero en la memoria.");
+				} else
+					JOptionPane.showMessageDialog(error,"Sólo están admitidos los números enteros positivos en la posición.");
+						
 				txtPos.setText("");
 				txtValor.setText("");
 			}

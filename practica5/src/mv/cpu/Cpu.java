@@ -175,7 +175,14 @@ public class Cpu implements Observable<CPUObserver> {
 		//si no se apila hay error
 		int value = 0;
 		
-		value = this.pila.getDato(this.pila.getCima());
+		try {
+			value = this.pila.getDato(this.pila.getCima());
+		} catch (EmptyStackException e) {
+			for(CPUObserver o: this.observers){
+				o.onError(e.getMessage());
+			}
+			throw e;
+		}
 		this.pila.unstackData();
 		
 		

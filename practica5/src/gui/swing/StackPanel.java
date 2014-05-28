@@ -10,8 +10,10 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -71,7 +73,12 @@ public class StackPanel extends JPanel implements StackObserver<Integer>, CPUObs
 		
 		btnPush.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				guiCtrl.push(txtValor.getText());
+				if (guiCtrl.validarOperando(txtValor.getText())) {
+					guiCtrl.push(txtValor.getText());
+				} else {
+					JDialog error = new JDialog();
+					JOptionPane.showMessageDialog(error,"Sólo están admitidos los números en la pila");
+				}
 				txtValor.setText("");
 			}
 		});

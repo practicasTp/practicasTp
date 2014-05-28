@@ -10,8 +10,12 @@ import gui.swing.StatePanel;
 import gui.swing.ToolBarPanel;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -19,13 +23,16 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 import mv.cpu.Memory;
 import mv.cpu.OperandStack;
@@ -39,6 +46,10 @@ import controllers.GUIControler;
 
 public class MainWindow  extends JFrame implements CPUObserver, ActionListener{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private GUIControler ctrl;
 	private Observable<CPUObserver> cpu;
 	private Observable<StackObserver<Integer>> stack;
@@ -185,6 +196,50 @@ public class MainWindow  extends JFrame implements CPUObserver, ActionListener{
 		}
 	}
 	
+	public void reportError(String msg, String title) {
+		JDialog dialogo = new JDialog(this);
+		dialogo.setTitle(title);
+		dialogo.setModal(true);
+		dialogo.setSize(700, 250);
+
+		Image img = new ImageIcon(
+				MainWindow.class.getResource("/gui/swing/error.png"))
+				.getImage();
+		dialogo.setIconImage(img);
+
+		JPanel warning = new JPanel();
+		warning.setSize(680, 230);
+		warning.setLocation(10, 10);
+		warning.setLayout(null);
+
+		JLabel iconLabel = new JLabel();
+		iconLabel.setIcon(new ImageIcon(MainWindow.class
+				.getResource("/gui/swing/error.png")));
+		iconLabel.setHorizontalAlignment(JLabel.CENTER);
+		iconLabel.setLocation(300, 20);
+		iconLabel.setSize(70, 70);
+		warning.add(iconLabel);
+
+		JTextArea textArea = new JTextArea();
+		textArea.setEditable(false);
+		textArea.setBackground(new Color(0, 0, 0, 0));
+		textArea.setBorder(null);
+		textArea.setText(msg + " Linea: " + this.ctrl.getPC());
+		textArea.setSize(640, 80);
+		textArea.setLocation(25, 120);
+		// textArea.setHorizontalAlignment(JLabel.CENTER);
+		textArea.setFont(new Font("Courier", Font.BOLD, 16));
+		warning.add(textArea);
+
+		dialogo.add(warning);
+
+		dialogo.setLocationRelativeTo(this);
+		dialogo.setVisible(true);
+		// Definimos el tipo de estructura general de nuestra ventana
+		dialogo.setLayout(new FlowLayout(FlowLayout.LEADING, 40, 50));
+
+	}
+	
 	//métodos inservibles en esta parte
 	public void onStartInstrExecution(Instruction instr) {}
 	
@@ -194,7 +249,9 @@ public class MainWindow  extends JFrame implements CPUObserver, ActionListener{
 	
 	public void onEndRun() {}
 	
-	public void onError(String msg) {}
+	public void onError(String msg) {
+		this.reportError(msg, "Error en la máquina virtual.");
+	}
 	
 	public void onHalt() {}
 	
