@@ -176,7 +176,7 @@ public class Main {
 	 * @param args
 	 * @throws InsufficientOperandsException 
 	 */
-	public static void main(String[] args)throws InsufficientOperandsException{
+	public static void main(String[] args){
 		startMv(args);
 	}
 	

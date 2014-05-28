@@ -47,7 +47,6 @@ public class ProgramPanel extends JPanel implements CPUObserver {
 	
 	private void showProgram(ProgramMv p){
 		String allProgram = "";
-		this.pc = guiCtrl.getPC();
 		for(int i=0;i<p.getSizeProgram();i++){
 			if(i == this.pc){
 				allProgram += "*    "+p.lineToString(i);
@@ -65,6 +64,7 @@ public class ProgramPanel extends JPanel implements CPUObserver {
 	 * Actualizamos el programa
 	 */
 	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack,  ProgramMv program) {
+		this.pc = pc;
 		showProgram(program);
 	}
 
@@ -80,6 +80,7 @@ public class ProgramPanel extends JPanel implements CPUObserver {
 	 * Repintamos el programa
 	 */
 	public void onReset(ProgramMv p) {
+		this.pc = 0;
 		showProgram(p);
 	}
 	

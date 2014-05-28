@@ -24,14 +24,14 @@ public abstract class Controller {
 
 	protected Cpu cpu;
 	private MainWindow gui;
-	protected String errorTitle = "Error en la máquina virtual";
+	protected String errorTitle = "Error en la mÃ¡quina virtual";
 
 	public Controller(Cpu cpu) {
 		this.cpu = cpu;
 	}
 
 	/**
-	 * Método que se encarga de presentar una pantalla indicando el error
+	 * MÃ©todo que se encarga de presentar una pantalla indicando el error
 	 * producido.
 	 * 
 	 * @param msg
@@ -136,7 +136,7 @@ public abstract class Controller {
 
 	/**
 	 * Ejecuta el pop de la cpu y captura las excepciones que se puedan
-	 * producir, mostrando el error. Después actualiza la interfaz.
+	 * producir, mostrando el error. Despuï¿½s actualiza la interfaz.
 	 */
 	public void pop() {
 		try {
@@ -162,8 +162,8 @@ public abstract class Controller {
 	}
 
 	/**
-	 * Ejecuta el método push de la cpu comprobando que el operando cumpla las
-	 * condiciones, en caso negativo lanza un mensaje de error. Después
+	 * Ejecuta el mï¿½todo push de la cpu comprobando que el operando cumpla las
+	 * condiciones, en caso negativo lanza un mensaje de error. Despuï¿½s
 	 * actualiza la interfaz.
 	 * 
 	 * @param s
@@ -173,14 +173,14 @@ public abstract class Controller {
 			this.cpu.push(Integer.parseInt(s));
 		} else {
 			reportError(
-					"Solo están admitidos los números a la hora de insertar elementos",
+					"Solo estï¿½n admitidos los nï¿½meros a la hora de insertar elementos",
 					this.errorTitle);
 		}
 	}
 
 	/**
 	 * Ejecuta el store de la cpu realizando las correspondientes validaciones
-	 * de los operandos a utilizar. Después actualiza la interfaz.
+	 * de los operandos a utilizar. Despuï¿½s actualiza la interfaz.
 	 * 
 	 * @param pos
 	 * @param dato
@@ -190,11 +190,11 @@ public abstract class Controller {
 			if (this.validarOperando(dato)) {
 				this.cpu.store(Integer.parseInt(pos), Integer.parseInt(dato));
 			} else {
-				reportError("Solo están admitidos los números en memoria",
+				reportError("Solo estï¿½n admitidos los nï¿½meros en memoria",
 						this.errorTitle);
 			}
 		} else {
-			reportError("Sólo se admiten enteros positivos en la posición.",
+			reportError("Sï¿½lo se admiten enteros positivos en la posiciï¿½n.",
 					this.errorTitle);
 		}
 	}
@@ -202,6 +202,6 @@ public abstract class Controller {
 	public void pause() {
 	} // ejecuta el pause del cpu
 
-	public abstract void start(); // un método abstracto, depende del modo !
+	public abstract void start(); // un mï¿½todo abstracto, depende del modo !
 
 }

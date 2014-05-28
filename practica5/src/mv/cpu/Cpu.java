@@ -104,14 +104,14 @@ public class Cpu implements Observable<CPUObserver> {
 	 * @throws DivisionByZeroException 
 	 */
 	public void run() throws EmptyStackException, NegativeNumberIntoMemoryException, InsufficientOperandsException, DivisionByZeroException, IncorrectProgramCounterException, IncorrectMemoryPositionException{
-		boolean resultado = false;
+		boolean resultado = true;
 		
 		//aviso que la ejecucion del run ha empezado
 		for(CPUObserver o: this.observers){
 			o.onStartRun();
 		}
 		
-		do{
+		while(resultado && !this.pauseRun && !this.fin){
 			//si la instrucción se ejecuta correctamente
 			if (this.step()){
 				resultado = true;
@@ -121,7 +121,7 @@ public class Cpu implements Observable<CPUObserver> {
 				resultado = false;
 			}
 		//repito hasta que la cpu me diga que no hay más instrucciones a ejecutar	
-		}while(resultado!=false && !this.pauseRun);
+		}
 		
 		//avisar que la ejecución del run ha terminado
 		for(CPUObserver o: this.observers){
