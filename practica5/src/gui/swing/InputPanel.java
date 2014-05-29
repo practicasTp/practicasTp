@@ -6,6 +6,7 @@ import java.awt.Font;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 import javax.swing.border.TitledBorder;
 
 import observers.CPUObserver;
@@ -110,8 +111,12 @@ public class InputPanel extends JPanel implements CPUObserver{
 		 * Resetea el input y lo reinicia.
 		 */
 		public void reset() {
-			inCurr.reset();
-			init();
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					inCurr.reset();
+					init();
+				}
+			});
 		}
 	}
 	
@@ -134,8 +139,12 @@ public class InputPanel extends JPanel implements CPUObserver{
 	 * InStreamGui para reiniciar el text area y se establece en la cpu.
 	 */
 	public void onNewIn() {
-		inCurr = guiCtrl.getInStream();
-		this.inNew = new InStreamGUI();
-		guiCtrl.setInStream( inNew );
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				inCurr = guiCtrl.getInStream();
+				inNew = new InStreamGUI();
+				guiCtrl.setInStream( inNew );
+			}
+		});
 	}
 }

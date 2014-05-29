@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import mv.cpu.Memory;
 import mv.cpu.OperandStack;
@@ -23,7 +24,6 @@ import controllers.GUIControler;
 public class StatePanel extends JPanel implements MemoryObserver<Integer>, StackObserver<Integer>, CPUObserver {
 	
 	private static final long serialVersionUID = 1L;
-	private GUIControler guiCtrl;
 	private JPanel panel;
 	private int i; 
 	private JLabel lblParada;
@@ -32,14 +32,11 @@ public class StatePanel extends JPanel implements MemoryObserver<Integer>, Stack
 	private JLabel lblPila;
 	private JCheckBox chMem;
 	private JCheckBox chPila;
-	private boolean	chMemSel = false;
-	private boolean	chPilaSel = false;
 	
 	public StatePanel(GUIControler ctrl, Observable<StackObserver<Integer>> stack, Observable<MemoryObserver<Integer>> memory, Observable<CPUObserver> cpu) {
 		memory.addObserver(this);
 		cpu.addObserver(this);
 		stack.addObserver(this);
-		this.guiCtrl = ctrl;
 		initGUI();
 		
 	}
@@ -92,7 +89,11 @@ public class StatePanel extends JPanel implements MemoryObserver<Integer>, Stack
 	 * una.
 	 */
 	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack, ProgramMv program) {
-		lblNumIns.setText("Num. instrucciones ejecutadas: " + ++i);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				lblNumIns.setText("Num. instrucciones ejecutadas: " + ++i);
+			}
+		});
 	}
 
 	@Override
@@ -108,36 +109,52 @@ public class StatePanel extends JPanel implements MemoryObserver<Integer>, Stack
 	 * Modifica las etiquetas del panel de estado al finalizar la ejecución.
 	 */
 	public void onHalt() {
-		chMem.setSelected(false);
-		chPila.setSelected(false);
-		lblParada.setVisible(true);	
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				chMem.setSelected(false);
+				chPila.setSelected(false);
+				lblParada.setVisible(true);	
+			}
+		});
 	}
 
 	/**
 	 * Modifica las etiquetas del panel de estado reiniciando sus valores.
 	 */
 	public void onReset(ProgramMv program) {
-		chMem.setSelected(false);
-		chPila.setSelected(false);
-		lblParada.setVisible(false);	
-		lblNumIns.setText("Num. instrucciones ejecutadas: " + 0);
-		this.i=0;
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				chMem.setSelected(false);
+				chPila.setSelected(false);
+				lblParada.setVisible(false);	
+				lblNumIns.setText("Num. instrucciones ejecutadas: " + 0);
+				i=0;
+			}
+		});
 	}
 
 	/**
 	 * Muestra que se ha modificado la pila cada vez que se hace un push.
 	 */
 	public void onPush(Integer value) {
-		chPila.setSelected(true);
-		chMem.setSelected(false);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				chPila.setSelected(true);
+				chMem.setSelected(false);
+			}
+		});
 	}
 
 	/**
 	 * Muestra que se ha modificado la pila cada vez que se hace un pop.
 	 */
 	public void onPop(Integer value) {
-		chPila.setSelected(true);
-		chMem.setSelected(false);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				chPila.setSelected(true);
+				chMem.setSelected(false);
+			}
+		});
 	}
 
 	@Override
@@ -147,8 +164,12 @@ public class StatePanel extends JPanel implements MemoryObserver<Integer>, Stack
 	 * Muestra que se ha modificado la memoria cada vez que se escribe en ella.
 	 */
 	public void onWrite(int index, Integer value) {
-		chMem.setSelected(true);
-		chPila.setSelected(false);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				chMem.setSelected(true);
+				chPila.setSelected(false);
+			}
+		});
 	}
 
 	@Override

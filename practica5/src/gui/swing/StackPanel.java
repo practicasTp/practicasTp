@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import mv.cpu.Memory;
 import mv.cpu.OperandStack;
@@ -108,18 +109,26 @@ public class StackPanel extends JPanel implements StackObserver<Integer>, CPUObs
 	 * Desactiva los botones y el textField al ejecutar el comando run.
 	 */
 	public void onStartRun() {
-		this.txtValor.setEnabled(false);
-		this.btnPush.setEnabled(false);
-		this.btnPop.setEnabled(false);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				txtValor.setEnabled(false);
+				btnPush.setEnabled(false);
+				btnPop.setEnabled(false);
+			}
+		});
 	}
 
 	/**
 	 * Activa los botones y el textField al terminar la ejecución del comando run.
 	 */
 	public void onEndRun() {
-		this.txtValor.setEnabled(true);
-		this.btnPush.setEnabled(true);
-		this.btnPop.setEnabled(true);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				txtValor.setEnabled(true);
+				btnPush.setEnabled(true);
+				btnPop.setEnabled(true);
+			}
+		});
 	}
 
 	@Override
@@ -129,9 +138,13 @@ public class StackPanel extends JPanel implements StackObserver<Integer>, CPUObs
 	 * Desactiva los botones y el textField al terminar la ejecución del programa.
 	 */
 	public void onHalt() {
-		this.txtValor.setEnabled(false);
-		this.btnPush.setEnabled(false);
-		this.btnPop.setEnabled(false);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				txtValor.setEnabled(false);
+				btnPush.setEnabled(false);
+				btnPop.setEnabled(false);
+			}
+		});
 	}
 
 	/**
@@ -139,28 +152,47 @@ public class StackPanel extends JPanel implements StackObserver<Integer>, CPUObs
 	 * máquina.
 	 */
 	public void onReset(ProgramMv program) {
-		_modeloLista.clear();
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				_modeloLista.clear();
+				txtValor.setEnabled(true);
+				btnPush.setEnabled(true);
+				btnPop.setEnabled(true);
+			}
+		});
 	}
 
 	/**
 	 * Añade un elemento a la ventana donde se muestran los valores de la pila.
 	 */
-	public void onPush(Integer value) {
-		_modeloLista.addElement(value);
+	public void onPush(final Integer value) {
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				_modeloLista.addElement(value);
+			}
+		});
 	}
 
 	/**
 	 * Elimina un elemento de la ventana donde se muestran los valores de la pila.
 	 */
-	public void onPop(Integer value) {
-		_modeloLista.removeElement(value);
+	public void onPop(final Integer value) {
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				_modeloLista.removeElement(value);
+			}
+		});
 	}
 
 	/**
 	 * Limpia el contenido de la pila, la vacía.
 	 */
 	public void onStackReset() {
-		this.guiCtrl.getOperandStack().clean();
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				_modeloLista.clear();
+			}
+		});
 	}
 
 	@Override

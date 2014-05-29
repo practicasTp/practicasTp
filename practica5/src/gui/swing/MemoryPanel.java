@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -197,18 +198,26 @@ public class MemoryPanel extends JPanel  implements MemoryObserver<Integer>, CPU
 	 * Desactiva los textField y el botón al ejecutar el comando run.
 	 */
 	public void onStartRun() {
-		txtValor.setEnabled(false);
-		txtPos.setEnabled(false);
-		btnWrite.setEnabled(false);		
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				txtValor.setEnabled(false);
+				txtPos.setEnabled(false);
+				btnWrite.setEnabled(false);
+			}
+		});		
 	}
 
 	/**
 	 * Activa los textField y el botón al finalizar la ejecución del comando run.
 	 */
 	public void onEndRun() {
-		txtValor.setEnabled(true);
-		txtPos.setEnabled(true);
-		btnWrite.setEnabled(true);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				txtValor.setEnabled(true);
+				txtPos.setEnabled(true);
+				btnWrite.setEnabled(true);
+			}
+		});
 	}
 
 	public void onError(String msg) {}
@@ -217,16 +226,27 @@ public class MemoryPanel extends JPanel  implements MemoryObserver<Integer>, CPU
 	 * Desactiva los textField y el botón al finalizar la ejecución del programa.
 	 */
 	public void onHalt() {
-		txtValor.setEnabled(false);
-		txtPos.setEnabled(false);
-		btnWrite.setEnabled(false);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				txtValor.setEnabled(false);
+				txtPos.setEnabled(false);
+				btnWrite.setEnabled(false);
+			}
+		});
 	}
 
 	/**
 	 * Resetea el modelo de la memoria.
 	 */
 	public void onReset(ProgramMv program) {
-		_modelo.reset();
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				_modelo.reset();
+				txtValor.setEnabled(true);
+				txtPos.setEnabled(true);
+				btnWrite.setEnabled(true);
+			}
+		});
 	}
 
 	/**
@@ -234,8 +254,12 @@ public class MemoryPanel extends JPanel  implements MemoryObserver<Integer>, CPU
 	 * @param index
 	 * @param value
 	 */
-	public void onWrite(int index, Integer value) {
-		_modelo.setValue(index, value);
+	public void onWrite(final int index, final Integer value) {
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				_modelo.setValue(index, value);
+			}
+		});
 	}
 
 	
@@ -243,7 +267,11 @@ public class MemoryPanel extends JPanel  implements MemoryObserver<Integer>, CPU
 	 * Resetea el modelo de la memoria
 	 */
 	public void onMemReset() {
-		_modelo.reset();
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				_modelo.reset();
+			}
+		});
 	}
 
 	public void onNewIn() {}

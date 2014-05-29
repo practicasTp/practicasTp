@@ -9,6 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import mv.cpu.Memory;
 import mv.cpu.OperandStack;
@@ -131,7 +132,11 @@ public class ToolBarPanel extends JPanel implements CPUObserver, MemoryObserver<
 	 * No hace nada en este elemento
 	 */
 	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack, ProgramMv program) {
-		resetButton.setVisible(true);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				resetButton.setVisible(true);
+			}
+		});
 	}
 
 	/**
@@ -139,10 +144,14 @@ public class ToolBarPanel extends JPanel implements CPUObserver, MemoryObserver<
 	 * run.
 	 */
 	public void onStartRun() {
-		stepButton.setEnabled(false);
-		runButton.setEnabled(false);
-		pauseButton.setVisible(true);
-		resetButton.setEnabled(false);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				stepButton.setEnabled(false);
+				runButton.setEnabled(false);
+				pauseButton.setVisible(true);
+				resetButton.setEnabled(false);
+			}
+		});
 	}
 
 	/**
@@ -150,25 +159,37 @@ public class ToolBarPanel extends JPanel implements CPUObserver, MemoryObserver<
 	 * run.
 	 */
 	public void onEndRun() {
-		stepButton.setEnabled(true);
-		runButton.setEnabled(true);
-		pauseButton.setVisible(false);
-		resetButton.setEnabled(true);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				stepButton.setEnabled(true);
+				runButton.setEnabled(true);
+				pauseButton.setVisible(false);
+				resetButton.setEnabled(true);
+			}
+		});
 	}
 
 	public void onError(String msg) {
-		stepButton.setEnabled(false);
-		runButton.setEnabled(false);
-		pauseButton.setVisible(false);
-		resetButton.setEnabled(true);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				stepButton.setEnabled(false);
+				runButton.setEnabled(false);
+				pauseButton.setVisible(false);
+				resetButton.setEnabled(true);
+			}
+		});
 	}
 
 	/**
 	 * Desactiva los botones de step y run al finalizar la ejecución del programa.
 	 */
 	public void onHalt() {
-		stepButton.setEnabled(false);
-		runButton.setEnabled(false);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				stepButton.setEnabled(false);
+				runButton.setEnabled(false);
+			}
+		});
 	}
 
 	/**
@@ -176,18 +197,25 @@ public class ToolBarPanel extends JPanel implements CPUObserver, MemoryObserver<
 	 * reiniciar la máquina.
 	 */
 	public void onReset(ProgramMv program) {
-		pauseButton.setVisible(false);
-		resetButton.setVisible(false);		
-		stepButton.setEnabled(true);
-		runButton.setEnabled(true);
-		
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				pauseButton.setVisible(false);
+				resetButton.setVisible(false);		
+				stepButton.setEnabled(true);
+				runButton.setEnabled(true);
+			}
+		});
 	}
 
 	/**
 	 * Activa el botón de reset al escribir en memoria.
 	 */
 	public void onWrite(int index, Integer value) {
-		resetButton.setVisible(true);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				resetButton.setVisible(true);
+			}
+		});
 	}
 
 	@Override
@@ -197,14 +225,22 @@ public class ToolBarPanel extends JPanel implements CPUObserver, MemoryObserver<
 	 * Activa el botón de reset cada vez que se hace un push.
 	 */
 	public void onPush(Integer value) {
-		resetButton.setVisible(true);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				resetButton.setVisible(true);
+			}
+		});
 	}
 
 	/**
 	 * Activa el botón de reset cada vez que se hace un pop.
 	 */
 	public void onPop(Integer value) {
-		resetButton.setVisible(true);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				resetButton.setVisible(true);
+			}
+		});
 	}
 
 	@Override

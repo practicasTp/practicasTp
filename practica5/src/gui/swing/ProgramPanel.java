@@ -63,9 +63,13 @@ public class ProgramPanel extends JPanel implements CPUObserver {
 	/**
 	 * Actualizamos el programa
 	 */
-	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack,  ProgramMv program) {
+	public void onEndInstrExecution(int pc, Memory<Integer> memory, OperandStack<Integer> stack,  final ProgramMv program) {
 		this.pc = pc;
-		showProgram(program);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				showProgram(program);
+			}
+		});
 	}
 
 	public void onStartRun() {}
@@ -79,9 +83,13 @@ public class ProgramPanel extends JPanel implements CPUObserver {
 	/**
 	 * Repintamos el programa
 	 */
-	public void onReset(ProgramMv p) {
+	public void onReset(final ProgramMv p) {
 		this.pc = 0;
-		showProgram(p);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				showProgram(p);
+			}
+		});
 	}
 	
 	public void onNewIn() {}

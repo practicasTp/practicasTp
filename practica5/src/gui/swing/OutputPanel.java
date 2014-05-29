@@ -6,6 +6,7 @@ import java.awt.Font;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 import javax.swing.border.TitledBorder;
 
 import observers.CPUObserver;
@@ -96,9 +97,13 @@ public class OutputPanel extends JPanel implements CPUObserver{
 		 * Resetea el outputMethod, vacía el textArea y reinicia el OutputPanel.
 		 */
 		public void reset() {
-			outCurr.reset();
-			outputTextArea.setText("");
-			init();
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					outCurr.reset();
+					outputTextArea.setText("");
+					init();
+				}
+			});
 		}
 	}
 

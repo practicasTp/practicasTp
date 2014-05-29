@@ -388,7 +388,7 @@ public class Cpu implements Observable<CPUObserver> {
 	
 	private void sleepabit() {
 		try {
-			Thread.sleep(this.delay);
+			Thread.sleep(10);
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 		}
